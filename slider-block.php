@@ -35,14 +35,6 @@ function create_block_slider_block_block_init() {
 		$script_asset['version']
 	);
 
-	$editor_css = 'build/index.css';
-	wp_register_style(
-		'create-block-slider-block-block-editor',
-		plugins_url( $editor_css, __FILE__ ),
-		array(),
-		filemtime( "$dir/$editor_css" )
-	);
-
 	$style_css = 'build/style-index.css';
 	wp_register_style(
 		'create-block-slider-block-block',
@@ -51,9 +43,23 @@ function create_block_slider_block_block_init() {
 		filemtime( "$dir/$style_css" )
 	);
 
-	register_block_type( 'create-block/slider-block', array(
+  $slick_css = 'src/css/slick.css';
+  wp_enqueue_style(
+    'slick-style',
+    plugins_url($slick_css, __FILE__),
+    array()
+  );
+
+  $slick_js = 'src/js/slick.min.js';
+  wp_enqueue_script(
+    'essential-blocks-slickjs',
+    plugins_url($slick_js, __FILE__),
+    array( "jquery","wp-editor"),
+    true
+  );
+
+	register_block_type( 'block/slider-block', array(
 		'editor_script' => 'create-block-slider-block-block-editor',
-		'editor_style'  => 'create-block-slider-block-block-editor',
 		'style'         => 'create-block-slider-block-block',
 	) );
 }

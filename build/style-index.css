@@ -1,13 +1,24 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-.wp-block-create-block-slider-block {
-  background-color: var(--wp-admin-theme-color);
-  color: #fff;
-  padding: 2px; }
+.slick-prev:before,
+.slick-next:before {
+  color: black !important; }
+
+.eb-slider button:not(.toggle) {
+  background-color: transparent; }
+
+.st0 {
+  fill: url(#SVGID_1_SLIDER); }
+
+.st1 {
+  fill: url(#SVGID_2_SLIDER); }
+
+.st2 {
+  fill: url(#SVGID_3_SLIDER); }
+
+.st3 {
+  fill: url(#SVGID_4_SLIDER); }
+
+.st4 {
+  fill: url(#SVGID_5_SLIDER); }
 
 
 /*# sourceMappingURL=style-index.css.map*/

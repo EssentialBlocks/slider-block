@@ -1,26 +1,44 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+const Save = ({ attributes }) => {
+	const {
+		images,
+		arrows,
+		adaptiveHeight,
+		autoplay,
+		autoplaySpeed,
+		dots,
+		fade,
+		infinite,
+		pauseOnHover,
+		slidesToShow,
+		speed,
+	} = attributes;
 
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#save
- *
- * @return {WPElement} Element to render.
- */
-export default function save() {
 	return (
-		<p>
-			{ __(
-				'Slider Block – hello from the saved content!',
-				'create-block'
-			) }
-		</p>
+		<div
+			className="eb-slider"
+			data-show-arrows={arrows}
+			data-adaptive-height={adaptiveHeight}
+			data-autoplay-speed={autoplaySpeed}
+			data-show-slides={slidesToShow}
+			data-speed={speed}
+			data-autoplay={autoplay ? "true" : "false"}
+			data-dots={dots ? "true" : "false"}
+			data-fade={fade ? "true" : "false"}
+			data-infinite={infinite ? "true" : "false"}
+			data-hover-pause={pauseOnHover ? "true" : "false"}
+		>
+			{images.map((image) => (
+				<div className="eb-slider-item">
+					<img
+						className="eb-slider-image"
+						src={image.url}
+						alt={image.alt}
+						data-id={image.id}
+					/>
+				</div>
+			))}
+		</div>
 	);
-}
+};
+
+export default Save;

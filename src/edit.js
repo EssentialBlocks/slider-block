@@ -1,33 +1,130 @@
 /**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
+ * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
+import { createRef } from "@wordpress/element";
+import {
+	BlockControls,
+	MediaUpload,
+	MediaPlaceholder,
+} from "@wordpress/block-editor";
+import { Button, Toolbar } from "@wordpress/component";
 
 /**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ * Internal dependencies
  */
-import './editor.scss';
+import Inspector from "./inspector";
 
 /**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
- *
- * @param {Object} [props]           Properties passed from the editor.
- * @param {string} [props.className] Class name generated for the block.
- *
- * @return {WPElement} Element to render.
+ * External dependencies
  */
-export default function Edit( { className } ) {
-	return (
-		<p className={ className }>
-			{ __( 'Slider Block – hello from the editor!', 'create-block' ) }
-		</p>
-	);
-}
+import Slider from "react-slick";
+
+const Edit = ({ isSelected, attributes, setAttributes }) => {
+	const {
+		images,
+		arrows,
+		adaptiveHeight,
+		autoplay,
+		autoplaySpeed,
+		dots,
+		fade,
+		infinite,
+		pauseOnHover,
+		slidesToShow,
+		speed,
+	} = attributes;
+
+	const settings = {
+		arrows,
+		adaptiveHeight,
+		autoplay,
+		autoplaySpeed,
+		dots,
+		fade,
+		infinite,
+		pauseOnHover,
+		slidesToShow,
+		speed,
+	};
+
+	const slider = createRef();
+	const hasImages = !!images.length;
+
+	return <div>Edit</div>;
+
+	function onImageSelect(images) {
+		let updatedImages = [];
+		images.map((image) => {
+			let item = {};
+			item.url = image.url;
+			item.alt = image.alt;
+			item.id = image.id;
+
+			updatedImages.push(item);
+		});
+		setAttributes({ images: updatedImages });
+	}
+
+	// Show image placeholder if there is no image
+	if (!hasImages) {
+		return (
+			<MediaPlaceholder
+				addToGallery={hasImages}
+				isAppender={hasImages}
+				dropZoneUIOnly={hasImages && !isSelected}
+				labels={{
+					title: !hasImages && __("Images"),
+					instructions:
+						!hasImages &&
+						__(
+							"Drag images, upload new ones or select files from your library."
+						),
+				}}
+				onSelect={(images) => onImageSelect(images)}
+				accept="image/*"
+				allowedTypes={["image"]}
+				multiple
+				value={hasImages ? images : undefined}
+			/>
+		);
+	}
+
+	return [
+		isSelected && (
+			<Inspector
+				attributes={attributes}
+				setAttributes={setAttributes}
+				slider={slider}
+			/>
+		),
+		<BlockControls>
+			<Toolbar>
+				<MediaUpload
+					onSelect={(images) => onImageSelect(images)}
+					allowedTypes={["image"]}
+					multiple
+					gallery
+					value={images.map((img) => img.id)}
+					render={({ open }) => (
+						<Button
+							className="components-toolbar__control"
+							label={__("Edit gallery")}
+							icon="edit"
+							onClick={open}
+						/>
+					)}
+				/>
+			</Toolbar>
+		</BlockControls>,
+		<Slider ref={slider} {...settings} key={`${autoplay}-${adaptiveHeight}`}>
+			{images.map((image) => (
+				<div className="eb-slider-item">
+					<img className="eb-slider-image" src={image.url} />
+				</div>
+			))}
+		</Slider>,
+	];
+};
+
+export default Edit;

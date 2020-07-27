@@ -5,6 +5,7 @@ import "./style.scss";
 import Edit from "./edit";
 import save from "./save";
 import attributes from "./attributes";
+import icon from "./icon";
 
 registerBlockType("block/slider-block", {
 	title: __("Slider Block", "slider-block"),
@@ -13,8 +14,9 @@ registerBlockType("block/slider-block", {
 		"slider-block"
 	),
 	category: "widgets",
-	icon: "smiley",
+	icon,
 	attributes,
+	// edit: () => <h1>DOne</h1>,
 	edit: Edit,
 	save,
 });
