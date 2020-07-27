@@ -1,0 +1,10 @@
+{
+	"name": "block/slider-block",
+	"title": "Slider Block",
+	"category": "widgets",
+	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
+	"textdomain": "slider-block",
+	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/index.css",
+	"style": "file:./build/style-index.css"
+}
