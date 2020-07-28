@@ -43,6 +43,15 @@ function create_block_slider_block_block_init() {
 		filemtime( "$dir/$style_css" )
 	);
 
+  $frontend_js = 'src/frontend.js';
+  wp_enqueue_script(
+    'essential-blocks-slider-frontend',
+    plugins_url($frontend_js, __FILE__),
+    array( "jquery","wp-editor"),
+    true
+  );
+
+
   $slick_css = 'src/css/slick.css';
   wp_enqueue_style(
     'slick-style',

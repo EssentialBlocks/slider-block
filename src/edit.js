@@ -8,7 +8,7 @@ import {
 	MediaUpload,
 	MediaPlaceholder,
 } from "@wordpress/block-editor";
-import { Button, Toolbar } from "@wordpress/component";
+import { Button, Toolbar } from "@wordpress/components";
 
 /**
  * Internal dependencies
@@ -50,8 +50,6 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 
 	const slider = createRef();
 	const hasImages = !!images.length;
-
-	return <div>Edit</div>;
 
 	function onImageSelect(images) {
 		let updatedImages = [];
