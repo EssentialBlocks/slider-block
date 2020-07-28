@@ -16,7 +16,6 @@ registerBlockType("block/slider-block", {
 	category: "widgets",
 	icon,
 	attributes,
-	// edit: () => <h1>DOne</h1>,
 	edit: Edit,
 	save,
 });
