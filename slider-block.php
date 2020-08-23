@@ -24,7 +24,7 @@ function create_block_slider_block_block_init() {
 	$script_asset_path = "$dir/build/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "block/slider-block" block first.'
+			'You need to run `npm start` or `npm run build` for the "slider-block/slider-block" block first.'
 		);
 	}
 	$index_js     = 'build/index.js';
@@ -68,7 +68,7 @@ function create_block_slider_block_block_init() {
     true
   );
 
-	register_block_type( 'block/slider-block', array(
+	register_block_type( 'slider-block/slider-block', array(
 		'editor_script' => 'create-block-slider-block-block-editor',
 		'style'         => 'create-block-slider-block-block',
 	) );
