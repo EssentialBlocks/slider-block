@@ -1,11 +1,12 @@
 <?php
 /**
- * Plugin Name:     Slider Block
+ * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
- * Version:         0.1.0
- * Author:          The WordPress Contributors
- * License:         GPL-2.0-or-later
- * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
+ * Version:         1.0.0
+ * Author:          WPDeveloper
+ * Author URI: 		https://wpdeveloper.net
+ * License:         GPL-3.0-or-later
+ * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     slider-block
  *
  * @package         slider-block
@@ -23,7 +24,7 @@ function create_block_slider_block_block_init() {
 	$script_asset_path = "$dir/build/index.asset.php";
 	if ( ! file_exists( $script_asset_path ) ) {
 		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "block/slider-block" block first.'
+			'You need to run `npm start` or `npm run build` for the "slider-block/slider-block" block first.'
 		);
 	}
 	$index_js     = 'build/index.js';
