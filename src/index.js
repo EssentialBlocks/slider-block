@@ -14,6 +14,7 @@ registerBlockType("block/slider-block", {
 		"slider-block"
 	),
 	category: "widgets",
+	keywords: [__("slider"), __("carousel"), __("images")],
 	icon,
 	attributes,
 	edit: Edit,
