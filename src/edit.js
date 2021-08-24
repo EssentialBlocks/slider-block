@@ -1,19 +1,20 @@
 /**
  * WordPress dependencies
  */
-import { __ } from "@wordpress/i18n";
-import { createRef } from "@wordpress/element";
-import {
+const { __ } = wp.i18n; 
+const { createRef } = wp.element;
+const {
 	BlockControls,
 	MediaUpload,
 	MediaPlaceholder,
-} from "@wordpress/block-editor";
+} = wp.blockEditor;
 import { Button, Toolbar } from "@wordpress/components";
 
 /**
  * Internal dependencies
  */
 import Inspector from "./inspector";
+import "./editor.scss";
 
 /**
  * External dependencies
@@ -53,11 +54,12 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 
 	function onImageSelect(images) {
 		let updatedImages = [];
-		images.map((image) => {
+		images.map((image, index) => {
 			let item = {};
 			item.url = image.url;
 			item.alt = image.alt;
-			item.id = image.id;
+			item.id = index;
+			item.imageId = image.id;
 
 			updatedImages.push(item);
 		});
@@ -103,7 +105,7 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 					allowedTypes={["image"]}
 					multiple
 					gallery
-					value={images.map((img) => img.id)}
+					value={images.map((img) => img.imageId)}
 					render={({ open }) => (
 						<Button
 							className="components-toolbar__control"
