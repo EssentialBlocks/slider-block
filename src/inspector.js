@@ -6,6 +6,7 @@ const { InspectorControls, PanelColorSettings } = wp.blockEditor;
 const {
 	Panel,
 	PanelBody,
+	PanelRow,
 	SelectControl,
 	ToggleControl,
 	Button,
@@ -15,6 +16,7 @@ const {
 	RangeControl,
 	TextControl,
 	TextareaControl,
+	ColorPalette,
 } = wp.components;
 const { useEffect } = wp.element;
 const { select } = wp.data;
@@ -32,11 +34,21 @@ import {
 	WRAPPER_MARGIN,
 	WRAPPER_PADDING,
 	WRAPPER_BORDER_SHADOW,
-
+	TITLE_MARGIN,
+	SUBTITLE_MARGIN,
+	BUTTON_MARGIN,
+	BUTTON_BORDER_SHADOW,
+	DOTS_GAP,
+	SLIDE_TO_SHOW,
+	CUSTOM_HEIGHT,
+	NORMAL_HOVER,
+	SLIDER_CONTENT_TYPE,
 	SLIDER_TYPE,
+	UNIT_TYPES,
+	COLORS,
 } from "./constants/constants";
 
-import { CAPTION_TYPOGRAPHY } from "./constants/typography-constant";
+import { TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY } from "./constants/typography-constant";
 
 import {
 	mimmikCssForResBtns,
@@ -55,6 +67,7 @@ function Inspector(props) {
 	const {
 		resOption,
 		sliderType,
+		sliderContentType,
 		images,
 		arrows,
 		adaptiveHeight,
@@ -63,42 +76,112 @@ function Inspector(props) {
 		dots,
 		fade,
 		infinite,
+		vertical,
 		pauseOnHover,
-		slidesToShow,
+		isCustomHeight,
 		speed,
+		titleColor,
+		subtitleColor,
+		buttonColorType,
+		buttonColor,
+		buttonHoverColor,
+		buttonBGColor,
+		buttonHoverBGColor,
+		overlayColor,
+		arrowColorType,
+		arrowColor,
+		arrowHoverColor,
+		arrowBGColor,
+		arrowHoverBGColor,
+		dotsColor,
 	} = attributes;
-
-	const MAX_SLIDES_TO_SHOW = images.length < 6 ? images.length : 6;
-
-	const handleRLDDChange = (newItems) => {
-		setAttributes({ images: newItems });
-	}
 
 	const handleTitle = (title, id) => {
 		let updatedImageArray = images.map(item => 
 			{
-			if (item.id == id){
-				return {...item, title: title};
-			}
-			return item;
+				if (item.id == id){
+					return {...item, title: title};
+				}
+				return item;
 			});
 		
 		setAttributes({images: updatedImageArray});
 	}
 
-	const handleContent = (content, id) => {
+	const handleSubtitle = (text, id) => {
 		let updatedImageArray = images.map(item => 
 			{
-			if (item.id == id){
-				return {...item, content: content};
-			}
-			return item;
+				if (item.id == id){
+					return {...item, subtitle: text};
+				}
+				return item;
+			});
+		
+		setAttributes({images: updatedImageArray});
+	}
+	
+	const handleShowButton = (showButton, id) => {
+		let updatedImageArray = images.map(item => 
+			{
+				if (item.id == id){
+					return {...item, showButton: showButton};
+				}
+				return item;
 			});
 		
 		setAttributes({images: updatedImageArray});
 	}
 
-	console.log("Images", images)
+	const handleButtonText = (buttonText, id) => {
+		let updatedImageArray = images.map(item => 
+			{
+				if (item.id == id){
+					return {...item, buttonText: buttonText};
+				}
+				return item;
+			});
+		
+		setAttributes({images: updatedImageArray});
+	}
+
+	const validURL = (str) => {
+		var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+		  '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+		  '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+		  '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+		  '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+		  '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+		return !!pattern.test(str);
+	  }
+
+	const handleButtonURL = (buttonUrl, id) => {
+		const validUrl = buttonUrl.length > 0 && validURL(buttonUrl);
+		let updatedImageArray = images.map(item => 
+			{
+				if (item.id == id){
+					return {
+						...item, 
+						buttonUrl: buttonUrl,
+						isValidUrl: validUrl
+					};
+				}
+				return item;
+			});
+		
+		setAttributes({images: updatedImageArray});
+	}
+
+	const handleOpenNewTab = (openNewTab, id) => {
+		let updatedImageArray = images.map(item => 
+			{
+				if (item.id == id){
+					return {...item, openNewTab: openNewTab === true ? true : false};
+				}
+				return item;
+			});
+		
+		setAttributes({images: updatedImageArray});
+	}
 
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
 	useEffect(() => {
@@ -164,66 +247,12 @@ function Inspector(props) {
 								<>
 									<PanelBody title={__("General")}>
 
-										<BaseControl label={__("Slider Type")}>
-											<ButtonGroup>
-												{SLIDER_TYPE.map((item) => (
-													<Button
-														isLarge
-														isPrimary={sliderType === item.value}
-														isSecondary={sliderType !== item.value}
-														onClick={() =>
-															setAttributes({
-																sliderType: item.value,
-															})
-														}
-													>
-														{item.label}
-													</Button>
-												))}
-											</ButtonGroup>
-										</BaseControl>
-										
-										{images.map((item, index) => {
-											return (
-												<PanelBody title={"Slider " + (index+1)} initialOpen={ false }>
-													<TextControl
-														label={__("Title Text")}
-														value={item.title}
-														onChange={(text) => handleTitle(text, index)}
-													/>
-													<TextareaControl
-														label={__("Content")}
-														value={item.content}
-														onChange={(text) => handleContent(text, index)}
-													/>
-												</PanelBody>
-											)
-										})}
-
-										{/* // <RLDD
-										// 	items={images}
-										// 	itemRenderer={(item, index) => {
-										// 		return (
-										// 			<>
-										// 				<PanelBody title={"Slider " + (index+1)} initialOpen={ false }>
-										// 					<TextControl
-										// 						label={__("Title Text")}
-										// 						value={item.title}
-										// 						onChange={(text) => handleTitle(text, index)}
-										// 					/>
-										// 					<TextareaControl
-										// 						label={__("Content")}
-										// 						value={item.content}
-										// 						onChange={(text) => handleContent(text, index)}
-										// 					/>
-
-															
-										// 				</PanelBody>
-										// 			</>
-										// 		);
-										// 	}}
-										// 	onChange={handleRLDDChange}
-										// /> */}
+										<SelectControl
+											label={__("Slider Type")}
+											value={sliderType}
+											options={SLIDER_TYPE}
+											onChange={(value) => setAttributes({ sliderType: value })}
+										/>
 
 										<ToggleControl
 											label={__("Show Arrows")}
@@ -268,18 +297,44 @@ function Inspector(props) {
 										/>
 
 										<ToggleControl
+											label={__("Vertical Slide")}
+											checked={vertical}
+											onChange={() => setAttributes({ vertical: !vertical })}
+										/>
+
+										<ToggleControl
 											label={__("Pause on Hover")}
 											checked={pauseOnHover}
 											onChange={() => setAttributes({ pauseOnHover: !pauseOnHover })}
 										/>
+										
+										<ToggleControl
+											label={__("Custom Height")}
+											checked={isCustomHeight}
+											onChange={() => setAttributes({ isCustomHeight: !isCustomHeight })}
+										/>
+
+										{isCustomHeight && (
+											<ResponsiveRangeController
+												baseLabel={__("Slider Height", "slider-block")}
+												controlName={CUSTOM_HEIGHT}
+												resRequiredProps={resRequiredProps}
+												units={UNIT_TYPES}
+												min={1}
+												max={500}
+												step={1}
+											/>
+										)}
 
 										{!fade && (
-											<RangeControl
-												label={__("Slides to Show")}
-												value={slidesToShow}
-												onChange={(slidesToShow) => setAttributes({ slidesToShow })}
+											<ResponsiveRangeController
+												baseLabel={__("Slides to Show", "slider-block")}
+												controlName={SLIDE_TO_SHOW}
+												resRequiredProps={resRequiredProps}
+												units={[]}
 												min={1}
-												max={MAX_SLIDES_TO_SHOW}
+												max={4}
+												step={1}
 											/>
 										)}
 
@@ -301,15 +356,305 @@ function Inspector(props) {
 											max={3000}
 										/>
 									</PanelBody>
+
+									{sliderType === "content" && (
+										<PanelBody title={__("Slides")}>
+											<SelectControl
+												label={__("Content Styles")}
+												value={sliderContentType}
+												options={SLIDER_CONTENT_TYPE}
+												onChange={(value) => setAttributes({ sliderContentType: value })}
+											/>
+											{images.map((item, index) => {
+												return (
+													<PanelBody 
+														title={item.title && item.title.length > 0 ? item.title : "Slider " + (index+1)} 
+														initialOpen={ false }
+														onToggle = {() => setAttributes({initialSlide: index})}
+													>
+														<TextControl
+															label={__("Title Text")}
+															value={item.title}
+															onChange={(text) => handleTitle(text, index)}
+														/>
+														<TextareaControl
+															label={__("Subtitle")}
+															value={item.subtitle}
+															onChange={(text) => handleSubtitle(text, index)}
+														/>
+														<ToggleControl
+															label={__("Show Button")}
+															checked={item.showButton}
+															onChange={() => handleShowButton( !item.showButton, index)}
+														/>
+														{item.showButton && (
+															<>
+																<TextControl
+																	label={__("Button Text")}
+																	value={item.buttonText}
+																	onChange={(text) => handleButtonText(text, index)}
+																/>
+																<TextControl
+																	label={__("Button URL")}
+																	value={item.buttonUrl}
+																	onChange={(text) => handleButtonURL(text, index)}
+																/>
+																{ item.buttonUrl && item.buttonUrl.length > 0 && !item.isValidUrl &&
+																	<span className="error">URL is not valid</span>
+																}
+																<ToggleControl
+																	label={__("Open in New Tab")}
+																	checked={item.openNewTab}
+																	onChange={() => handleOpenNewTab( !item.openNewTab, index)}
+																/>
+															</>
+														)}
+													</PanelBody>
+												)
+											})}
+										</PanelBody>
+									)}
+									
 								</>
 							)}
 							{tab.name === "styles" && (
 								<>
+									{sliderContentType === "content-1" && (
+										<PanelBody title={__("Overlay Style")} initialOpen={false}>
+											<ColorControl
+												label={__("Overlay Color")}
+												color={overlayColor}
+												onChange={(color) => setAttributes({ overlayColor: color })}
+											/>
+										</PanelBody>
+									)}
+
+									<PanelBody title={__("Title")} initialOpen={false}>
+										<PanelRow>Color</PanelRow>
+										<ColorPalette
+											colors={COLORS}
+											value={ titleColor }
+											onChange={ ( color ) => setAttributes({ titleColor: color })}
+										/>
+										<TypographyDropdown
+											baseLabel={__("Typography")}
+											typographyPrefixConstant={TITLE_TYPOGRAPHY}
+											resRequiredProps={resRequiredProps}
+										/>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={TITLE_MARGIN}
+											baseLabel="Margin"
+										/>
+									</PanelBody>
+
+									<PanelBody title={__("Subtitle")} initialOpen={false}>
+										<PanelRow>Color</PanelRow>
+										<ColorPalette
+											colors={COLORS}
+											value={ subtitleColor }
+											onChange={ ( color ) => setAttributes({ subtitleColor: color })}
+										/>
+										<TypographyDropdown
+											baseLabel={__("Typography")}
+											typographyPrefixConstant={SUBTITLE_TYPOGRAPHY}
+											resRequiredProps={resRequiredProps}
+										/>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={SUBTITLE_MARGIN}
+											baseLabel="Margin"
+										/>
+									</PanelBody>
+
+									<PanelBody title={__("Button")} initialOpen={false}>
+										<ButtonGroup className="eb-inspector-btn-group">
+											{NORMAL_HOVER.map((item) => (
+												<Button
+													isLarge
+													isPrimary={buttonColorType === item.value}
+													isSecondary={buttonColorType !== item.value}
+													onClick={() => setAttributes({ buttonColorType: item.value })}
+												>
+													{item.label}
+												</Button>
+											))}
+										</ButtonGroup>
+
+										{buttonColorType === "normal" && (
+											<PanelColorSettings
+												className={"eb-subpanel"}
+												title={__("Normal Color")}
+												initialOpen={true}
+												colorSettings={[
+													{
+														value: buttonColor,
+														onChange: (newColor) =>
+															setAttributes({ buttonColor: newColor }),
+														label: __("Color"),
+													},
+													{
+														value: buttonBGColor,
+														onChange: (newColor) =>
+															setAttributes({ buttonBGColor: newColor }),
+														label: __("Background Color"),
+													}
+												]}
+											/>
+										)}
+
+										{buttonColorType === "hover" && (
+											<PanelColorSettings
+												className={"eb-subpanel"}
+												title={__("Hover Color")}
+												initialOpen={true}
+												colorSettings={[
+													{
+														value: buttonHoverColor,
+														onChange: (newColor) =>
+															setAttributes({ buttonHoverColor: newColor }),
+														label: __("Color"),
+													},
+													{
+														value: buttonHoverBGColor,
+														onChange: (newColor) =>
+															setAttributes({ buttonHoverBGColor: newColor }),
+														label: __("Background Color"),
+													}
+												]}
+											/>
+										)}
+										<PanelRow>Button Border & Shadow</PanelRow>
+										<BorderShadowControl
+											controlName={BUTTON_BORDER_SHADOW}
+											resRequiredProps={resRequiredProps}
+											// noShadow
+											// noBorder
+										/>
+										<TypographyDropdown
+											baseLabel={__("Typography")}
+											typographyPrefixConstant={BUTTON_TYPOGRAPHY}
+											resRequiredProps={resRequiredProps}
+										/>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={BUTTON_MARGIN}
+											baseLabel="Margin"
+										/>
+									</PanelBody>
+
+									{arrows && (
+										<PanelBody title={__("Arrow")} initialOpen={false}>
+											<ButtonGroup className="eb-inspector-btn-group">
+												{NORMAL_HOVER.map((item) => (
+													<Button
+														isLarge
+														isPrimary={arrowColorType === item.value}
+														isSecondary={arrowColorType !== item.value}
+														onClick={() => setAttributes({ arrowColorType: item.value })}
+													>
+														{item.label}
+													</Button>
+												))}
+											</ButtonGroup>
+
+											{arrowColorType === "normal" && (
+												<PanelColorSettings
+													className={"eb-subpanel"}
+													title={__("Normal Color")}
+													initialOpen={true}
+													colorSettings={[
+														{
+															value: arrowColor,
+															onChange: (newColor) =>
+																setAttributes({ arrowColor: newColor }),
+															label: __("Color"),
+														},
+														{
+															value: arrowBGColor,
+															onChange: (newColor) =>
+																setAttributes({ arrowBGColor: newColor }),
+															label: __("Background Color"),
+														}
+													]}
+												/>
+											)}
+
+											{arrowColorType === "hover" && (
+												<PanelColorSettings
+													className={"eb-subpanel"}
+													title={__("Hover Color")}
+													initialOpen={true}
+													colorSettings={[
+														{
+															value: arrowHoverColor,
+															onChange: (newColor) =>
+																setAttributes({ arrowHoverColor: newColor }),
+															label: __("Color"),
+														},
+														{
+															value: arrowHoverBGColor,
+															onChange: (newColor) =>
+																setAttributes({ arrowHoverBGColor: newColor }),
+															label: __("Background Color"),
+														}
+													]}
+												/>
+											)}
+										</PanelBody>
+									)}
+
+									{dots && (
+										<PanelBody title={__("Dot")} initialOpen={false}>
+											<PanelRow>Color</PanelRow>
+											<ColorPalette
+												colors={COLORS}
+												value={ dotsColor }
+												onChange={ ( color ) => setAttributes({ dotsColor: color })}
+											/>
+											<ResponsiveRangeController
+												baseLabel={__("Dots Gap")}
+												controlName={DOTS_GAP}
+												resRequiredProps={resRequiredProps}
+												units={[]}
+												min={0}
+												max={30}
+												step={1}
+											/>
+										</PanelBody>
+									)}
 								</>
 							)}
 
 							{tab.name === "advance" && (
 								<>
+									<PanelBody>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={WRAPPER_MARGIN}
+											baseLabel="Margin"
+										/>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={WRAPPER_PADDING}
+											baseLabel="Padding"
+										/>
+									</PanelBody>
+									<PanelBody title={__("Background")} initialOpen={false}>
+										<BackgroundControl
+											controlName={WRAPPER_BG}
+											resRequiredProps={resRequiredProps}
+											noOverlay
+										/>
+									</PanelBody>
+									<PanelBody title={__("Border & Shadow")} initialOpen={false}>
+										<BorderShadowControl
+											controlName={WRAPPER_BORDER_SHADOW}
+											resRequiredProps={resRequiredProps}
+											// noShadow
+											// noBorder
+										/>
+									</PanelBody>
 								</>
 							)}
 						</div>

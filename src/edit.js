@@ -2,13 +2,15 @@
  * WordPress dependencies
  */
 const { __ } = wp.i18n; 
-const { createRef } = wp.element;
+const { Fragment, useEffect, createRef } = wp.element;
 const {
-	BlockControls,
 	MediaUpload,
 	MediaPlaceholder,
+	BlockControls,
+	useBlockProps,
 } = wp.blockEditor;
-import { Button, Toolbar } from "@wordpress/components";
+const { ToolbarGroup, ToolbarItem, ToolbarButton, Button } = wp.components;
+const { select } = wp.data;
 
 /**
  * Internal dependencies
@@ -23,6 +25,12 @@ import Slider from "react-slick";
 
 const Edit = ({ isSelected, attributes, setAttributes }) => {
 	const {
+		resOption,
+		blockId,
+		blockRoot,
+		blockMeta,
+		sliderType,
+		sliderContentType,
 		images,
 		arrows,
 		adaptiveHeight,
@@ -31,9 +39,24 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 		dots,
 		fade,
 		infinite,
+		vertical,
 		pauseOnHover,
-		slidesToShow,
+		isCustomHeight,
 		speed,
+		titleColor,
+		subtitleColor,
+		buttonColorType,
+		buttonColor,
+		buttonHoverColor,
+		buttonBGColor,
+		buttonHoverBGColor,
+		overlayColor,
+		arrowColorType,
+		arrowColor,
+		arrowHoverColor,
+		arrowBGColor,
+		arrowHoverBGColor,
+		dotsColor,
 	} = attributes;
 
 	const settings = {
@@ -47,20 +70,49 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 		pauseOnHover,
 		slidesToShow,
 		speed,
+		initialSlide,
+		vertical
 	};
 
 	const slider = createRef();
 	const hasImages = !!images.length;
 
-	function onImageSelect(images) {
-		let updatedImages = [];
-		images.map((image, index) => {
-			let item = {};
-			item.url = image.url;
-			item.alt = image.alt;
-			item.id = index;
-			item.imageId = image.id;
+	useEffect(() => {
+		slider.current.slickGoTo(initialSlide);
+	}, [initialSlide]);
 
+
+
+	function onImageSelect(selectedImages, images) {
+		let updatedImages = [];
+		selectedImages.map((selectedImage, selectedIndex) => {
+			let item = {};
+			item.url = selectedImage.url;
+			item.alt = selectedImage.alt;
+			item.id = selectedIndex;
+			item.imageId = selectedImage.id;
+			if (images.length > 0 ) {
+				images.map((image, index) => {
+					if (selectedImage.id == image.imageId) {
+						item.title = image.title;
+						item.subtitle = image.subtitle;
+						item.showButton = image.showButton ? image.showButton : true;
+						item.buttonText = image.buttonText ? image.buttonText : "See More";
+						item.buttonUrl = image.buttonUrl;
+						item.openNewTab = image.openNewTab ? image.openNewTab : false;
+						item.isValidUrl = image.isValidUrl;
+					}
+				})
+			}
+			else {
+				item.title = "";
+				item.subtitle = "";
+				item.showButton = true;
+				item.buttonText = "See More";
+				item.buttonUrl = "";
+				item.openNewTab = false;
+				item.isValidUrl = true;
+			}
 			updatedImages.push(item);
 		});
 		setAttributes({ images: updatedImages });
@@ -81,7 +133,7 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 							"Drag images, upload new ones or select files from your library."
 						),
 				}}
-				onSelect={(images) => onImageSelect(images)}
+				onSelect={(selectedImages) => onImageSelect(selectedImages, images)}
 				accept="image/*"
 				allowedTypes={["image"]}
 				multiple
@@ -99,28 +151,55 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 			/>
 		),
 		<BlockControls>
-			<Toolbar>
-				<MediaUpload
-					onSelect={(images) => onImageSelect(images)}
-					allowedTypes={["image"]}
-					multiple
-					gallery
-					value={images.map((img) => img.imageId)}
-					render={({ open }) => (
-						<Button
-							className="components-toolbar__control"
-							label={__("Edit gallery")}
-							icon="edit"
-							onClick={open}
-						/>
+			<ToolbarGroup>
+				<ToolbarItem>
+					{() => (
+						<MediaUpload
+						onSelect={(selectedImages) => onImageSelect(selectedImages, images)}
+						allowedTypes={["image"]}
+						multiple
+						gallery
+						value={images.map((img) => img.imageId)}
+						render={({ open }) => (
+							<Button
+								className="components-toolbar__control"
+								label={__("Edit gallery")}
+								icon="edit"
+								onClick={open}
+							/>
+						)}
+					/>
 					)}
-				/>
-			</Toolbar>
+				</ToolbarItem>
+			</ToolbarGroup>
 		</BlockControls>,
-		<Slider ref={slider} {...settings} key={`${autoplay}-${adaptiveHeight}`}>
+		<Slider 
+			ref={slider} 
+			{...settings} 
+			key={`${autoplay}-${adaptiveHeight}`}
+		>
 			{images.map((image) => (
 				<div className="eb-slider-item">
 					<img className="eb-slider-image" src={image.url} />
+					{sliderType === "content" && (
+						<div className="eb-slider-content">
+							{image.title && image.title.length > 0 && (
+								<h2 className="eb-slider-title">{image.title}</h2>
+							)}
+							{image.subtitle && image.subtitle.length > 0 && (
+								<p className="eb-slider-subtitle">{image.subtitle}</p>
+							)}
+							{image.showButton && image.buttonText && image.buttonText.length > 0 && (
+								<a
+									href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
+									className="eb-slider-button-url" 
+									traget={image.openNewTab ? "_blank" : "_self"}
+								>
+									{image.buttonText}
+								</a>
+							)}
+						</div>
+					)}
 				</div>
 			))}
 		</Slider>,
