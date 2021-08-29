@@ -6,6 +6,7 @@ import {
 	TITLE_MARGIN,
 	SUBTITLE_MARGIN,
 	BUTTON_MARGIN,
+	BUTTON_PADDING,
 	BUTTON_BORDER_SHADOW,
 	SLIDE_TO_SHOW,
 	CUSTOM_HEIGHT,
@@ -48,6 +49,13 @@ const attributes = {
 		bottom: 20,
 		right: 0,
 		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(BUTTON_PADDING, {
+		top: 10,
+		bottom: 10,
+		right: 30,
+		left: 30,
 		isLinked: false,
 	}),
 
@@ -130,7 +138,7 @@ const attributes = {
 	},
 	adaptiveHeight: {
 		type: "boolean",
-		default: true,
+		default: false,
 	},
 	autoplay: {
 		type: "bolean",
@@ -206,7 +214,7 @@ const attributes = {
 	},
 	overlayColor: {
 		type: "string",
-		default: "#333333",
+		default: "rgb(184 133 228 / 75%)",
 	},
 	arrowColorType: {
 		type: "string",
@@ -231,6 +239,14 @@ const attributes = {
 	dotsColor: {
 		type: "string",
 		default: "#333333",
+	},
+	textAlign: {
+		type: "string",
+		default: "left",
+	},
+	verticalAlign: {
+		type: "string",
+		default: "center",
 	},
 };
 

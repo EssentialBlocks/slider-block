@@ -37,6 +37,7 @@ import {
 	TITLE_MARGIN,
 	SUBTITLE_MARGIN,
 	BUTTON_MARGIN,
+	BUTTON_PADDING,
 	BUTTON_BORDER_SHADOW,
 	DOTS_GAP,
 	SLIDE_TO_SHOW,
@@ -46,6 +47,8 @@ import {
 	SLIDER_TYPE,
 	UNIT_TYPES,
 	COLORS,
+	TEXT_ALIGN,
+	VERTICAL_ALIGN,
 } from "./constants/constants";
 
 import { TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY } from "./constants/typography-constant";
@@ -94,6 +97,8 @@ function Inspector(props) {
 		arrowBGColor,
 		arrowHoverBGColor,
 		dotsColor,
+		textAlign,
+		verticalAlign,
 	} = attributes;
 
 	const handleTitle = (title, id) => {
@@ -419,15 +424,48 @@ function Inspector(props) {
 							)}
 							{tab.name === "styles" && (
 								<>
-									{sliderContentType === "content-1" && (
-										<PanelBody title={__("Overlay Style")} initialOpen={false}>
+									<PanelBody title={__("Settings")} initialOpen={true}>
+										{sliderContentType === "content-1" && (
 											<ColorControl
 												label={__("Overlay Color")}
 												color={overlayColor}
 												onChange={(color) => setAttributes({ overlayColor: color })}
 											/>
-										</PanelBody>
-									)}
+										)}
+										{sliderType === "content" && (
+											<>
+												<PanelRow>Text Align</PanelRow>
+												<ButtonGroup>
+													{TEXT_ALIGN.map((item) => (
+														<Button
+															isLarge
+															isPrimary={textAlign === item.value}
+															isSecondary={textAlign !== item.value}
+															onClick={() => setAttributes({ textAlign: item.value })}
+														>
+															{item.label}
+														</Button>
+													))}
+												</ButtonGroup>
+
+												<PanelRow>Vertical Align</PanelRow>
+												<ButtonGroup>
+													{VERTICAL_ALIGN.map((item) => (
+														<Button
+															isLarge
+															isPrimary={verticalAlign === item.value}
+															isSecondary={verticalAlign !== item.value}
+															onClick={() => setAttributes({ verticalAlign: item.value })}
+														>
+															{item.label}
+														</Button>
+													))}
+												</ButtonGroup>
+											</>
+										)}
+									</PanelBody>
+
+									
 
 									<PanelBody title={__("Title")} initialOpen={false}>
 										<PanelRow>Color</PanelRow>
@@ -540,6 +578,11 @@ function Inspector(props) {
 											resRequiredProps={resRequiredProps}
 											controlName={BUTTON_MARGIN}
 											baseLabel="Margin"
+										/>
+										<ResponsiveDimensionsControl
+											resRequiredProps={resRequiredProps}
+											controlName={BUTTON_PADDING}
+											baseLabel="Padding"
 										/>
 									</PanelBody>
 

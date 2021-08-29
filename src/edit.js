@@ -17,13 +17,40 @@ const { select } = wp.data;
  */
 import Inspector from "./inspector";
 import "./editor.scss";
+import {
+	WRAPPER_BG,
+	WRAPPER_MARGIN,
+	WRAPPER_PADDING,
+	WRAPPER_BORDER_SHADOW,
+	TITLE_MARGIN,
+	SUBTITLE_MARGIN,
+	BUTTON_MARGIN,
+	BUTTON_PADDING,
+	BUTTON_BORDER_SHADOW,
+	SLIDE_TO_SHOW,
+	CUSTOM_HEIGHT,
+	DOTS_GAP,
+} from "./constants/constants";
+import {TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY} from "./constants/typography-constant";
+import {
+	softMinifyCssStrings,
+	isCssExists,
+	generateTypographyStyles,
+	generateDimensionsControlStyles,
+	generateBorderShadowStyles,
+	generateResponsiveRangeStyles,
+	generateBackgroundControlStyles,
+	mimmikCssForPreviewBtnClick,
+	duplicateBlockIdFix,
+} from "../util/helpers";
 
 /**
  * External dependencies
  */
 import Slider from "react-slick";
 
-const Edit = ({ isSelected, attributes, setAttributes }) => {
+export default function Edit(props) {
+	const { attributes, setAttributes, clientId, isSelected } = props;
 	const {
 		resOption,
 		blockId,
@@ -43,6 +70,7 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 		pauseOnHover,
 		isCustomHeight,
 		speed,
+		initialSlide,
 		titleColor,
 		subtitleColor,
 		buttonColorType,
@@ -57,8 +85,344 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 		arrowBGColor,
 		arrowHoverBGColor,
 		dotsColor,
+		textAlign,
+		verticalAlign,
 	} = attributes;
 
+	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
+	useEffect(() => {
+		const bodyClasses = document.body.className;
+
+		setAttributes({
+			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
+		});
+	}, []);
+
+	// this useEffect is for creating a unique id for each block's unique className by a random unique number
+	useEffect(() => {
+		const BLOCK_PREFIX = "eb-slider";
+		duplicateBlockIdFix({
+			BLOCK_PREFIX,
+			blockId,
+			setAttributes,
+			select,
+			clientId,
+		});
+	}, []);
+
+	// this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
+	useEffect(() => {
+		mimmikCssForPreviewBtnClick({
+			domObj: document,
+			select,
+		});
+	}, []);
+
+	const blockProps = useBlockProps({
+		className: `eb-guten-block-main-parent-wrapper`,
+	});
+
+	/**
+	 * CSS/styling Codes Starts from Here
+	 */
+
+	// Title Typography
+	const {
+		typoStylesDesktop: titleTypographyDesktop,
+		typoStylesTab: titleTypographyTab,
+		typoStylesMobile: titleTypographyMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: TITLE_TYPOGRAPHY,
+		defaultFontSize: 24,
+	});
+
+	// Sub Title Typography
+	const {
+		typoStylesDesktop: subtitleTypographyDesktop,
+		typoStylesTab: subtitleTypographyTab,
+		typoStylesMobile: subtitleTypographyMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: SUBTITLE_TYPOGRAPHY,
+		defaultFontSize: 16,
+	});
+
+	// Button Typography
+	const {
+		typoStylesDesktop: buttonTypographyDesktop,
+		typoStylesTab: buttonTypographyTab,
+		typoStylesMobile: buttonTypographyMobile,
+	} = generateTypographyStyles({
+		attributes,
+		prefixConstant: BUTTON_TYPOGRAPHY,
+		defaultFontSize: 14,
+	});
+
+	/* Wrapper Margin */
+	const {
+		dimensionStylesDesktop: wrapperMarginDesktop,
+		dimensionStylesTab: wrapperMarginTab,
+		dimensionStylesMobile: wrapperMarginMobile,
+	} = generateDimensionsControlStyles({
+		controlName: WRAPPER_MARGIN,
+		styleFor: "margin",
+		attributes,
+	});
+
+	/* Wrapper Padding */
+	const {
+		dimensionStylesDesktop: wrapperPaddingDesktop,
+		dimensionStylesTab: wrapperPaddingTab,
+		dimensionStylesMobile: wrapperPaddingMobile,
+	} = generateDimensionsControlStyles({
+		controlName: WRAPPER_PADDING,
+		styleFor: "padding",
+		attributes,
+	});
+
+	/* Title Margin */
+	const {
+		dimensionStylesDesktop: titleMarginDesktop,
+		dimensionStylesTab: titleMarginTab,
+		dimensionStylesMobile: titleMarginMobile,
+	} = generateDimensionsControlStyles({
+		controlName: TITLE_MARGIN,
+		styleFor: "margin",
+		attributes,
+	});
+
+	/* Subtitle Margin */
+	const {
+		dimensionStylesDesktop: subtitleMarginDesktop,
+		dimensionStylesTab: subtitleMarginTab,
+		dimensionStylesMobile: subtitleMarginMobile,
+	} = generateDimensionsControlStyles({
+		controlName: SUBTITLE_MARGIN,
+		styleFor: "margin",
+		attributes,
+	});
+
+	/* Button Margin */
+	const {
+		dimensionStylesDesktop: buttonMarginDesktop,
+		dimensionStylesTab: buttonMarginTab,
+		dimensionStylesMobile: buttonMarginMobile,
+	} = generateDimensionsControlStyles({
+		controlName: BUTTON_MARGIN,
+		styleFor: "margin",
+		attributes,
+	});
+
+	/* Button Padding */
+	const {
+		dimensionStylesDesktop: buttonPaddingDesktop,
+		dimensionStylesTab: buttonPaddingTab,
+		dimensionStylesMobile: buttonPaddingMobile,
+	} = generateDimensionsControlStyles({
+		controlName: BUTTON_PADDING,
+		styleFor: "padding",
+		attributes,
+	});
+
+	// range controller Slider Height
+	const {
+		rangeStylesDesktop: sliderHeightDesktop,
+		rangeStylesTab: sliderHeightTab,
+		rangeStylesMobile: sliderHeightMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: CUSTOM_HEIGHT,
+		property: "height",
+		attributes,
+	});
+
+	// range controller Slides to Show
+	const {
+		rangeStylesDesktop: slideToShowDesktop,
+		rangeStylesTab: slideToShowTab,
+		rangeStylesMobile: slideToShowMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: SLIDE_TO_SHOW,
+		property: "",
+		attributes,
+	});
+
+	// range controller Slider Dots Gap
+	const {
+		rangeStylesDesktop: dotsGapDesktop,
+		rangeStylesTab: dotsGapTab,
+		rangeStylesMobile: dotsGapMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: DOTS_GAP,
+		property: "gap",
+		attributes,
+	});
+
+	//Generate Background
+	const {
+		backgroundStylesDesktop: wrapperBackgroundStylesDesktop,
+		hoverBackgroundStylesDesktop: wrapperHoverBackgroundStylesDesktop,
+		backgroundStylesTab: wrapperBackgroundStylesTab,
+		hoverBackgroundStylesTab: wrapperHoverBackgroundStylesTab,
+		backgroundStylesMobile: wrapperBackgroundStylesMobile,
+		hoverBackgroundStylesMobile: wrapperHoverBackgroundStylesMobile,
+		bgTransitionStyle: wrapperBgTransitionStyle,
+	} = generateBackgroundControlStyles({
+		attributes,
+		controlName: WRAPPER_BG,
+		noOverlay: true,
+	});
+
+	// generateBorderShadowStyles for Wrapper ⬇
+	const {
+		styesDesktop: wrapperBDShadowDesktop,
+		styesTab: wrapperBDShadowTab,
+		styesMobile: wrapperBDShadowMobile,
+		stylesHoverDesktop: wrapperBDShadowHoverDesktop,
+		stylesHoverTab: wrapperBDShadowHoverTab,
+		stylesHoverMobile: wrapperBDShadowHoverMobile,
+		transitionStyle: wrapperBDShadowTransitionStyle,
+	} = generateBorderShadowStyles({
+		controlName: WRAPPER_BORDER_SHADOW,
+		attributes,
+		// noShadow: true,
+		// noBorder: true,
+	});
+
+	// generateBorderShadowStyles for Button ⬇
+	const {
+		styesDesktop: buttonBDShadowDesktop,
+		styesTab: buttonBDShadowTab,
+		styesMobile: buttonBDShadowMobile,
+		stylesHoverDesktop: buttonBDShadowHoverDesktop,
+		stylesHoverTab: buttonBDShadowHoverTab,
+		stylesHoverMobile: buttonBDShadowHoverMobile,
+		transitionStyle: buttonBDShadowTransitionStyle,
+	} = generateBorderShadowStyles({
+		controlName: BUTTON_BORDER_SHADOW,
+		attributes,
+		// noShadow: true,
+		// noBorder: true,
+	});
+
+	// wrapper styles css in strings ⬇
+	const wrapperStylesDesktop = `
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginDesktop}
+			${wrapperPaddingDesktop}
+			${wrapperBDShadowDesktop}
+			${wrapperBackgroundStylesDesktop}
+			${wrapperBgTransitionStyle}
+		}
+	`;
+	const wrapperStylesTab = `
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginTab}
+			${wrapperPaddingTab}
+			${wrapperBDShadowTab}
+			${wrapperBackgroundStylesTab}
+		}
+	`;
+	const wrapperStylesMobile = `
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginMobile}
+			${wrapperPaddingMobile}
+			${wrapperBDShadowMobile}
+			${wrapperBackgroundStylesMobile}
+		}
+	`;
+	const sliderStylesDesktop = `
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
+			text-align: ${textAlign};
+			align-items: ${verticalAlign};
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightDesktop : ""}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
+			background-color: ${overlayColor};
+			justify-content: ${verticalAlign};
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			color: ${titleColor};
+			${titleMarginDesktop}
+			${titleTypographyDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			color: ${subtitleColor};
+			${subtitleMarginDesktop}
+			${subtitleTypographyDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			color: ${buttonColor};
+			background-color: ${buttonBGColor};
+			${buttonMarginDesktop}
+			${buttonPaddingDesktop}
+			${buttonTypographyDesktop}
+			${buttonBDShadowDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			color: ${buttonHoverColor};
+			background-color: ${buttonHoverBGColor};
+			${buttonTypographyDesktop}
+			${buttonBDShadowHoverDesktop}
+		}
+	`;
+	const sliderStylesTab = `
+		.eb-slider-wrapper.${blockId}{
+			
+		}
+	`;
+	const sliderStylesMobile = `
+		.eb-slider-wrapper.${blockId}{
+			
+		}
+	`;
+	const sliderControlsStylesDesktop = `
+		.eb-slider-wrapper.${blockId}{
+			
+		}
+	`;
+	const sliderControlsStylesTab = `
+		.eb-slider-wrapper.${blockId}{
+			
+		}
+	`;
+	const sliderControlsStylesMobile = `
+		.eb-slider-wrapper.${blockId}{
+			
+		}
+	`;
+
+	// all css styles for large screen width (desktop/laptop) in strings ⬇
+	const desktopAllStyles = softMinifyCssStrings(`
+		${isCssExists(wrapperStylesDesktop) ? wrapperStylesDesktop : " "}
+		${isCssExists(sliderStylesDesktop) ? sliderStylesDesktop : " "}
+	`);
+
+	// all css styles for Tab in strings ⬇
+	const tabAllStyles = softMinifyCssStrings(`
+		${isCssExists(wrapperStylesTab) ? wrapperStylesTab : " "}
+	`);
+
+	// all css styles for Mobile in strings ⬇
+	const mobileAllStyles = softMinifyCssStrings(`
+		${isCssExists(wrapperStylesMobile) ? wrapperStylesMobile : " "}
+	`);
+
+	// Set All Style in "blockMeta" Attribute
+	useEffect(() => {
+		const styleObject = {
+			desktop: desktopAllStyles,
+			tab: tabAllStyles,
+			mobile: mobileAllStyles,
+		};
+		if (JSON.stringify(blockMeta) != JSON.stringify(styleObject)) {
+			setAttributes({ blockMeta: styleObject });
+		}
+	}, [attributes]);
+
+	//Slider Settings
 	const settings = {
 		arrows,
 		adaptiveHeight,
@@ -68,17 +432,33 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 		fade,
 		infinite,
 		pauseOnHover,
-		slidesToShow,
+		slidesToShow: 1,
 		speed,
 		initialSlide,
-		vertical
+		vertical,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 2,
+				}
+			},
+			{
+				breakpoint: 767,
+				settings: {
+					slidesToShow: 1,
+				}
+			}
+		]
 	};
 
 	const slider = createRef();
 	const hasImages = !!images.length;
 
 	useEffect(() => {
-		slider.current.slickGoTo(initialSlide);
+		if (images.length > 0) {
+			slider.current.slickGoTo(initialSlide);
+		}
 	}, [initialSlide]);
 
 
@@ -161,7 +541,7 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 						gallery
 						value={images.map((img) => img.imageId)}
 						render={({ open }) => (
-							<Button
+							<ToolbarButton
 								className="components-toolbar__control"
 								label={__("Edit gallery")}
 								icon="edit"
@@ -173,37 +553,69 @@ const Edit = ({ isSelected, attributes, setAttributes }) => {
 				</ToolbarItem>
 			</ToolbarGroup>
 		</BlockControls>,
-		<Slider 
-			ref={slider} 
-			{...settings} 
-			key={`${autoplay}-${adaptiveHeight}`}
-		>
-			{images.map((image) => (
-				<div className="eb-slider-item">
-					<img className="eb-slider-image" src={image.url} />
-					{sliderType === "content" && (
-						<div className="eb-slider-content">
-							{image.title && image.title.length > 0 && (
-								<h2 className="eb-slider-title">{image.title}</h2>
-							)}
-							{image.subtitle && image.subtitle.length > 0 && (
-								<p className="eb-slider-subtitle">{image.subtitle}</p>
-							)}
-							{image.showButton && image.buttonText && image.buttonText.length > 0 && (
-								<a
-									href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-									className="eb-slider-button-url" 
-									traget={image.openNewTab ? "_blank" : "_self"}
-								>
-									{image.buttonText}
-								</a>
+		<div {...blockProps}>
+			<style>
+				{`
+				${desktopAllStyles}
+
+				/* mimmikcssStart */ 
+
+				${resOption === "Tablet" ? tabAllStyles : " "}
+				${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
+
+				/* mimmikcssEnd */
+
+				@media all and (max-width: 1024px) {	
+
+					/* tabcssStart */			
+					${softMinifyCssStrings(tabAllStyles)}
+					/* tabcssEnd */			
+				
+				}
+				
+				@media all and (max-width: 767px) {
+					
+					/* mobcssStart */			
+					${softMinifyCssStrings(mobileAllStyles)}
+					/* mobcssEnd */			
+				
+				}
+				`}
+			</style>
+
+			<div className={`eb-slider-wrapper ${blockId}`}>
+				<Slider 
+					ref={slider} 
+					{...settings}
+					key={`${autoplay}-${adaptiveHeight}`}
+					className={sliderType}
+				>
+					{images.map((image) => (
+						<div className={`eb-slider-item ${sliderContentType}`}>
+							<img className="eb-slider-image" src={image.url} />
+							{sliderType === "content" && (
+								<div className={`eb-slider-content align-${textAlign}`}>
+									{image.title && image.title.length > 0 && (
+										<h2 className="eb-slider-title">{image.title}</h2>
+									)}
+									{image.subtitle && image.subtitle.length > 0 && (
+										<p className="eb-slider-subtitle">{image.subtitle}</p>
+									)}
+									{image.showButton && image.buttonText && image.buttonText.length > 0 && (
+										<a
+											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
+											className="eb-slider-button" 
+											traget={image.openNewTab ? "_blank" : "_self"}
+										>
+											{image.buttonText}
+										</a>
+									)}
+								</div>
 							)}
 						</div>
-					)}
-				</div>
-			))}
-		</Slider>,
+					))}
+				</Slider>
+			</div>
+		</div>,
 	];
 };
-
-export default Edit;

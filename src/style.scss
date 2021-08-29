@@ -1,3 +1,79 @@
+.eb-slider-wrapper {
+	.image {
+		.eb-slider-item {
+			img {
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+	.content {
+		position: relative;
+
+		.eb-slider-item {
+			position: relative;
+
+			.eb-slider-button {
+				text-decoration: none;
+			}
+
+			&.content-1 {
+				img {
+					width: 100%;
+					object-fit: cover;
+				}
+				.eb-slider-content {
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					padding: 20px 30px;
+					display: flex;
+					flex-flow: column;
+					&.align-left .eb-slider-button, 
+					&.align-justify .eb-slider-button{
+						align-self: flex-start;
+					}
+					&.align-center .eb-slider-button{
+						align-self: center;
+					}
+					&.align-right .eb-slider-button{
+						align-self: flex-end;
+					}
+				}
+			}
+
+			&.content-3 {
+				display: flex !important;
+				justify-content: space-between;
+				flex-direction: row;
+				img {
+					width: 50%;
+				}
+				.eb-slider-content {
+					padding: 0px 15px;
+				}
+			}
+
+			&.content-4 {
+				display: flex !important;
+				justify-content: space-between;
+				flex-direction: row-reverse;
+				flex-wrap: nowrap;
+				img {
+					width: 50%;
+				}
+				.eb-slider-content {
+					padding: 0px 15px;
+				}
+			}
+		}
+	}
+}
+
+
+
 .slick-prev:before,
 .slick-next:before {
 	color: black !important;

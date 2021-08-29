@@ -8,6 +8,7 @@ export const WRAPPER_BORDER_SHADOW = "wrpBorderShadow";
 export const TITLE_MARGIN = "titleMargin";
 export const SUBTITLE_MARGIN = "subtitleMargin";
 export const BUTTON_MARGIN = "buttonMargin";
+export const BUTTON_PADDING = "buttonPadding";
 export const BUTTON_BORDER_SHADOW = "buttonBorderShadow";
 export const SLIDE_TO_SHOW = "slideToShow";
 export const CUSTOM_HEIGHT = "sliderHeight";
@@ -19,9 +20,9 @@ export const NORMAL_HOVER = [
 ];
 
 export const VERTICAL_ALIGN = [
-	{ label: __("Top"), value: "top" },
-	{ label: __("Center"), value: "center" },
-	{ label: __("Bottom"), value: "bottom" },
+	{ label: __("Top"), value: "flex-start" },
+	{ label: __("Middle"), value: "center" },
+	{ label: __("Bottom"), value: "flex-end" },
 ];
 
 export const TEXT_ALIGN = [
@@ -46,7 +47,7 @@ export const SLIDER_CONTENT_TYPE = [
 export const UNIT_TYPES = [
 	{ label: "px", value: "px" },
 	{ label: "%", value: "%" },
-	{ label: "em", value: "em" },
+	{ label: "vh", value: "vh" },
 ];
 
 export const COLORS = [

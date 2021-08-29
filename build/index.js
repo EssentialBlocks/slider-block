@@ -5780,7 +5780,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateTypographyAttributes"])(Object.values(_constants_typography_constant__WEBPACK_IMPORTED_MODULE_2__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_MARGIN"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_PADDING"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["TITLE_MARGIN"], {
+var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateTypographyAttributes"])(Object.values(_constants_typography_constant__WEBPACK_IMPORTED_MODULE_2__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_MARGIN"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_PADDING"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["TITLE_MARGIN"], {
   top: 0,
   bottom: 20,
   right: 0,
@@ -5797,6 +5797,12 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   bottom: 20,
   right: 0,
   left: 0,
+  isLinked: false
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["BUTTON_PADDING"], {
+  top: 10,
+  bottom: 10,
+  right: 30,
+  left: 30,
   isLinked: false
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateBorderShadowAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_BORDER_SHADOW"], {
   bdrDefaults: {
@@ -5859,7 +5865,7 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   },
   adaptiveHeight: {
     type: "boolean",
-    default: true
+    default: false
   },
   autoplay: {
     type: "bolean",
@@ -5935,7 +5941,7 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   },
   overlayColor: {
     type: "string",
-    default: "#333333"
+    default: "rgb(184 133 228 / 75%)"
   },
   arrowColorType: {
     type: "string",
@@ -5960,6 +5966,14 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   dotsColor: {
     type: "string",
     default: "#333333"
+  },
+  textAlign: {
+    type: "string",
+    default: "left"
+  },
+  verticalAlign: {
+    type: "string",
+    default: "center"
   }
 });
 
@@ -5971,7 +5985,7 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
 /*!************************************!*\
   !*** ./src/constants/constants.js ***!
   \************************************/
-/*! exports provided: WRAPPER_BG, WRAPPER_MARGIN, WRAPPER_PADDING, WRAPPER_BORDER_SHADOW, TITLE_MARGIN, SUBTITLE_MARGIN, BUTTON_MARGIN, BUTTON_BORDER_SHADOW, SLIDE_TO_SHOW, CUSTOM_HEIGHT, DOTS_GAP, NORMAL_HOVER, VERTICAL_ALIGN, TEXT_ALIGN, SLIDER_TYPE, SLIDER_CONTENT_TYPE, UNIT_TYPES, COLORS */
+/*! exports provided: WRAPPER_BG, WRAPPER_MARGIN, WRAPPER_PADDING, WRAPPER_BORDER_SHADOW, TITLE_MARGIN, SUBTITLE_MARGIN, BUTTON_MARGIN, BUTTON_PADDING, BUTTON_BORDER_SHADOW, SLIDE_TO_SHOW, CUSTOM_HEIGHT, DOTS_GAP, NORMAL_HOVER, VERTICAL_ALIGN, TEXT_ALIGN, SLIDER_TYPE, SLIDER_CONTENT_TYPE, UNIT_TYPES, COLORS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5983,6 +5997,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TITLE_MARGIN", function() { return TITLE_MARGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SUBTITLE_MARGIN", function() { return SUBTITLE_MARGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BUTTON_MARGIN", function() { return BUTTON_MARGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BUTTON_PADDING", function() { return BUTTON_PADDING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BUTTON_BORDER_SHADOW", function() { return BUTTON_BORDER_SHADOW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLIDE_TO_SHOW", function() { return SLIDE_TO_SHOW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_HEIGHT", function() { return CUSTOM_HEIGHT; });
@@ -6003,6 +6018,7 @@ var WRAPPER_BORDER_SHADOW = "wrpBorderShadow";
 var TITLE_MARGIN = "titleMargin";
 var SUBTITLE_MARGIN = "subtitleMargin";
 var BUTTON_MARGIN = "buttonMargin";
+var BUTTON_PADDING = "buttonPadding";
 var BUTTON_BORDER_SHADOW = "buttonBorderShadow";
 var SLIDE_TO_SHOW = "slideToShow";
 var CUSTOM_HEIGHT = "sliderHeight";
@@ -6016,13 +6032,13 @@ var NORMAL_HOVER = [{
 }];
 var VERTICAL_ALIGN = [{
   label: __("Top"),
-  value: "top"
+  value: "flex-start"
 }, {
-  label: __("Center"),
+  label: __("Middle"),
   value: "center"
 }, {
   label: __("Bottom"),
-  value: "bottom"
+  value: "flex-end"
 }];
 var TEXT_ALIGN = [{
   label: __("Left"),
@@ -6064,8 +6080,8 @@ var UNIT_TYPES = [{
   label: "%",
   value: "%"
 }, {
-  label: "em",
-  value: "em"
+  label: "vh",
+  value: "vh"
 }];
 var COLORS = [{
   name: 'Black',
@@ -6134,6 +6150,7 @@ var BUTTON_TYPOGRAPHY = "buttonTypo";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Edit; });
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ "./node_modules/@babel/runtime/helpers/extends.js");
 /* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
@@ -6141,8 +6158,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inspector__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./inspector */ "./src/inspector.js");
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 /* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_editor_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
-/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_slick__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _constants_constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./constants/constants */ "./src/constants/constants.js");
+/* harmony import */ var _constants_typography_constant__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constants/typography-constant */ "./src/constants/typography-constant.js");
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/helpers */ "./util/helpers/index.js");
+/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-slick */ "./node_modules/react-slick/lib/index.js");
+/* harmony import */ var react_slick__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_slick__WEBPACK_IMPORTED_MODULE_7__);
 
 
 
@@ -6171,16 +6191,19 @@ var select = wp.data.select;
 
 
 
+
+
+
 /**
  * External dependencies
  */
 
 
-
-var Edit = function Edit(_ref) {
-  var isSelected = _ref.isSelected,
-      attributes = _ref.attributes,
-      setAttributes = _ref.setAttributes;
+function Edit(props) {
+  var attributes = props.attributes,
+      setAttributes = props.setAttributes,
+      clientId = props.clientId,
+      isSelected = props.isSelected;
   var resOption = attributes.resOption,
       blockId = attributes.blockId,
       blockRoot = attributes.blockRoot,
@@ -6199,6 +6222,7 @@ var Edit = function Edit(_ref) {
       pauseOnHover = attributes.pauseOnHover,
       isCustomHeight = attributes.isCustomHeight,
       speed = attributes.speed,
+      initialSlide = attributes.initialSlide,
       titleColor = attributes.titleColor,
       subtitleColor = attributes.subtitleColor,
       buttonColorType = attributes.buttonColorType,
@@ -6212,7 +6236,242 @@ var Edit = function Edit(_ref) {
       arrowHoverColor = attributes.arrowHoverColor,
       arrowBGColor = attributes.arrowBGColor,
       arrowHoverBGColor = attributes.arrowHoverBGColor,
-      dotsColor = attributes.dotsColor;
+      dotsColor = attributes.dotsColor,
+      textAlign = attributes.textAlign,
+      verticalAlign = attributes.verticalAlign; // this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
+
+  useEffect(function () {
+    var bodyClasses = document.body.className;
+    setAttributes({
+      resOption: select("core/edit-post").__experimentalGetPreviewDeviceType()
+    });
+  }, []); // this useEffect is for creating a unique id for each block's unique className by a random unique number
+
+  useEffect(function () {
+    var BLOCK_PREFIX = "eb-slider";
+    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["duplicateBlockIdFix"])({
+      BLOCK_PREFIX: BLOCK_PREFIX,
+      blockId: blockId,
+      setAttributes: setAttributes,
+      select: select,
+      clientId: clientId
+    });
+  }, []); // this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
+
+  useEffect(function () {
+    Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["mimmikCssForPreviewBtnClick"])({
+      domObj: document,
+      select: select
+    });
+  }, []);
+  var blockProps = useBlockProps({
+    className: "eb-guten-block-main-parent-wrapper"
+  });
+  /**
+   * CSS/styling Codes Starts from Here
+   */
+  // Title Typography
+
+  var _generateTypographySt = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateTypographyStyles"])({
+    attributes: attributes,
+    prefixConstant: _constants_typography_constant__WEBPACK_IMPORTED_MODULE_5__["TITLE_TYPOGRAPHY"],
+    defaultFontSize: 24
+  }),
+      titleTypographyDesktop = _generateTypographySt.typoStylesDesktop,
+      titleTypographyTab = _generateTypographySt.typoStylesTab,
+      titleTypographyMobile = _generateTypographySt.typoStylesMobile; // Sub Title Typography
+
+
+  var _generateTypographySt2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateTypographyStyles"])({
+    attributes: attributes,
+    prefixConstant: _constants_typography_constant__WEBPACK_IMPORTED_MODULE_5__["SUBTITLE_TYPOGRAPHY"],
+    defaultFontSize: 16
+  }),
+      subtitleTypographyDesktop = _generateTypographySt2.typoStylesDesktop,
+      subtitleTypographyTab = _generateTypographySt2.typoStylesTab,
+      subtitleTypographyMobile = _generateTypographySt2.typoStylesMobile; // Button Typography
+
+
+  var _generateTypographySt3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateTypographyStyles"])({
+    attributes: attributes,
+    prefixConstant: _constants_typography_constant__WEBPACK_IMPORTED_MODULE_5__["BUTTON_TYPOGRAPHY"],
+    defaultFontSize: 14
+  }),
+      buttonTypographyDesktop = _generateTypographySt3.typoStylesDesktop,
+      buttonTypographyTab = _generateTypographySt3.typoStylesTab,
+      buttonTypographyMobile = _generateTypographySt3.typoStylesMobile;
+  /* Wrapper Margin */
+
+
+  var _generateDimensionsCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["WRAPPER_MARGIN"],
+    styleFor: "margin",
+    attributes: attributes
+  }),
+      wrapperMarginDesktop = _generateDimensionsCo.dimensionStylesDesktop,
+      wrapperMarginTab = _generateDimensionsCo.dimensionStylesTab,
+      wrapperMarginMobile = _generateDimensionsCo.dimensionStylesMobile;
+  /* Wrapper Padding */
+
+
+  var _generateDimensionsCo2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["WRAPPER_PADDING"],
+    styleFor: "padding",
+    attributes: attributes
+  }),
+      wrapperPaddingDesktop = _generateDimensionsCo2.dimensionStylesDesktop,
+      wrapperPaddingTab = _generateDimensionsCo2.dimensionStylesTab,
+      wrapperPaddingMobile = _generateDimensionsCo2.dimensionStylesMobile;
+  /* Title Margin */
+
+
+  var _generateDimensionsCo3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["TITLE_MARGIN"],
+    styleFor: "margin",
+    attributes: attributes
+  }),
+      titleMarginDesktop = _generateDimensionsCo3.dimensionStylesDesktop,
+      titleMarginTab = _generateDimensionsCo3.dimensionStylesTab,
+      titleMarginMobile = _generateDimensionsCo3.dimensionStylesMobile;
+  /* Subtitle Margin */
+
+
+  var _generateDimensionsCo4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["SUBTITLE_MARGIN"],
+    styleFor: "margin",
+    attributes: attributes
+  }),
+      subtitleMarginDesktop = _generateDimensionsCo4.dimensionStylesDesktop,
+      subtitleMarginTab = _generateDimensionsCo4.dimensionStylesTab,
+      subtitleMarginMobile = _generateDimensionsCo4.dimensionStylesMobile;
+  /* Button Margin */
+
+
+  var _generateDimensionsCo5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["BUTTON_MARGIN"],
+    styleFor: "margin",
+    attributes: attributes
+  }),
+      buttonMarginDesktop = _generateDimensionsCo5.dimensionStylesDesktop,
+      buttonMarginTab = _generateDimensionsCo5.dimensionStylesTab,
+      buttonMarginMobile = _generateDimensionsCo5.dimensionStylesMobile;
+  /* Button Padding */
+
+
+  var _generateDimensionsCo6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateDimensionsControlStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["BUTTON_PADDING"],
+    styleFor: "padding",
+    attributes: attributes
+  }),
+      buttonPaddingDesktop = _generateDimensionsCo6.dimensionStylesDesktop,
+      buttonPaddingTab = _generateDimensionsCo6.dimensionStylesTab,
+      buttonPaddingMobile = _generateDimensionsCo6.dimensionStylesMobile; // range controller Slider Height
+
+
+  var _generateResponsiveRa = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["CUSTOM_HEIGHT"],
+    property: "height",
+    attributes: attributes
+  }),
+      sliderHeightDesktop = _generateResponsiveRa.rangeStylesDesktop,
+      sliderHeightTab = _generateResponsiveRa.rangeStylesTab,
+      sliderHeightMobile = _generateResponsiveRa.rangeStylesMobile; // range controller Slides to Show
+
+
+  var _generateResponsiveRa2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["SLIDE_TO_SHOW"],
+    property: "",
+    attributes: attributes
+  }),
+      slideToShowDesktop = _generateResponsiveRa2.rangeStylesDesktop,
+      slideToShowTab = _generateResponsiveRa2.rangeStylesTab,
+      slideToShowMobile = _generateResponsiveRa2.rangeStylesMobile; // range controller Slider Dots Gap
+
+
+  var _generateResponsiveRa3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["DOTS_GAP"],
+    property: "gap",
+    attributes: attributes
+  }),
+      dotsGapDesktop = _generateResponsiveRa3.rangeStylesDesktop,
+      dotsGapTab = _generateResponsiveRa3.rangeStylesTab,
+      dotsGapMobile = _generateResponsiveRa3.rangeStylesMobile; //Generate Background
+
+
+  var _generateBackgroundCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateBackgroundControlStyles"])({
+    attributes: attributes,
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["WRAPPER_BG"],
+    noOverlay: true
+  }),
+      wrapperBackgroundStylesDesktop = _generateBackgroundCo.backgroundStylesDesktop,
+      wrapperHoverBackgroundStylesDesktop = _generateBackgroundCo.hoverBackgroundStylesDesktop,
+      wrapperBackgroundStylesTab = _generateBackgroundCo.backgroundStylesTab,
+      wrapperHoverBackgroundStylesTab = _generateBackgroundCo.hoverBackgroundStylesTab,
+      wrapperBackgroundStylesMobile = _generateBackgroundCo.backgroundStylesMobile,
+      wrapperHoverBackgroundStylesMobile = _generateBackgroundCo.hoverBackgroundStylesMobile,
+      wrapperBgTransitionStyle = _generateBackgroundCo.bgTransitionStyle; // generateBorderShadowStyles for Wrapper ⬇
+
+
+  var _generateBorderShadow = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateBorderShadowStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["WRAPPER_BORDER_SHADOW"],
+    attributes: attributes // noShadow: true,
+    // noBorder: true,
+
+  }),
+      wrapperBDShadowDesktop = _generateBorderShadow.styesDesktop,
+      wrapperBDShadowTab = _generateBorderShadow.styesTab,
+      wrapperBDShadowMobile = _generateBorderShadow.styesMobile,
+      wrapperBDShadowHoverDesktop = _generateBorderShadow.stylesHoverDesktop,
+      wrapperBDShadowHoverTab = _generateBorderShadow.stylesHoverTab,
+      wrapperBDShadowHoverMobile = _generateBorderShadow.stylesHoverMobile,
+      wrapperBDShadowTransitionStyle = _generateBorderShadow.transitionStyle; // generateBorderShadowStyles for Button ⬇
+
+
+  var _generateBorderShadow2 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateBorderShadowStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["BUTTON_BORDER_SHADOW"],
+    attributes: attributes // noShadow: true,
+    // noBorder: true,
+
+  }),
+      buttonBDShadowDesktop = _generateBorderShadow2.styesDesktop,
+      buttonBDShadowTab = _generateBorderShadow2.styesTab,
+      buttonBDShadowMobile = _generateBorderShadow2.styesMobile,
+      buttonBDShadowHoverDesktop = _generateBorderShadow2.stylesHoverDesktop,
+      buttonBDShadowHoverTab = _generateBorderShadow2.stylesHoverTab,
+      buttonBDShadowHoverMobile = _generateBorderShadow2.stylesHoverMobile,
+      buttonBDShadowTransitionStyle = _generateBorderShadow2.transitionStyle; // wrapper styles css in strings ⬇
+
+
+  var wrapperStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginDesktop, "\n\t\t\t").concat(wrapperPaddingDesktop, "\n\t\t\t").concat(wrapperBDShadowDesktop, "\n\t\t\t").concat(wrapperBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperBgTransitionStyle, "\n\t\t}\n\t");
+  var wrapperStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginTab, "\n\t\t\t").concat(wrapperPaddingTab, "\n\t\t\t").concat(wrapperBDShadowTab, "\n\t\t\t").concat(wrapperBackgroundStylesTab, "\n\t\t}\n\t");
+  var wrapperStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginMobile, "\n\t\t\t").concat(wrapperPaddingMobile, "\n\t\t\t").concat(wrapperBDShadowMobile, "\n\t\t\t").concat(wrapperBackgroundStylesMobile, "\n\t\t}\n\t");
+  var sliderStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .content .eb-slider-item {\n\t\t\ttext-align: ").concat(textAlign, ";\n\t\t\talign-items: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-slider .eb-slider-item img {\n\t\t\t").concat(isCustomHeight && (sliderType === "image" || sliderType === "content" && sliderContentType === "content-1") ? sliderHeightDesktop : "", "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item.content-1 .eb-slider-content {\n\t\t\tbackground-color: ").concat(overlayColor, ";\n\t\t\tjustify-content: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-title {\n\t\t\tcolor: ").concat(titleColor, ";\n\t\t\t").concat(titleMarginDesktop, "\n\t\t\t").concat(titleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {\n\t\t\tcolor: ").concat(subtitleColor, ";\n\t\t\t").concat(subtitleMarginDesktop, "\n\t\t\t").concat(subtitleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button {\n\t\t\tcolor: ").concat(buttonColor, ";\n\t\t\tbackground-color: ").concat(buttonBGColor, ";\n\t\t\t").concat(buttonMarginDesktop, "\n\t\t\t").concat(buttonPaddingDesktop, "\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {\n\t\t\tcolor: ").concat(buttonHoverColor, ";\n\t\t\tbackground-color: ").concat(buttonHoverBGColor, ";\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowHoverDesktop, "\n\t\t}\n\t");
+  var sliderStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
+  var sliderStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
+  var sliderControlsStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
+  var sliderControlsStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
+  var sliderControlsStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t"); // all css styles for large screen width (desktop/laptop) in strings ⬇
+
+  var desktopAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesDesktop) ? wrapperStylesDesktop : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderStylesDesktop) ? sliderStylesDesktop : " ", "\n\t")); // all css styles for Tab in strings ⬇
+
+  var tabAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesTab) ? wrapperStylesTab : " ", "\n\t")); // all css styles for Mobile in strings ⬇
+
+  var mobileAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesMobile) ? wrapperStylesMobile : " ", "\n\t")); // Set All Style in "blockMeta" Attribute
+
+  useEffect(function () {
+    var styleObject = {
+      desktop: desktopAllStyles,
+      tab: tabAllStyles,
+      mobile: mobileAllStyles
+    };
+
+    if (JSON.stringify(blockMeta) != JSON.stringify(styleObject)) {
+      setAttributes({
+        blockMeta: styleObject
+      });
+    }
+  }, [attributes]); //Slider Settings
+
   var settings = {
     arrows: arrows,
     adaptiveHeight: adaptiveHeight,
@@ -6222,15 +6481,28 @@ var Edit = function Edit(_ref) {
     fade: fade,
     infinite: infinite,
     pauseOnHover: pauseOnHover,
-    slidesToShow: slidesToShow,
+    slidesToShow: 1,
     speed: speed,
     initialSlide: initialSlide,
-    vertical: vertical
+    vertical: vertical,
+    responsive: [{
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
   };
   var slider = createRef();
   var hasImages = !!images.length;
   useEffect(function () {
-    slider.current.slickGoTo(initialSlide);
+    if (images.length > 0) {
+      slider.current.slickGoTo(initialSlide);
+    }
   }, [initialSlide]);
 
   function onImageSelect(selectedImages, images) {
@@ -6306,9 +6578,9 @@ var Edit = function Edit(_ref) {
       value: images.map(function (img) {
         return img.imageId;
       }),
-      render: function render(_ref2) {
-        var open = _ref2.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ToolbarButton, {
           className: "components-toolbar__control",
           label: __("Edit gallery"),
           icon: "edit",
@@ -6316,31 +6588,33 @@ var Edit = function Edit(_ref) {
         });
       }
     });
-  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_slick__WEBPACK_IMPORTED_MODULE_4___default.a, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
+  }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", blockProps, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("style", null, "\n\t\t\t\t".concat(desktopAllStyles, "\n\n\t\t\t\t/* mimmikcssStart */ \n\n\t\t\t\t").concat(resOption === "Tablet" ? tabAllStyles : " ", "\n\t\t\t\t").concat(resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " ", "\n\n\t\t\t\t/* mimmikcssEnd */\n\n\t\t\t\t@media all and (max-width: 1024px) {\t\n\n\t\t\t\t\t/* tabcssStart */\t\t\t\n\t\t\t\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])(tabAllStyles), "\n\t\t\t\t\t/* tabcssEnd */\t\t\t\n\t\t\t\t\n\t\t\t\t}\n\t\t\t\t\n\t\t\t\t@media all and (max-width: 767px) {\n\t\t\t\t\t\n\t\t\t\t\t/* mobcssStart */\t\t\t\n\t\t\t\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])(mobileAllStyles), "\n\t\t\t\t\t/* mobcssEnd */\t\t\t\n\t\t\t\t\n\t\t\t\t}\n\t\t\t\t")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
+    className: "eb-slider-wrapper ".concat(blockId)
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(react_slick__WEBPACK_IMPORTED_MODULE_7___default.a, _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({
     ref: slider
   }, settings, {
-    key: "".concat(autoplay, "-").concat(adaptiveHeight)
+    key: "".concat(autoplay, "-").concat(adaptiveHeight),
+    className: sliderType
   }), images.map(function (image) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "eb-slider-item"
+      className: "eb-slider-item ".concat(sliderContentType)
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("img", {
       className: "eb-slider-image",
       src: image.url
     }), sliderType === "content" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("div", {
-      className: "eb-slider-content"
+      className: "eb-slider-content align-".concat(textAlign)
     }, image.title && image.title.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("h2", {
       className: "eb-slider-title"
     }, image.title), image.subtitle && image.subtitle.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("p", {
       className: "eb-slider-subtitle"
     }, image.subtitle), image.showButton && image.buttonText && image.buttonText.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])("a", {
       href: image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#",
-      className: "eb-slider-button-url",
+      className: "eb-slider-button",
       traget: image.openNewTab ? "_blank" : "_self"
     }, image.buttonText)));
-  }))];
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Edit);
+  }))))];
+}
+;
 
 /***/ }),
 
@@ -6602,7 +6876,9 @@ function Inspector(props) {
       arrowHoverColor = attributes.arrowHoverColor,
       arrowBGColor = attributes.arrowBGColor,
       arrowHoverBGColor = attributes.arrowHoverBGColor,
-      dotsColor = attributes.dotsColor;
+      dotsColor = attributes.dotsColor,
+      textAlign = attributes.textAlign,
+      verticalAlign = attributes.verticalAlign;
 
   var handleTitle = function handleTitle(title, id) {
     var updatedImageArray = images.map(function (item) {
@@ -6939,10 +7215,10 @@ function Inspector(props) {
           return handleOpenNewTab(!item.openNewTab, index);
         }
       })));
-    }))), tab.name === "styles" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, sliderContentType === "content-1" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
-      title: __("Overlay Style"),
-      initialOpen: false
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_color_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }))), tab.name === "styles" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+      title: __("Settings"),
+      initialOpen: true
+    }, sliderContentType === "content-1" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_color_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
       label: __("Overlay Color"),
       color: overlayColor,
       onChange: function onChange(color) {
@@ -6950,7 +7226,29 @@ function Inspector(props) {
           overlayColor: color
         });
       }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    }), sliderType === "content" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Text Align"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, _constants_constants__WEBPACK_IMPORTED_MODULE_3__["TEXT_ALIGN"].map(function (item) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        isLarge: true,
+        isPrimary: textAlign === item.value,
+        isSecondary: textAlign !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            textAlign: item.value
+          });
+        }
+      }, item.label);
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Vertical Align"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, _constants_constants__WEBPACK_IMPORTED_MODULE_3__["VERTICAL_ALIGN"].map(function (item) {
+      return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
+        isLarge: true,
+        isPrimary: verticalAlign === item.value,
+        isSecondary: verticalAlign !== item.value,
+        onClick: function onClick() {
+          return setAttributes({
+            verticalAlign: item.value
+          });
+        }
+      }, item.label);
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __("Title"),
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Color"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ColorPalette, {
@@ -7059,6 +7357,10 @@ function Inspector(props) {
       resRequiredProps: resRequiredProps,
       controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["BUTTON_MARGIN"],
       baseLabel: "Margin"
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      resRequiredProps: resRequiredProps,
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["BUTTON_PADDING"],
+      baseLabel: "Padding"
     })), arrows && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __("Arrow"),
       initialOpen: false
