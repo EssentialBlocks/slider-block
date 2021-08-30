@@ -7175,7 +7175,8 @@ function Inspector(props) {
           return setAttributes({
             initialSlide: index
           });
-        }
+        },
+        className: "eb-slider-item-single-panel"
       }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(TextControl, {
         label: __("Title Text"),
         value: item.title,

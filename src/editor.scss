@@ -4,5 +4,46 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+ .eb-panel-control {
+    .eb-parent-tab-panel {
+        .eb-slider-item-single-panel {
+            margin-bottom: 10px;
+            border-top: 0;
+
+            &.is-opened {
+                background-color: #efefef;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+
+                .components-panel__body-title {
+                    background-color: #e0e0e0;
+                    border: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+            .components-panel__body-title {
+                background-color: #eaeaea;
+                border: 1px solid #d8d8d8;
+                border-radius: 4px;
+
+                button {
+                    padding: 12px;
+
+                    &:focus {
+                        outline: 0;
+                        box-shadow: unset;
+                    }
+                }
+            }
+            textarea {
+                border-color: #ebebeb;
+            }
+        }
+    }
+ }
+
+ 
+
 /* Import All CSS for Controls */
 @import "../util/backend.scss";

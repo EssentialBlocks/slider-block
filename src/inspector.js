@@ -376,6 +376,7 @@ function Inspector(props) {
 														title={item.title && item.title.length > 0 ? item.title : "Slider " + (index+1)} 
 														initialOpen={ false }
 														onToggle = {() => setAttributes({initialSlide: index})}
+														className="eb-slider-item-single-panel"
 													>
 														<TextControl
 															label={__("Title Text")}
