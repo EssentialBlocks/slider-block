@@ -2,7 +2,7 @@
  * WordPress dependencies
  */
 const { __ } = wp.i18n; 
-const { Fragment, useEffect, createRef } = wp.element;
+const { useEffect, createRef } = wp.element;
 const {
 	MediaUpload,
 	MediaPlaceholder,
@@ -607,7 +607,7 @@ export default function Edit(props) {
 		vertical,
 		responsive: [
 			{
-				breakpoint: 1024,
+				breakpoint: 1025,
 				settings: {
 					slidesToShow: parseInt(slideToShowTab.replace(/[^0-9]/g, "")),
 				}
@@ -629,8 +629,6 @@ export default function Edit(props) {
 			slider.current.slickGoTo(initialSlide);
 		}
 	}, [initialSlide]);
-
-
 
 	function onImageSelect(selectedImages, images) {
 		let updatedImages = [];

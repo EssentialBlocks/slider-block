@@ -72,7 +72,7 @@ import ColorControl from "../util/color-control";
 
 
 function Inspector(props) {
-	const { attributes, setAttributes } = props;
+	const { attributes, setAttributes, slider } = props;
 	const {
 		resOption,
 		sliderType,

@@ -18,6 +18,9 @@
  *
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/applying-styles-with-stylesheets/
  */
+
+require_once __DIR__ . '/lib/style-handler/style-handler.php';
+
 function create_block_slider_block_block_init() {
 	$dir = dirname( __FILE__ );
 
@@ -58,7 +61,7 @@ function create_block_slider_block_block_init() {
 		filemtime( "$dir/$style_css" )
 	);
 
-  $frontend_js = 'src/frontend.js';
+  $frontend_js = 'build/frontend.js';
   wp_register_script(
     'slider-block-slider-block-frontend',
     plugins_url($frontend_js, __FILE__),
