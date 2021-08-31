@@ -30,6 +30,11 @@ import {
 	SLIDE_TO_SHOW,
 	CUSTOM_HEIGHT,
 	DOTS_GAP,
+	ARROW_POSITION,
+	DOTS_POSITION,
+	ARROW_SIZE,
+	DOTS_SIZE,
+	SLIDES_GAP,
 } from "./constants/constants";
 import {TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY} from "./constants/typography-constant";
 import {
@@ -54,7 +59,6 @@ export default function Edit(props) {
 	const {
 		resOption,
 		blockId,
-		blockRoot,
 		blockMeta,
 		sliderType,
 		sliderContentType,
@@ -73,18 +77,15 @@ export default function Edit(props) {
 		initialSlide,
 		titleColor,
 		subtitleColor,
-		buttonColorType,
 		buttonColor,
 		buttonHoverColor,
 		buttonBGColor,
 		buttonHoverBGColor,
 		overlayColor,
-		arrowColorType,
 		arrowColor,
 		arrowHoverColor,
-		arrowBGColor,
-		arrowHoverBGColor,
 		dotsColor,
+		dotsActiveColor,
 		textAlign,
 		verticalAlign,
 	} = attributes;
@@ -254,7 +255,73 @@ export default function Edit(props) {
 		rangeStylesMobile: dotsGapMobile,
 	} = generateResponsiveRangeStyles({
 		controlName: DOTS_GAP,
-		property: "gap",
+		property: "margin-right",
+		attributes,
+	});
+
+	// range controller Slider Left Arrow Position
+	const {
+		rangeStylesDesktop: leftArrowPositionDesktop,
+		rangeStylesTab: leftArrowPositionTab,
+		rangeStylesMobile: leftArrowPositionMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: ARROW_POSITION,
+		property: "left",
+		attributes,
+	});
+
+	// range controller Slider Left Arrow Position
+	const {
+		rangeStylesDesktop: rightArrowPositionDesktop,
+		rangeStylesTab: rightArrowPositionTab,
+		rangeStylesMobile: rightArrowPositionMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: ARROW_POSITION,
+		property: "right",
+		attributes,
+	});
+
+	// range controller Slider Arrow Size
+	const {
+		rangeStylesDesktop: arrowSizeDesktop,
+		rangeStylesTab: arrowSizeTab,
+		rangeStylesMobile: arrowSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: ARROW_SIZE,
+		property: "font-size",
+		attributes,
+	});
+
+	// range controller Slider Arrow Size
+	const {
+		rangeStylesDesktop: dotsSizeDesktop,
+		rangeStylesTab: dotsSizeTab,
+		rangeStylesMobile: dotsSizeMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: DOTS_SIZE,
+		property: "font-size",
+		attributes,
+	});
+
+	// range controller Slider Slides Gap
+	const {
+		rangeStylesDesktop: slidesGapDesktop,
+		rangeStylesTab: slidesGapTab,
+		rangeStylesMobile: slidesGapMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: SLIDES_GAP,
+		property: "padding",
+		attributes,
+	});
+
+	// range controller Slider Dots Position
+	const {
+		rangeStylesDesktop: dotsPositionDesktop,
+		rangeStylesTab: dotsPositionTab,
+		rangeStylesMobile: dotsPositionMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: DOTS_POSITION,
+		property: "bottom",
 		attributes,
 	});
 
@@ -331,7 +398,11 @@ export default function Edit(props) {
 			${wrapperBackgroundStylesMobile}
 		}
 	`;
+
 	const sliderStylesDesktop = `
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapDesktop}
+		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
 			text-align: ${textAlign};
 			align-items: ${verticalAlign};
@@ -369,28 +440,121 @@ export default function Edit(props) {
 		}
 	`;
 	const sliderStylesTab = `
-		.eb-slider-wrapper.${blockId}{
-			
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightTab : ""}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			${titleMarginTab}
+			${titleTypographyTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			${subtitleMarginTab}
+			${subtitleTypographyTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			${buttonMarginTab}
+			${buttonPaddingTab}
+			${buttonTypographyTab}
+			${buttonBDShadowTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			${buttonTypographyTab}
+			${buttonBDShadowHoverTab}
 		}
 	`;
 	const sliderStylesMobile = `
-		.eb-slider-wrapper.${blockId}{
-			
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightMobile : ""}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			${titleMarginMobile}
+			${titleTypographyMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			${subtitleMarginMobile}
+			${subtitleTypographyMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			${buttonMarginMobile}
+			${buttonPaddingMobile}
+			${buttonTypographyMobile}
+			${buttonBDShadowMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			${buttonTypographyMobile}
+			${buttonBDShadowHoverMobile}
 		}
 	`;
 	const sliderControlsStylesDesktop = `
-		.eb-slider-wrapper.${blockId}{
-			
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			color: ${arrowColor} !important;
+			${arrowSizeDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:hover:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:hover:before {
+			color: ${arrowHoverColor} !important;
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			color: ${dotsColor} !important;
+			${dotsSizeDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li.slick-active button:before {
+			color: ${dotsActiveColor} !important;
 		}
 	`;
 	const sliderControlsStylesTab = `
-		.eb-slider-wrapper.${blockId}{
-			
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			${arrowSizeTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			${dotsSizeTab}
 		}
 	`;
 	const sliderControlsStylesMobile = `
-		.eb-slider-wrapper.${blockId}{
-			
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			${arrowSizeMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			${dotsSizeMobile}
 		}
 	`;
 
@@ -398,16 +562,21 @@ export default function Edit(props) {
 	const desktopAllStyles = softMinifyCssStrings(`
 		${isCssExists(wrapperStylesDesktop) ? wrapperStylesDesktop : " "}
 		${isCssExists(sliderStylesDesktop) ? sliderStylesDesktop : " "}
+		${isCssExists(sliderControlsStylesDesktop) ? sliderControlsStylesDesktop : " "}
 	`);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
 		${isCssExists(wrapperStylesTab) ? wrapperStylesTab : " "}
+		${isCssExists(sliderStylesTab) ? sliderStylesTab : " "}
+		${isCssExists(sliderControlsStylesTab) ? sliderControlsStylesTab : " "}
 	`);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
 		${isCssExists(wrapperStylesMobile) ? wrapperStylesMobile : " "}
+		${isCssExists(sliderStylesMobile) ? sliderStylesMobile : " "}
+		${isCssExists(sliderControlsStylesMobile) ? sliderControlsStylesMobile : " "}
 	`);
 
 	// Set All Style in "blockMeta" Attribute
@@ -432,7 +601,7 @@ export default function Edit(props) {
 		fade,
 		infinite,
 		pauseOnHover,
-		slidesToShow: 1,
+		slidesToShow: parseInt(slideToShowDesktop.replace(/[^0-9]/g, "")),
 		speed,
 		initialSlide,
 		vertical,
@@ -440,13 +609,13 @@ export default function Edit(props) {
 			{
 				breakpoint: 1024,
 				settings: {
-					slidesToShow: 2,
+					slidesToShow: parseInt(slideToShowTab.replace(/[^0-9]/g, "")),
 				}
 			},
 			{
 				breakpoint: 767,
 				settings: {
-					slidesToShow: 1,
+					slidesToShow: parseInt(slideToShowMobile.replace(/[^0-9]/g, "")),
 				}
 			}
 		]

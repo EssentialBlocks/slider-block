@@ -11,6 +11,11 @@ import {
 	SLIDE_TO_SHOW,
 	CUSTOM_HEIGHT,
 	DOTS_GAP,
+	ARROW_POSITION,
+	DOTS_POSITION,
+	ARROW_SIZE,
+	DOTS_SIZE,
+	SLIDES_GAP,
 } from "./constants/constants";
 import * as TYPOGRAPHY from "./constants/typography-constant";
 
@@ -101,6 +106,31 @@ const attributes = {
 	// range controller Dots Gap
 	...generateResponsiveRangeAttributes(DOTS_GAP, {
 		defaultRange: 10,
+	}),
+
+	// range controller Arrow Position
+	...generateResponsiveRangeAttributes(ARROW_POSITION, {
+		defaultRange: -25,
+	}),
+
+	// range controller Dots Position
+	...generateResponsiveRangeAttributes(DOTS_POSITION, {
+		defaultRange: -25,
+	}),
+
+	// range controller Arrow Position
+	...generateResponsiveRangeAttributes(ARROW_SIZE, {
+		defaultRange: 20,
+	}),
+
+	// range controller Dots Position
+	...generateResponsiveRangeAttributes(DOTS_SIZE, {
+		defaultRange: 10,
+	}),
+
+	// range controller Slides Gap
+	...generateResponsiveRangeAttributes(SLIDES_GAP, {
+		defaultRange: 5,
 	}),
 
 
@@ -222,23 +252,19 @@ const attributes = {
 	},
 	arrowColor: {
 		type: "string",
-		default: "#ffffff",
+		default: "#333333",
 	},
 	arrowHoverColor: {
 		type: "string",
-		default: "#ffffff",
-	},
-	arrowBGColor: {
-		type: "string",
-		default: "#333333",
-	},
-	arrowHoverBGColor: {
-		type: "string",
-		default: "#333333",
+		default: "#000000",
 	},
 	dotsColor: {
 		type: "string",
-		default: "#333333",
+		default: "#777777",
+	},
+	dotsActiveColor: {
+		type: "string",
+		default: "#000000",
 	},
 	textAlign: {
 		type: "string",

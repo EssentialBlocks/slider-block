@@ -1,3 +1,7 @@
+.eb-slider-wrapper .slick-slide {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
 .eb-slider-wrapper .image .eb-slider-item img {
   width: 100%;
   -o-object-fit: cover;
@@ -11,6 +15,7 @@
 }
 .eb-slider-wrapper .content .eb-slider-item .eb-slider-button {
   text-decoration: none;
+  display: inline-block;
 }
 .eb-slider-wrapper .content .eb-slider-item.content-1 img {
   width: 100%;
@@ -60,34 +65,11 @@
 .eb-slider-wrapper .content .eb-slider-item.content-4 .eb-slider-content {
   padding: 0px 15px;
 }
-
-.slick-prev:before,
-.slick-next:before {
-  color: black !important;
+.eb-slider-wrapper .slick-prev, .eb-slider-wrapper .slick-next {
+  z-index: 99;
 }
-
-.eb-slider button:not(.toggle) {
-  background-color: transparent;
-}
-
-.st0 {
-  fill: url(#SVGID_1_SLIDER);
-}
-
-.st1 {
-  fill: url(#SVGID_2_SLIDER);
-}
-
-.st2 {
-  fill: url(#SVGID_3_SLIDER);
-}
-
-.st3 {
-  fill: url(#SVGID_4_SLIDER);
-}
-
-.st4 {
-  fill: url(#SVGID_5_SLIDER);
+.eb-slider-wrapper ul.slick-dots {
+  margin: 0;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

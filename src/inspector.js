@@ -40,12 +40,18 @@ import {
 	BUTTON_PADDING,
 	BUTTON_BORDER_SHADOW,
 	DOTS_GAP,
+	ARROW_POSITION,
+	DOTS_POSITION,
+	ARROW_SIZE,
+	DOTS_SIZE,
+	SLIDES_GAP,
 	SLIDE_TO_SHOW,
 	CUSTOM_HEIGHT,
 	NORMAL_HOVER,
 	SLIDER_CONTENT_TYPE,
 	SLIDER_TYPE,
 	UNIT_TYPES,
+	FONT_UNIT_TYPES,
 	COLORS,
 	TEXT_ALIGN,
 	VERTICAL_ALIGN,
@@ -97,6 +103,7 @@ function Inspector(props) {
 		arrowBGColor,
 		arrowHoverBGColor,
 		dotsColor,
+		dotsActiveColor,
 		textAlign,
 		verticalAlign,
 	} = attributes;
@@ -426,7 +433,17 @@ function Inspector(props) {
 							{tab.name === "styles" && (
 								<>
 									<PanelBody title={__("Settings")} initialOpen={true}>
-										{sliderContentType === "content-1" && (
+										<ResponsiveRangeController
+											baseLabel={__("Slides Gap")}
+											controlName={SLIDES_GAP}
+											resRequiredProps={resRequiredProps}
+											units={[]}
+											min={0}
+											max={100}
+											step={1}
+										/>
+
+										{sliderType === "content" && sliderContentType === "content-1" && (
 											<ColorControl
 												label={__("Overlay Color")}
 												color={overlayColor}
@@ -449,24 +466,27 @@ function Inspector(props) {
 													))}
 												</ButtonGroup>
 
-												<PanelRow>Vertical Align</PanelRow>
-												<ButtonGroup>
-													{VERTICAL_ALIGN.map((item) => (
-														<Button
-															isLarge
-															isPrimary={verticalAlign === item.value}
-															isSecondary={verticalAlign !== item.value}
-															onClick={() => setAttributes({ verticalAlign: item.value })}
-														>
-															{item.label}
-														</Button>
-													))}
-												</ButtonGroup>
+												{sliderContentType != "content-2" && (
+													<>
+														<PanelRow>Vertical Align</PanelRow>
+														<ButtonGroup>
+															{VERTICAL_ALIGN.map((item) => (
+																<Button
+																	isLarge
+																	isPrimary={verticalAlign === item.value}
+																	isSecondary={verticalAlign !== item.value}
+																	onClick={() => setAttributes({ verticalAlign: item.value })}
+																>
+																	{item.label}
+																</Button>
+															))}
+														</ButtonGroup>
+													</>
+												)}
+												
 											</>
 										)}
 									</PanelBody>
-
-									
 
 									<PanelBody title={__("Title")} initialOpen={false}>
 										<PanelRow>Color</PanelRow>
@@ -614,12 +634,6 @@ function Inspector(props) {
 																setAttributes({ arrowColor: newColor }),
 															label: __("Color"),
 														},
-														{
-															value: arrowBGColor,
-															onChange: (newColor) =>
-																setAttributes({ arrowBGColor: newColor }),
-															label: __("Background Color"),
-														}
 													]}
 												/>
 											)}
@@ -636,15 +650,29 @@ function Inspector(props) {
 																setAttributes({ arrowHoverColor: newColor }),
 															label: __("Color"),
 														},
-														{
-															value: arrowHoverBGColor,
-															onChange: (newColor) =>
-																setAttributes({ arrowHoverBGColor: newColor }),
-															label: __("Background Color"),
-														}
 													]}
 												/>
 											)}
+
+											<ResponsiveRangeController
+												baseLabel={__("Arrow Size")}
+												controlName={ARROW_SIZE}
+												resRequiredProps={resRequiredProps}
+												units={FONT_UNIT_TYPES}
+												min={1}
+												max={50}
+												step={1}
+											/>
+
+											<ResponsiveRangeController
+												baseLabel={__("Arrow Position")}
+												controlName={ARROW_POSITION}
+												resRequiredProps={resRequiredProps}
+												units={UNIT_TYPES}
+												min={-50}
+												max={100}
+												step={1}
+											/>
 										</PanelBody>
 									)}
 
@@ -656,13 +684,39 @@ function Inspector(props) {
 												value={ dotsColor }
 												onChange={ ( color ) => setAttributes({ dotsColor: color })}
 											/>
+											<PanelRow>Active Color</PanelRow>
+											<ColorPalette
+												colors={COLORS}
+												value={ dotsActiveColor }
+												onChange={ ( color ) => setAttributes({ dotsActiveColor: color })}
+											/>
+
+
+											<ResponsiveRangeController
+												baseLabel={__("Dots Size")}
+												controlName={DOTS_SIZE}
+												resRequiredProps={resRequiredProps}
+												units={FONT_UNIT_TYPES}
+												min={1}
+												max={50}
+												step={1}
+											/>
 											<ResponsiveRangeController
 												baseLabel={__("Dots Gap")}
 												controlName={DOTS_GAP}
 												resRequiredProps={resRequiredProps}
-												units={[]}
+												units={UNIT_TYPES}
 												min={0}
-												max={30}
+												max={50}
+												step={1}
+											/>
+											<ResponsiveRangeController
+												baseLabel={__("Dots Position")}
+												controlName={DOTS_POSITION}
+												resRequiredProps={resRequiredProps}
+												units={UNIT_TYPES}
+												min={-50}
+												max={100}
 												step={1}
 											/>
 										</PanelBody>

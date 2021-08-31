@@ -5780,7 +5780,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 
 
-var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateTypographyAttributes"])(Object.values(_constants_typography_constant__WEBPACK_IMPORTED_MODULE_2__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_MARGIN"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_PADDING"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["TITLE_MARGIN"], {
+var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSpread({}, Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateTypographyAttributes"])(Object.values(_constants_typography_constant__WEBPACK_IMPORTED_MODULE_2__))), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_MARGIN"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["WRAPPER_PADDING"])), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateDimensionsAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["TITLE_MARGIN"], {
   top: 0,
   bottom: 20,
   right: 0,
@@ -5831,6 +5831,16 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   defaultRange: 300
 })), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["DOTS_GAP"], {
   defaultRange: 10
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["ARROW_POSITION"], {
+  defaultRange: -25
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["DOTS_POSITION"], {
+  defaultRange: -25
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["ARROW_SIZE"], {
+  defaultRange: 20
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["DOTS_SIZE"], {
+  defaultRange: 10
+})), Object(_util_helpers__WEBPACK_IMPORTED_MODULE_3__["generateResponsiveRangeAttributes"])(_constants_constants__WEBPACK_IMPORTED_MODULE_1__["SLIDES_GAP"], {
+  defaultRange: 5
 })), {}, {
   resOption: {
     type: "string",
@@ -5949,23 +5959,19 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
   },
   arrowColor: {
     type: "string",
-    default: "#ffffff"
+    default: "#333333"
   },
   arrowHoverColor: {
     type: "string",
-    default: "#ffffff"
-  },
-  arrowBGColor: {
-    type: "string",
-    default: "#333333"
-  },
-  arrowHoverBGColor: {
-    type: "string",
-    default: "#333333"
+    default: "#000000"
   },
   dotsColor: {
     type: "string",
-    default: "#333333"
+    default: "#777777"
+  },
+  dotsActiveColor: {
+    type: "string",
+    default: "#000000"
   },
   textAlign: {
     type: "string",
@@ -5985,7 +5991,7 @@ var attributes = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_object
 /*!************************************!*\
   !*** ./src/constants/constants.js ***!
   \************************************/
-/*! exports provided: WRAPPER_BG, WRAPPER_MARGIN, WRAPPER_PADDING, WRAPPER_BORDER_SHADOW, TITLE_MARGIN, SUBTITLE_MARGIN, BUTTON_MARGIN, BUTTON_PADDING, BUTTON_BORDER_SHADOW, SLIDE_TO_SHOW, CUSTOM_HEIGHT, DOTS_GAP, NORMAL_HOVER, VERTICAL_ALIGN, TEXT_ALIGN, SLIDER_TYPE, SLIDER_CONTENT_TYPE, UNIT_TYPES, COLORS */
+/*! exports provided: WRAPPER_BG, WRAPPER_MARGIN, WRAPPER_PADDING, WRAPPER_BORDER_SHADOW, TITLE_MARGIN, SUBTITLE_MARGIN, BUTTON_MARGIN, BUTTON_PADDING, BUTTON_BORDER_SHADOW, SLIDE_TO_SHOW, CUSTOM_HEIGHT, DOTS_GAP, ARROW_POSITION, DOTS_POSITION, ARROW_SIZE, DOTS_SIZE, SLIDES_GAP, NORMAL_HOVER, VERTICAL_ALIGN, TEXT_ALIGN, SLIDER_TYPE, SLIDER_CONTENT_TYPE, UNIT_TYPES, FONT_UNIT_TYPES, COLORS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6002,12 +6008,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLIDE_TO_SHOW", function() { return SLIDE_TO_SHOW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CUSTOM_HEIGHT", function() { return CUSTOM_HEIGHT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOTS_GAP", function() { return DOTS_GAP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARROW_POSITION", function() { return ARROW_POSITION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOTS_POSITION", function() { return DOTS_POSITION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ARROW_SIZE", function() { return ARROW_SIZE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DOTS_SIZE", function() { return DOTS_SIZE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLIDES_GAP", function() { return SLIDES_GAP; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NORMAL_HOVER", function() { return NORMAL_HOVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERTICAL_ALIGN", function() { return VERTICAL_ALIGN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TEXT_ALIGN", function() { return TEXT_ALIGN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLIDER_TYPE", function() { return SLIDER_TYPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SLIDER_CONTENT_TYPE", function() { return SLIDER_CONTENT_TYPE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNIT_TYPES", function() { return UNIT_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FONT_UNIT_TYPES", function() { return FONT_UNIT_TYPES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLORS", function() { return COLORS; });
 var __ = wp.i18n.__; // the consts defined here should be unique from one another
 
@@ -6023,6 +6035,11 @@ var BUTTON_BORDER_SHADOW = "buttonBorderShadow";
 var SLIDE_TO_SHOW = "slideToShow";
 var CUSTOM_HEIGHT = "sliderHeight";
 var DOTS_GAP = "dotsGap";
+var ARROW_POSITION = "arrowPosition";
+var DOTS_POSITION = "dotsPosition";
+var ARROW_SIZE = "arrowSize";
+var DOTS_SIZE = "dotsSize";
+var SLIDES_GAP = "slidesGap";
 var NORMAL_HOVER = [{
   label: "Normal",
   value: "normal"
@@ -6067,10 +6084,10 @@ var SLIDER_CONTENT_TYPE = [{
   label: __("Content Bottom"),
   value: "content-2"
 }, {
-  label: __("Content Left"),
+  label: __("Content Right"),
   value: "content-3"
 }, {
-  label: __("Content Right"),
+  label: __("Content Left"),
   value: "content-4"
 }];
 var UNIT_TYPES = [{
@@ -6082,6 +6099,13 @@ var UNIT_TYPES = [{
 }, {
   label: "vh",
   value: "vh"
+}];
+var FONT_UNIT_TYPES = [{
+  label: "px",
+  value: "px"
+}, {
+  label: "em",
+  value: "em"
 }];
 var COLORS = [{
   name: 'Black',
@@ -6206,7 +6230,6 @@ function Edit(props) {
       isSelected = props.isSelected;
   var resOption = attributes.resOption,
       blockId = attributes.blockId,
-      blockRoot = attributes.blockRoot,
       blockMeta = attributes.blockMeta,
       sliderType = attributes.sliderType,
       sliderContentType = attributes.sliderContentType,
@@ -6225,18 +6248,15 @@ function Edit(props) {
       initialSlide = attributes.initialSlide,
       titleColor = attributes.titleColor,
       subtitleColor = attributes.subtitleColor,
-      buttonColorType = attributes.buttonColorType,
       buttonColor = attributes.buttonColor,
       buttonHoverColor = attributes.buttonHoverColor,
       buttonBGColor = attributes.buttonBGColor,
       buttonHoverBGColor = attributes.buttonHoverBGColor,
       overlayColor = attributes.overlayColor,
-      arrowColorType = attributes.arrowColorType,
       arrowColor = attributes.arrowColor,
       arrowHoverColor = attributes.arrowHoverColor,
-      arrowBGColor = attributes.arrowBGColor,
-      arrowHoverBGColor = attributes.arrowHoverBGColor,
       dotsColor = attributes.dotsColor,
+      dotsActiveColor = attributes.dotsActiveColor,
       textAlign = attributes.textAlign,
       verticalAlign = attributes.verticalAlign; // this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 
@@ -6390,12 +6410,72 @@ function Edit(props) {
 
   var _generateResponsiveRa3 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
     controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["DOTS_GAP"],
-    property: "gap",
+    property: "margin-right",
     attributes: attributes
   }),
       dotsGapDesktop = _generateResponsiveRa3.rangeStylesDesktop,
       dotsGapTab = _generateResponsiveRa3.rangeStylesTab,
-      dotsGapMobile = _generateResponsiveRa3.rangeStylesMobile; //Generate Background
+      dotsGapMobile = _generateResponsiveRa3.rangeStylesMobile; // range controller Slider Left Arrow Position
+
+
+  var _generateResponsiveRa4 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["ARROW_POSITION"],
+    property: "left",
+    attributes: attributes
+  }),
+      leftArrowPositionDesktop = _generateResponsiveRa4.rangeStylesDesktop,
+      leftArrowPositionTab = _generateResponsiveRa4.rangeStylesTab,
+      leftArrowPositionMobile = _generateResponsiveRa4.rangeStylesMobile; // range controller Slider Left Arrow Position
+
+
+  var _generateResponsiveRa5 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["ARROW_POSITION"],
+    property: "right",
+    attributes: attributes
+  }),
+      rightArrowPositionDesktop = _generateResponsiveRa5.rangeStylesDesktop,
+      rightArrowPositionTab = _generateResponsiveRa5.rangeStylesTab,
+      rightArrowPositionMobile = _generateResponsiveRa5.rangeStylesMobile; // range controller Slider Arrow Size
+
+
+  var _generateResponsiveRa6 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["ARROW_SIZE"],
+    property: "font-size",
+    attributes: attributes
+  }),
+      arrowSizeDesktop = _generateResponsiveRa6.rangeStylesDesktop,
+      arrowSizeTab = _generateResponsiveRa6.rangeStylesTab,
+      arrowSizeMobile = _generateResponsiveRa6.rangeStylesMobile; // range controller Slider Arrow Size
+
+
+  var _generateResponsiveRa7 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["DOTS_SIZE"],
+    property: "font-size",
+    attributes: attributes
+  }),
+      dotsSizeDesktop = _generateResponsiveRa7.rangeStylesDesktop,
+      dotsSizeTab = _generateResponsiveRa7.rangeStylesTab,
+      dotsSizeMobile = _generateResponsiveRa7.rangeStylesMobile; // range controller Slider Slides Gap
+
+
+  var _generateResponsiveRa8 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["SLIDES_GAP"],
+    property: "padding",
+    attributes: attributes
+  }),
+      slidesGapDesktop = _generateResponsiveRa8.rangeStylesDesktop,
+      slidesGapTab = _generateResponsiveRa8.rangeStylesTab,
+      slidesGapMobile = _generateResponsiveRa8.rangeStylesMobile; // range controller Slider Dots Position
+
+
+  var _generateResponsiveRa9 = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateResponsiveRangeStyles"])({
+    controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_4__["DOTS_POSITION"],
+    property: "bottom",
+    attributes: attributes
+  }),
+      dotsPositionDesktop = _generateResponsiveRa9.rangeStylesDesktop,
+      dotsPositionTab = _generateResponsiveRa9.rangeStylesTab,
+      dotsPositionMobile = _generateResponsiveRa9.rangeStylesMobile; //Generate Background
 
 
   var _generateBackgroundCo = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["generateBackgroundControlStyles"])({
@@ -6445,18 +6525,18 @@ function Edit(props) {
   var wrapperStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginDesktop, "\n\t\t\t").concat(wrapperPaddingDesktop, "\n\t\t\t").concat(wrapperBDShadowDesktop, "\n\t\t\t").concat(wrapperBackgroundStylesDesktop, "\n\t\t\t").concat(wrapperBgTransitionStyle, "\n\t\t}\n\t");
   var wrapperStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginTab, "\n\t\t\t").concat(wrapperPaddingTab, "\n\t\t\t").concat(wrapperBDShadowTab, "\n\t\t\t").concat(wrapperBackgroundStylesTab, "\n\t\t}\n\t");
   var wrapperStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t").concat(wrapperMarginMobile, "\n\t\t\t").concat(wrapperPaddingMobile, "\n\t\t\t").concat(wrapperBDShadowMobile, "\n\t\t\t").concat(wrapperBackgroundStylesMobile, "\n\t\t}\n\t");
-  var sliderStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .content .eb-slider-item {\n\t\t\ttext-align: ").concat(textAlign, ";\n\t\t\talign-items: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-slider .eb-slider-item img {\n\t\t\t").concat(isCustomHeight && (sliderType === "image" || sliderType === "content" && sliderContentType === "content-1") ? sliderHeightDesktop : "", "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item.content-1 .eb-slider-content {\n\t\t\tbackground-color: ").concat(overlayColor, ";\n\t\t\tjustify-content: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-title {\n\t\t\tcolor: ").concat(titleColor, ";\n\t\t\t").concat(titleMarginDesktop, "\n\t\t\t").concat(titleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {\n\t\t\tcolor: ").concat(subtitleColor, ";\n\t\t\t").concat(subtitleMarginDesktop, "\n\t\t\t").concat(subtitleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button {\n\t\t\tcolor: ").concat(buttonColor, ";\n\t\t\tbackground-color: ").concat(buttonBGColor, ";\n\t\t\t").concat(buttonMarginDesktop, "\n\t\t\t").concat(buttonPaddingDesktop, "\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {\n\t\t\tcolor: ").concat(buttonHoverColor, ";\n\t\t\tbackground-color: ").concat(buttonHoverBGColor, ";\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowHoverDesktop, "\n\t\t}\n\t");
-  var sliderStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
-  var sliderStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
-  var sliderControlsStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
-  var sliderControlsStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t");
-  var sliderControlsStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, "{\n\t\t\t\n\t\t}\n\t"); // all css styles for large screen width (desktop/laptop) in strings ⬇
+  var sliderStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-slide {\n\t\t\t").concat(slidesGapDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item {\n\t\t\ttext-align: ").concat(textAlign, ";\n\t\t\talign-items: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-slider .eb-slider-item img {\n\t\t\t").concat(isCustomHeight && (sliderType === "image" || sliderType === "content" && sliderContentType === "content-1") ? sliderHeightDesktop : "", "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item.content-1 .eb-slider-content {\n\t\t\tbackground-color: ").concat(overlayColor, ";\n\t\t\tjustify-content: ").concat(verticalAlign, ";\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-title {\n\t\t\tcolor: ").concat(titleColor, ";\n\t\t\t").concat(titleMarginDesktop, "\n\t\t\t").concat(titleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {\n\t\t\tcolor: ").concat(subtitleColor, ";\n\t\t\t").concat(subtitleMarginDesktop, "\n\t\t\t").concat(subtitleTypographyDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button {\n\t\t\tcolor: ").concat(buttonColor, ";\n\t\t\tbackground-color: ").concat(buttonBGColor, ";\n\t\t\t").concat(buttonMarginDesktop, "\n\t\t\t").concat(buttonPaddingDesktop, "\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {\n\t\t\tcolor: ").concat(buttonHoverColor, ";\n\t\t\tbackground-color: ").concat(buttonHoverBGColor, ";\n\t\t\t").concat(buttonTypographyDesktop, "\n\t\t\t").concat(buttonBDShadowHoverDesktop, "\n\t\t}\n\t");
+  var sliderStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-slider .eb-slider-item img {\n\t\t\t").concat(isCustomHeight && (sliderType === "image" || sliderType === "content" && sliderContentType === "content-1") ? sliderHeightTab : "", "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-title {\n\t\t\t").concat(titleMarginTab, "\n\t\t\t").concat(titleTypographyTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {\n\t\t\t").concat(subtitleMarginTab, "\n\t\t\t").concat(subtitleTypographyTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button {\n\t\t\t").concat(buttonMarginTab, "\n\t\t\t").concat(buttonPaddingTab, "\n\t\t\t").concat(buttonTypographyTab, "\n\t\t\t").concat(buttonBDShadowTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {\n\t\t\t").concat(buttonTypographyTab, "\n\t\t\t").concat(buttonBDShadowHoverTab, "\n\t\t}\n\t");
+  var sliderStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-slider .eb-slider-item img {\n\t\t\t").concat(isCustomHeight && (sliderType === "image" || sliderType === "content" && sliderContentType === "content-1") ? sliderHeightMobile : "", "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-title {\n\t\t\t").concat(titleMarginMobile, "\n\t\t\t").concat(titleTypographyMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {\n\t\t\t").concat(subtitleMarginMobile, "\n\t\t\t").concat(subtitleTypographyMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button {\n\t\t\t").concat(buttonMarginMobile, "\n\t\t\t").concat(buttonPaddingMobile, "\n\t\t\t").concat(buttonTypographyMobile, "\n\t\t\t").concat(buttonBDShadowMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {\n\t\t\t").concat(buttonTypographyMobile, "\n\t\t\t").concat(buttonBDShadowHoverMobile, "\n\t\t}\n\t");
+  var sliderControlsStylesDesktop = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-prev {\n\t\t\t").concat(leftArrowPositionDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next {\n\t\t\t").concat(rightArrowPositionDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-prev:before, \n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next:before {\n\t\t\tcolor: ").concat(arrowColor, " !important;\n\t\t\t").concat(arrowSizeDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-prev:hover:before, \n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next:hover:before {\n\t\t\tcolor: ").concat(arrowHoverColor, " !important;\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots {\n\t\t\t").concat(dotsPositionDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li {\n\t\t\t").concat(dotsGapDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li button:before {\n\t\t\tcolor: ").concat(dotsColor, " !important;\n\t\t\t").concat(dotsSizeDesktop, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li.slick-active button:before {\n\t\t\tcolor: ").concat(dotsActiveColor, " !important;\n\t\t}\n\t");
+  var sliderControlsStylesTab = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-prev {\n\t\t\t").concat(leftArrowPositionTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next {\n\t\t\t").concat(rightArrowPositionTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-prev:before, \n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next:before {\n\t\t\t").concat(arrowSizeTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots {\n\t\t\t").concat(dotsPositionTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li {\n\t\t\t").concat(dotsGapTab, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li button:before {\n\t\t\t").concat(dotsSizeTab, "\n\t\t}\n\t");
+  var sliderControlsStylesMobile = "\n\t\t.eb-slider-wrapper.".concat(blockId, " .slick-prev {\n\t\t\t").concat(leftArrowPositionMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next {\n\t\t\t").concat(rightArrowPositionMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-prev:before, \n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-next:before {\n\t\t\t").concat(arrowSizeMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots {\n\t\t\t").concat(dotsPositionMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li {\n\t\t\t").concat(dotsGapMobile, "\n\t\t}\n\t\t.eb-slider-wrapper.").concat(blockId, " .slick-dots li button:before {\n\t\t\t").concat(dotsSizeMobile, "\n\t\t}\n\t"); // all css styles for large screen width (desktop/laptop) in strings ⬇
 
-  var desktopAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesDesktop) ? wrapperStylesDesktop : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderStylesDesktop) ? sliderStylesDesktop : " ", "\n\t")); // all css styles for Tab in strings ⬇
+  var desktopAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesDesktop) ? wrapperStylesDesktop : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderStylesDesktop) ? sliderStylesDesktop : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderControlsStylesDesktop) ? sliderControlsStylesDesktop : " ", "\n\t")); // all css styles for Tab in strings ⬇
 
-  var tabAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesTab) ? wrapperStylesTab : " ", "\n\t")); // all css styles for Mobile in strings ⬇
+  var tabAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesTab) ? wrapperStylesTab : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderStylesTab) ? sliderStylesTab : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderControlsStylesTab) ? sliderControlsStylesTab : " ", "\n\t")); // all css styles for Mobile in strings ⬇
 
-  var mobileAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesMobile) ? wrapperStylesMobile : " ", "\n\t")); // Set All Style in "blockMeta" Attribute
+  var mobileAllStyles = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["softMinifyCssStrings"])("\n\t\t".concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(wrapperStylesMobile) ? wrapperStylesMobile : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderStylesMobile) ? sliderStylesMobile : " ", "\n\t\t").concat(Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__["isCssExists"])(sliderControlsStylesMobile) ? sliderControlsStylesMobile : " ", "\n\t")); // Set All Style in "blockMeta" Attribute
 
   useEffect(function () {
     var styleObject = {
@@ -6481,19 +6561,19 @@ function Edit(props) {
     fade: fade,
     infinite: infinite,
     pauseOnHover: pauseOnHover,
-    slidesToShow: 1,
+    slidesToShow: parseInt(slideToShowDesktop.replace(/[^0-9]/g, "")),
     speed: speed,
     initialSlide: initialSlide,
     vertical: vertical,
     responsive: [{
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2
+        slidesToShow: parseInt(slideToShowTab.replace(/[^0-9]/g, ""))
       }
     }, {
       breakpoint: 767,
       settings: {
-        slidesToShow: 1
+        slidesToShow: parseInt(slideToShowMobile.replace(/[^0-9]/g, ""))
       }
     }]
   };
@@ -6877,6 +6957,7 @@ function Inspector(props) {
       arrowBGColor = attributes.arrowBGColor,
       arrowHoverBGColor = attributes.arrowHoverBGColor,
       dotsColor = attributes.dotsColor,
+      dotsActiveColor = attributes.dotsActiveColor,
       textAlign = attributes.textAlign,
       verticalAlign = attributes.verticalAlign;
 
@@ -7219,7 +7300,15 @@ function Inspector(props) {
     }))), tab.name === "styles" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __("Settings"),
       initialOpen: true
-    }, sliderContentType === "content-1" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_color_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Slides Gap"),
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["SLIDES_GAP"],
+      resRequiredProps: resRequiredProps,
+      units: [],
+      min: 0,
+      max: 100,
+      step: 1
+    }), sliderType === "content" && sliderContentType === "content-1" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_color_control__WEBPACK_IMPORTED_MODULE_11__["default"], {
       label: __("Overlay Color"),
       color: overlayColor,
       onChange: function onChange(color) {
@@ -7238,7 +7327,7 @@ function Inspector(props) {
           });
         }
       }, item.label);
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Vertical Align"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, _constants_constants__WEBPACK_IMPORTED_MODULE_3__["VERTICAL_ALIGN"].map(function (item) {
+    })), sliderContentType != "content-2" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Vertical Align"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ButtonGroup, null, _constants_constants__WEBPACK_IMPORTED_MODULE_3__["VERTICAL_ALIGN"].map(function (item) {
       return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(Button, {
         isLarge: true,
         isPrimary: verticalAlign === item.value,
@@ -7249,7 +7338,7 @@ function Inspector(props) {
           });
         }
       }, item.label);
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
+    }))))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __("Title"),
       initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Color"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ColorPalette, {
@@ -7390,14 +7479,6 @@ function Inspector(props) {
           });
         },
         label: __("Color")
-      }, {
-        value: arrowBGColor,
-        onChange: function onChange(newColor) {
-          return setAttributes({
-            arrowBGColor: newColor
-          });
-        },
-        label: __("Background Color")
       }]
     }), arrowColorType === "hover" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelColorSettings, {
       className: "eb-subpanel",
@@ -7411,15 +7492,23 @@ function Inspector(props) {
           });
         },
         label: __("Color")
-      }, {
-        value: arrowHoverBGColor,
-        onChange: function onChange(newColor) {
-          return setAttributes({
-            arrowHoverBGColor: newColor
-          });
-        },
-        label: __("Background Color")
       }]
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Arrow Size"),
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["ARROW_SIZE"],
+      resRequiredProps: resRequiredProps,
+      units: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["FONT_UNIT_TYPES"],
+      min: 1,
+      max: 50,
+      step: 1
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Arrow Position"),
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["ARROW_POSITION"],
+      resRequiredProps: resRequiredProps,
+      units: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["UNIT_TYPES"],
+      min: -50,
+      max: 100,
+      step: 1
     })), dots && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, {
       title: __("Dot"),
       initialOpen: false
@@ -7431,13 +7520,37 @@ function Inspector(props) {
           dotsColor: color
         });
       }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelRow, null, "Active Color"), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(ColorPalette, {
+      colors: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["COLORS"],
+      value: dotsActiveColor,
+      onChange: function onChange(color) {
+        return setAttributes({
+          dotsActiveColor: color
+        });
+      }
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Dots Size"),
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["DOTS_SIZE"],
+      resRequiredProps: resRequiredProps,
+      units: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["FONT_UNIT_TYPES"],
+      min: 1,
+      max: 50,
+      step: 1
     }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
       baseLabel: __("Dots Gap"),
       controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["DOTS_GAP"],
       resRequiredProps: resRequiredProps,
-      units: [],
+      units: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["UNIT_TYPES"],
       min: 0,
-      max: 30,
+      max: 50,
+      step: 1
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_responsive_range_control__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      baseLabel: __("Dots Position"),
+      controlName: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["DOTS_POSITION"],
+      resRequiredProps: resRequiredProps,
+      units: _constants_constants__WEBPACK_IMPORTED_MODULE_3__["UNIT_TYPES"],
+      min: -50,
+      max: 100,
       step: 1
     }))), tab.name === "advance" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(PanelBody, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__["createElement"])(_util_dimensions_control_v2__WEBPACK_IMPORTED_MODULE_6__["default"], {
       resRequiredProps: resRequiredProps,
@@ -7486,7 +7599,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var Save = function Save(_ref) {
   var attributes = _ref.attributes;
-  var images = attributes.images,
+  var resOption = attributes.resOption,
+      blockId = attributes.blockId,
+      blockRoot = attributes.blockRoot,
+      blockMeta = attributes.blockMeta,
+      sliderType = attributes.sliderType,
+      sliderContentType = attributes.sliderContentType,
+      images = attributes.images,
       arrows = attributes.arrows,
       adaptiveHeight = attributes.adaptiveHeight,
       autoplay = attributes.autoplay,
@@ -7494,15 +7613,34 @@ var Save = function Save(_ref) {
       dots = attributes.dots,
       fade = attributes.fade,
       infinite = attributes.infinite,
+      vertical = attributes.vertical,
       pauseOnHover = attributes.pauseOnHover,
-      slidesToShow = attributes.slidesToShow,
-      speed = attributes.speed;
+      isCustomHeight = attributes.isCustomHeight,
+      speed = attributes.speed,
+      initialSlide = attributes.initialSlide,
+      titleColor = attributes.titleColor,
+      subtitleColor = attributes.subtitleColor,
+      buttonColorType = attributes.buttonColorType,
+      buttonColor = attributes.buttonColor,
+      buttonHoverColor = attributes.buttonHoverColor,
+      buttonBGColor = attributes.buttonBGColor,
+      buttonHoverBGColor = attributes.buttonHoverBGColor,
+      overlayColor = attributes.overlayColor,
+      arrowColorType = attributes.arrowColorType,
+      arrowColor = attributes.arrowColor,
+      arrowHoverColor = attributes.arrowHoverColor,
+      dotsColor = attributes.dotsColor,
+      dotsActiveColor = attributes.dotsActiveColor,
+      textAlign = attributes.textAlign,
+      verticalAlign = attributes.verticalAlign;
   return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    className: "eb-slider-wrapper ".concat(blockId)
+  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
     className: "eb-slider",
     "data-show-arrows": arrows,
     "data-adaptive-height": adaptiveHeight,
-    "data-autoplay-speed": autoplaySpeed,
-    "data-show-slides": slidesToShow,
+    "data-autoplay-speed": autoplaySpeed // data-show-slides={slidesToShow}
+    ,
     "data-speed": speed,
     "data-autoplay": autoplay ? "true" : "false",
     "data-dots": dots ? "true" : "false",
@@ -7511,14 +7649,22 @@ var Save = function Save(_ref) {
     "data-hover-pause": pauseOnHover ? "true" : "false"
   }, images.map(function (image) {
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "eb-slider-item"
+      className: "eb-slider-item ".concat(sliderContentType)
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       className: "eb-slider-image",
-      src: image.url,
-      alt: image.alt,
-      "data-id": image.id
-    }));
-  }));
+      src: image.url
+    }), sliderType === "content" && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "eb-slider-content align-".concat(textAlign)
+    }, image.title && image.title.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h2", {
+      className: "eb-slider-title"
+    }, image.title), image.subtitle && image.subtitle.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", {
+      className: "eb-slider-subtitle"
+    }, image.subtitle), image.showButton && image.buttonText && image.buttonText.length > 0 && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#",
+      className: "eb-slider-button",
+      traget: image.openNewTab ? "_blank" : "_self"
+    }, image.buttonText)));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Save);

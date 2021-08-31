@@ -13,6 +13,11 @@ export const BUTTON_BORDER_SHADOW = "buttonBorderShadow";
 export const SLIDE_TO_SHOW = "slideToShow";
 export const CUSTOM_HEIGHT = "sliderHeight";
 export const DOTS_GAP = "dotsGap";
+export const ARROW_POSITION = "arrowPosition";
+export const DOTS_POSITION = "dotsPosition";
+export const ARROW_SIZE = "arrowSize";
+export const DOTS_SIZE = "dotsSize";
+export const SLIDES_GAP = "slidesGap";
 
 export const NORMAL_HOVER = [
 	{ label: "Normal", value: "normal" },
@@ -40,14 +45,19 @@ export const SLIDER_TYPE = [
 export const SLIDER_CONTENT_TYPE = [
 	{ label: __("Content Overlay"), value: "content-1" },
 	{ label: __("Content Bottom"), value: "content-2" },
-	{ label: __("Content Left"), value: "content-3" },
-	{ label: __("Content Right"), value: "content-4" },
+	{ label: __("Content Right"), value: "content-3" },
+	{ label: __("Content Left"), value: "content-4" },
 ];
 
 export const UNIT_TYPES = [
 	{ label: "px", value: "px" },
 	{ label: "%", value: "%" },
 	{ label: "vh", value: "vh" },
+];
+
+export const FONT_UNIT_TYPES = [
+	{ label: "px", value: "px" },
+	{ label: "em", value: "em" },
 ];
 
 export const COLORS = [
