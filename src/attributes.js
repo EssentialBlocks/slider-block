@@ -172,7 +172,7 @@ const attributes = {
 	},
 	autoplay: {
 		type: "bolean",
-		default: false,
+		default: true,
 	},
 	autoplaySpeed: {
 		type: "number",

@@ -5,7 +5,9 @@ import "./style.scss";
 import Edit from "./edit";
 import save from "./save";
 import attributes from "./attributes";
-import icon from "./icon";
+// import icon from "./icon";
+import { SliderIcon } from "../util/icons";
+import Example from "./example";
 
 registerBlockType("slider-block/slider-block", {
 	title: __("Slider Block", "slider-block"),
@@ -15,7 +17,8 @@ registerBlockType("slider-block/slider-block", {
 	),
 	category: "widgets",
 	keywords: [__("slider"), __("carousel"), __("images")],
-	icon,
+	icon: SliderIcon,
+	example: Example,
 	attributes,
 	edit: Edit,
 	save,
