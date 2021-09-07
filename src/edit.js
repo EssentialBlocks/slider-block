@@ -438,6 +438,9 @@ export default function Edit(props) {
 		}
 	`;
 	const sliderStylesTab = `
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapTab}
+		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
 			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightTab : ""}
 		}
@@ -461,6 +464,9 @@ export default function Edit(props) {
 		}
 	`;
 	const sliderStylesMobile = `
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapMobile}
+		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
 			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightMobile : ""}
 		}
