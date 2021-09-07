@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name:     Image Slider Block
+ * Plugin Name:     Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
  * Version:         1.0.0
  * Author:          WPDeveloper
- * Author URI: 		https://wpdeveloper.net
+ * Author URI: 		  https://wpdeveloper.net
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     slider-block
@@ -97,8 +97,8 @@ function create_block_slider_block_block_init() {
           wp_enqueue_script('slider-block-slider-block-frontend');
         }
           return $content;
-        }
-    ) );
+      }
+    ));
   }
 }
 add_action( 'init', 'create_block_slider_block_block_init' );

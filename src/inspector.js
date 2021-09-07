@@ -4,14 +4,12 @@
 const { __ } = wp.i18n;
 const { InspectorControls, PanelColorSettings } = wp.blockEditor;
 const {
-	Panel,
 	PanelBody,
 	PanelRow,
 	SelectControl,
 	ToggleControl,
 	Button,
 	ButtonGroup,
-	BaseControl,
 	TabPanel,
 	RangeControl,
 	TextControl,
@@ -20,11 +18,6 @@ const {
 } = wp.components;
 const { useEffect } = wp.element;
 const { select } = wp.data;
-
-/**
- * React Dependencies 
-*/
-import RLDD from 'react-list-drag-and-drop/lib/RLDD';
 
 /*
 * Internal depencencies 
@@ -51,6 +44,7 @@ import {
 	SLIDER_CONTENT_TYPE,
 	SLIDER_TYPE,
 	UNIT_TYPES,
+	HEIGHT_UNIT_TYPES,
 	FONT_UNIT_TYPES,
 	COLORS,
 	TEXT_ALIGN,
@@ -100,8 +94,6 @@ function Inspector(props) {
 		arrowColorType,
 		arrowColor,
 		arrowHoverColor,
-		arrowBGColor,
-		arrowHoverBGColor,
 		dotsColor,
 		dotsActiveColor,
 		textAlign,
@@ -331,7 +323,7 @@ function Inspector(props) {
 												baseLabel={__("Slider Height", "slider-block")}
 												controlName={CUSTOM_HEIGHT}
 												resRequiredProps={resRequiredProps}
-												units={UNIT_TYPES}
+												units={HEIGHT_UNIT_TYPES}
 												min={1}
 												max={500}
 												step={1}

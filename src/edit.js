@@ -92,8 +92,6 @@ export default function Edit(props) {
 
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 	useEffect(() => {
-		const bodyClasses = document.body.className;
-
 		setAttributes({
 			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
 		});
@@ -641,8 +639,8 @@ export default function Edit(props) {
 			if (images.length > 0 ) {
 				images.map((image, index) => {
 					if (selectedImage.id == image.imageId) {
-						item.title = image.title;
-						item.subtitle = image.subtitle;
+						item.title = image.title ? image.title : `Slider ${selectedIndex + 1}`;
+						item.subtitle = image.subtitle ? image.subtitle : "Essential Blocks Slider Subtitle";
 						item.showButton = image.showButton ? image.showButton : true;
 						item.buttonText = image.buttonText ? image.buttonText : "See More";
 						item.buttonUrl = image.buttonUrl;
@@ -652,8 +650,8 @@ export default function Edit(props) {
 				})
 			}
 			else {
-				item.title = "";
-				item.subtitle = "";
+				item.title = `Slider ${selectedIndex + 1}`;
+				item.subtitle = "Essential Blocks Slider Subtitle";
 				item.showButton = true;
 				item.buttonText = "See More";
 				item.buttonUrl = "";
@@ -772,7 +770,7 @@ export default function Edit(props) {
 										<a
 											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
 											className="eb-slider-button" 
-											traget={image.openNewTab ? "_blank" : "_self"}
+											target={image.openNewTab ? "_blank" : "_self"}
 										>
 											{image.buttonText}
 										</a>

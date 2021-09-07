@@ -55,6 +55,12 @@ export const UNIT_TYPES = [
 	{ label: "vh", value: "vh" },
 ];
 
+export const HEIGHT_UNIT_TYPES = [
+	{ label: "px", value: "px" },
+	{ label: "em", value: "em" },
+	{ label: "vh", value: "vh" },
+];
+
 export const FONT_UNIT_TYPES = [
 	{ label: "px", value: "px" },
 	{ label: "em", value: "em" },

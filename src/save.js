@@ -1,4 +1,4 @@
-const { useBlockProps } = wp.blockEditor;
+const { useBlockProps } = wp.blockEditor; 
 
 const Save = ({ attributes }) => {
 	const {
@@ -78,7 +78,7 @@ const Save = ({ attributes }) => {
 										<a
 											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
 											className="eb-slider-button" 
-											traget={image.openNewTab ? "_blank" : "_self"}
+											target={image.openNewTab ? "_blank" : "_self"}
 										>
 											{image.buttonText}
 										</a>

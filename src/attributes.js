@@ -28,112 +28,6 @@ import {
 } from "../util/helpers";
 
 const attributes = {
-
-	// typography attributes ⬇
-	...generateTypographyAttributes(Object.values(TYPOGRAPHY)),
-
-	// margin padding attributes ⬇
-	...generateDimensionsAttributes(WRAPPER_MARGIN),
-	...generateDimensionsAttributes(WRAPPER_PADDING),
-	...generateDimensionsAttributes(TITLE_MARGIN, {
-		top: 0,
-		bottom: 20,
-		right: 0,
-		left: 0,
-		isLinked: false,
-	}),
-	...generateDimensionsAttributes(SUBTITLE_MARGIN, {
-		top: 0,
-		bottom: 20,
-		right: 0,
-		left: 0,
-		isLinked: false,
-	}),
-	...generateDimensionsAttributes(BUTTON_MARGIN, {
-		top: 0,
-		bottom: 20,
-		right: 0,
-		left: 0,
-		isLinked: false,
-	}),
-	...generateDimensionsAttributes(BUTTON_PADDING, {
-		top: 10,
-		bottom: 10,
-		right: 30,
-		left: 30,
-		isLinked: false,
-	}),
-
-	// border shadow attributes for Wrapper ⬇
-	...generateBorderShadowAttributes(WRAPPER_BORDER_SHADOW, {
-		bdrDefaults: {
-			top: 0,
-			bottom: 0,
-			right: 0,
-			left: 0,
-		},
-		// noShadow: true,
-		// noBorder: true,
-	}),
-	// border shadow attributes for Button ⬇
-	...generateBorderShadowAttributes(BUTTON_BORDER_SHADOW, {
-		bdrDefaults: {
-			top: 1,
-			bottom: 1,
-			right: 1,
-			left: 1,
-		},
-		// noShadow: true,
-		// noBorder: true,
-	}),
-
-	// background attributes for Wrapper ⬇
-	...generateBackgroundAttributes(WRAPPER_BG, {
-		defaultBgGradient: "linear-gradient(45deg,#ffffff,#ffffff)",
-		noOverlay: true,
-	}),
-
-	// range controller Slide to Show
-	...generateResponsiveRangeAttributes(SLIDE_TO_SHOW, {
-		defaultRange: 1,
-	}),
-	
-	// range controller Slider Height
-	...generateResponsiveRangeAttributes(CUSTOM_HEIGHT, {
-		defaultRange: 300,
-	}),
-
-	// range controller Dots Gap
-	...generateResponsiveRangeAttributes(DOTS_GAP, {
-		defaultRange: 10,
-	}),
-
-	// range controller Arrow Position
-	...generateResponsiveRangeAttributes(ARROW_POSITION, {
-		defaultRange: -25,
-	}),
-
-	// range controller Dots Position
-	...generateResponsiveRangeAttributes(DOTS_POSITION, {
-		defaultRange: -25,
-	}),
-
-	// range controller Arrow Position
-	...generateResponsiveRangeAttributes(ARROW_SIZE, {
-		defaultRange: 20,
-	}),
-
-	// range controller Dots Position
-	...generateResponsiveRangeAttributes(DOTS_SIZE, {
-		defaultRange: 10,
-	}),
-
-	// range controller Slides Gap
-	...generateResponsiveRangeAttributes(SLIDES_GAP, {
-		defaultRange: 5,
-	}),
-
-
 	resOption: {
 		type: "string",
 		default: "Desktop",
@@ -156,7 +50,7 @@ const attributes = {
 	},
 	sliderContentType: {
 		type: "string",
-		default: "overlay"
+		default: "content-1"
 	},
 	images: {
 		type: "array",
@@ -200,7 +94,7 @@ const attributes = {
 	},
 	isCustomHeight: {
 		type: "boolean",
-		default: false,
+		default: true,
 	},
 	slidesToShow: {
 		type: "number",
@@ -274,6 +168,116 @@ const attributes = {
 		type: "string",
 		default: "center",
 	},
+
+	// typography attributes ⬇
+	...generateTypographyAttributes(Object.values(TYPOGRAPHY)),
+
+	// margin padding attributes ⬇
+	...generateDimensionsAttributes(WRAPPER_MARGIN),
+	...generateDimensionsAttributes(WRAPPER_PADDING, {
+		top: 0,
+		bottom: 30,
+		right: 0,
+		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(TITLE_MARGIN, {
+		top: 0,
+		bottom: 20,
+		right: 0,
+		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(SUBTITLE_MARGIN, {
+		top: 0,
+		bottom: 20,
+		right: 0,
+		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(BUTTON_MARGIN, {
+		top: 0,
+		bottom: 20,
+		right: 0,
+		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(BUTTON_PADDING, {
+		top: 10,
+		bottom: 10,
+		right: 30,
+		left: 30,
+		isLinked: false,
+	}),
+
+	// border shadow attributes for Wrapper ⬇
+	...generateBorderShadowAttributes(WRAPPER_BORDER_SHADOW, {
+		bdrDefaults: {
+			top: 0,
+			bottom: 0,
+			right: 0,
+			left: 0,
+		},
+		// noShadow: true,
+		// noBorder: true,
+	}),
+	// border shadow attributes for Button ⬇
+	...generateBorderShadowAttributes(BUTTON_BORDER_SHADOW, {
+		bdrDefaults: {
+			top: 1,
+			bottom: 1,
+			right: 1,
+			left: 1,
+		},
+		// noShadow: true,
+		// noBorder: true,
+	}),
+
+	// background attributes for Wrapper ⬇
+	...generateBackgroundAttributes(WRAPPER_BG, {
+		defaultBgGradient: "linear-gradient(45deg,#ffffff,#ffffff)",
+		noOverlay: true,
+	}),
+
+	// range controller Slide to Show
+	...generateResponsiveRangeAttributes(SLIDE_TO_SHOW, {
+		defaultRange: 1,
+	}),
+	
+	// range controller Slider Height
+	...generateResponsiveRangeAttributes(CUSTOM_HEIGHT, {
+		defaultRange: 400,
+	}),
+
+	// range controller Dots Gap
+	...generateResponsiveRangeAttributes(DOTS_GAP, {
+		defaultRange: 10,
+	}),
+
+	// range controller Arrow Position
+	...generateResponsiveRangeAttributes(ARROW_POSITION, {
+		defaultRange: -25,
+	}),
+
+	// range controller Dots Position
+	...generateResponsiveRangeAttributes(DOTS_POSITION, {
+		defaultRange: -25,
+	}),
+
+	// range controller Arrow Position
+	...generateResponsiveRangeAttributes(ARROW_SIZE, {
+		defaultRange: 20,
+	}),
+
+	// range controller Dots Position
+	...generateResponsiveRangeAttributes(DOTS_SIZE, {
+		defaultRange: 10,
+	}),
+
+	// range controller Slides Gap
+	...generateResponsiveRangeAttributes(SLIDES_GAP, {
+		defaultRange: 5,
+	}),
 };
 
 export default attributes;
