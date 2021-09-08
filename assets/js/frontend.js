@@ -20,36 +20,37 @@ window.addEventListener("DOMContentLoaded", (event) => {
 		const slider = createRef();
 		render(
 			<Slider 
-				ref={slider} 
-				{...settings}
-				key={`${settings.autoplay}-${settings.adaptiveHeight}`}
-				className={`${sliderType} xxx`}
-			>
-				{images.map((image) => (
-					<div className={`eb-slider-item ${sliderContentType}`}>
-						<img className="eb-slider-image" src={image.url} />
-						{sliderType === "content" && (
-							<div className={`eb-slider-content align-${textAlign}`}>
-								{image.title && image.title.length > 0 && (
-									<h2 className="eb-slider-title">{image.title}</h2>
-								)}
-								{image.subtitle && image.subtitle.length > 0 && (
-									<p className="eb-slider-subtitle">{image.subtitle}</p>
-								)}
-								{image.showButton && image.buttonText && image.buttonText.length > 0 && (
-									<a
-										href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-										className="eb-slider-button" 
-										target={image.openNewTab ? "_blank" : "_self"}
-									>
-										{image.buttonText}
-									</a>
-								)}
-							</div>
-						)}
-					</div>
-				))}
-			</Slider>,
+					ref={slider} 
+					{...settings}
+					key={`${autoplay}-${adaptiveHeight}`}
+					className={sliderType}
+				>
+					{images.map((image) => (
+						<div className={`eb-slider-item ${sliderContentType}`}>
+							<img className="eb-slider-image" src={image.url} />
+							{sliderType === "content" && (
+								<div className={`eb-slider-content align-${textAlign}`}>
+									{image.title && image.title.length > 0 && (
+										<h2 className="eb-slider-title">{image.title}</h2>
+									)}
+									{image.subtitle && image.subtitle.length > 0 && (
+										<p className="eb-slider-subtitle">{image.subtitle}</p>
+									)}
+									{image.showButton && image.buttonText && image.buttonText.length > 0 && (
+										<a
+											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
+											className="eb-slider-button" 
+											target={image.openNewTab ? "_blank" : "_self"}
+											rel="noopener"
+										>
+											{image.buttonText}
+										</a>
+									)}
+								</div>
+							)}
+						</div>
+					))}
+				</Slider>,
 			wrapper
 		);
 	}

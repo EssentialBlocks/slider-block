@@ -79,6 +79,7 @@ const Save = ({ attributes }) => {
 											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
 											className="eb-slider-button" 
 											target={image.openNewTab ? "_blank" : "_self"}
+											rel="noopener"
 										>
 											{image.buttonText}
 										</a>
