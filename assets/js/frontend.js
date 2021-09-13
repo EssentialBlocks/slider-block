@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 			<Slider 
 					ref={slider} 
 					{...settings}
-					key={`${autoplay}-${adaptiveHeight}`}
+					key={`${settings.autoplay}-${settings.adaptiveHeight}`}
 					className={sliderType}
 				>
 					{images.map((image) => (
