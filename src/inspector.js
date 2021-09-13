@@ -681,6 +681,7 @@ function Inspector(props) {
 												colors={COLORS}
 												value={ dotsActiveColor }
 												onChange={ ( color ) => setAttributes({ dotsActiveColor: color })}
+												className = "eb-margin-bottom-30"
 											/>
 
 
