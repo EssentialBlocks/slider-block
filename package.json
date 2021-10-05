@@ -2,7 +2,7 @@
 	"name": "slider-block",
 	"version": "0.1.0",
 	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
-	"author": "The WordPress Contributors",
+	"author": "WPDeveloper",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
@@ -14,9 +14,11 @@
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^12.1.1"
+		"@babel/plugin-proposal-class-properties": "^7.10.4",
+		"@wordpress/scripts": "^14.1.0"
 	},
 	"dependencies": {
+		"react-list-drag-and-drop": "^0.9.2",
 		"react-slick": "^0.27.1",
 		"slick-carousel": "^1.8.1"
 	}

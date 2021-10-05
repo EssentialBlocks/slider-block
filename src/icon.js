@@ -22,8 +22,8 @@ export default function () {
 				<stop offset="1" stopColor="#C822FF" />
 			</linearGradient>
 			<path
+				fill="url(#SVGID_1_SLIDER)"
 				d="M64.8 40.6c-.4 0-.7-.1-1-.4-.6-.6-.6-1.5 0-2.1l2.4-2.5-2.3-3.4c-.5-.7-.3-1.6.4-2.1s1.6-.3 2.1.4l3.6 5.4-4.1 4.3c-.3.2-.7.4-1.1.4z"
-				className="st0"
 			/>
 			<g>
 				<linearGradient
@@ -39,8 +39,8 @@ export default function () {
 					<stop offset="1" stopColor="#C822FF" />
 				</linearGradient>
 				<path
+					fill="url(#SVGID_2_SLIDER)"
 					d="M5.2 40.6c-.4 0-.8-.2-1.1-.5L0 35.8l3.6-5.4c.5-.7 1.4-.9 2.1-.4.7.5.9 1.4.4 2.1l-2.3 3.4L6.3 38c.6.6.6 1.5 0 2.1-.4.3-.7.5-1.1.5z"
-					className="st1"
 				/>
 			</g>
 			<g>
@@ -56,8 +56,8 @@ export default function () {
 					<stop offset="1" stopColor="#C822FF" />
 				</linearGradient>
 				<path
+					fill="url(#SVGID_3_SLIDER)"
 					d="M53 65.2H17.1c-3.6 0-6.6-3-6.6-6.6V11.4c0-3.6 3-6.6 6.6-6.6H53c3.6 0 6.6 3 6.6 6.6v47.2c0 3.6-3 6.6-6.6 6.6zM17.1 7.8c-2 0-3.6 1.6-3.6 3.6v47.2c0 2 1.6 3.6 3.6 3.6H53c2 0 3.6-1.6 3.6-3.6V11.4c0-2-1.6-3.6-3.6-3.6H17.1z"
-					className="st2"
 				/>
 				<linearGradient
 					x1="10.809"
@@ -71,8 +71,8 @@ export default function () {
 					<stop offset="1" stopColor="#C822FF" />
 				</linearGradient>
 				<path
+					fill="url(#SVGID_4_SLIDER)"
 					d="M33.2 53.8L23 41.3 13.2 53.7 10.8 51.8 23 36.6 33.5 49.4 57.1 27.2 59.2 29.4z"
-					className="st3"
 				/>
 				<g>
 					<linearGradient
@@ -87,8 +87,8 @@ export default function () {
 						<stop offset="1" stopColor="#C822FF" />
 					</linearGradient>
 					<path
+						fill="url(#SVGID_5_SLIDER)"
 						d="M44.3 26.1c-2.7 0-4.9-2.2-4.9-4.9s2.2-4.9 4.9-4.9 4.9 2.2 4.9 4.9c.1 2.7-2.2 4.9-4.9 4.9zm0-7c-1.2 0-2.1 1-2.1 2.1 0 1.2 1 2.1 2.1 2.1s2.1-1 2.1-2.1c.1-1.2-.9-2.1-2.1-2.1z"
-						className="st4"
 					/>
 				</g>
 			</g>
