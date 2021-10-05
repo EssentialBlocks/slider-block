@@ -90,12 +90,12 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.1.0 - 05/10/2021 =
 * Added: Responsive and more interactive controls
-* Added: Margin, Padding, Background, Border, Shadow controls for wrapper
+* Added: Margin, padding, background, border, shadow controls for wrapper
 * Added: Content Slider
-* Added: Custom Height for Slider
+* Added: Custom height for slider
 * Added: Vertical Slider
-* Added: Advance and Responsive Typography option
-* Added: More styling Options
+* Added: Advance and responsive typography option
+* Added: More styling options
 * Improved: Clean code and load resources in optimize way
 
 = 1.0.0 - 23-08-2020 =
