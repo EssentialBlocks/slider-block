@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Slider Block
+ * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
  * Version:         1.1.0
  * Author:          WPDeveloper

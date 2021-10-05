@@ -88,7 +88,7 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.1.0 - 13/09/2021 =
+= 1.1.0 - 05/10/2021 =
 * Added: Responsive and more interactive controls
 * Added: Margin, Padding, Background, Border, Shadow controls for wrapper
 * Added: Content Slider

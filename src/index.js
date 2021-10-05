@@ -9,7 +9,7 @@ import Icon from "./icon";
 import Example from "./example";
 
 registerBlockType("slider-block/slider-block", {
-	title: __("Slider Block", "slider-block"),
+	title: __("Image Slider Block", "slider-block"),
 	description: __(
 		"Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
 		"slider-block"
