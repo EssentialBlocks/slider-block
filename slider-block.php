@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
@@ -26,141 +27,88 @@ require_once __DIR__ . '/lib/style-handler/style-handler.php';
 
 function create_block_slider_block_init()
 {
-	define('SLIDER_BLOCK_VERSION', "1.2.0");
-	define('SLIDER_BLOCK_ADMIN_URL', plugin_dir_url(__FILE__));
-	define('SLIDER_BLOCK_ADMIN_PATH', dirname(__FILE__));
+  define('SLIDER_BLOCK_VERSION', "1.2.0");
+  define('SLIDER_BLOCK_ADMIN_URL', plugin_dir_url(__FILE__));
+  define('SLIDER_BLOCK_ADMIN_PATH', dirname(__FILE__));
 
-	$script_asset_path = SLIDER_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
-	if (!file_exists($script_asset_path)) {
-		throw new Error(
-			'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
-		);
-	}
-	$index_js     = SLIDER_BLOCK_ADMIN_URL . 'dist/index.js';
-	$script_asset = require($script_asset_path);
-	$all_dependencies = array_merge($script_asset['dependencies'], array(
-		'wp-blocks',
-		'wp-i18n',
-		'wp-element',
-		'wp-block-editor',
-		'slider-block-controls-util',
-	));
+  $script_asset_path = SLIDER_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
+  if (!file_exists($script_asset_path)) {
+    throw new Error(
+      'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
+    );
+  }
+  $index_js     = SLIDER_BLOCK_ADMIN_URL . 'dist/index.js';
+  $script_asset = require($script_asset_path);
+  $all_dependencies = array_merge($script_asset['dependencies'], array(
+    'wp-blocks',
+    'wp-i18n',
+    'wp-element',
+    'wp-block-editor',
+    'slider-block-controls-util',
+    'essential-blocks-slickjs'
+  ));
 
-	wp_register_script(
-		'create-block-slider-block-editor-script',
-		$index_js,
-		$all_dependencies,
-		$script_asset['version'],
-		true
-	);
+  wp_register_script(
+    'create-block-slider-block-editor-script',
+    $index_js,
+    $all_dependencies,
+    $script_asset['version'],
+    true
+  );
 
-	$style_css = SLIDER_BLOCK_ADMIN_URL . 'dist/style.css';
-	//Frontend Style
-	wp_register_style(
-		'create-block-slider-block-frontend-style',
-		$style_css,
-		array(),
-		SLIDER_BLOCK_VERSION
-	);
+  $slick_css = SLIDER_BLOCK_ADMIN_URL . 'lib/css/slick.css';
+  wp_register_style(
+    'slick-style',
+    $slick_css,
+    array(),
+    SLIDER_BLOCK_VERSION
+  );
 
-	if (!WP_Block_Type_Registry::get_instance()->is_registered('essential-blocks/advanced-heading')) {
-		register_block_type(
-			Slider_Helper::get_block_register_path("advanced-heading/advanced-heading", SLIDER_BLOCK_ADMIN_PATH),
-			array(
-				'editor_script'	=> 'create-block-slider-block-editor-script',
-				'editor_style' 	=> 'create-block-slider-block-frontend-style',
-				'render_callback' => function ($attributes, $content) {
-					if (!is_admin()) {
-						wp_enqueue_style('create-block-slider-block-frontend-style');
-						wp_enqueue_style('slick-style');
-						wp_enqueue_script('essential-blocks-slickjs');
-					}
-					return $content;
-				}
-			)
-		);
-	}
+  $slick_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick.min.js';
+  wp_register_script(
+    'essential-blocks-slickjs',
+    $slick_js,
+    array("jquery"),
+    SLIDER_BLOCK_VERSION,
+    true
+  );
+
+  $style_css = SLIDER_BLOCK_ADMIN_URL . 'dist/style.css';
+  //Frontend & Editor Style
+  wp_register_style(
+    'create-block-slider-block-frontend-style',
+    $style_css,
+    array('slick-style'),
+    SLIDER_BLOCK_VERSION
+  );
+
+  //Frontend Style
+  $frontend_js = SLIDER_BLOCK_ADMIN_URL . 'dist/frontend/index.js';
+  $frontend_asset = require SLIDER_BLOCK_ADMIN_PATH . '/dist/frontend/index.asset.php';
+  wp_register_script(
+    'slider-block-frontend-js',
+    $frontend_js,
+    $frontend_asset['dependencies'],
+    $frontend_asset['version'],
+    true
+  );
+
+  if (!WP_Block_Type_Registry::get_instance()->is_registered('essential-blocks/advanced-heading')) {
+    register_block_type(
+      Slider_Helper::get_block_register_path("advanced-heading/advanced-heading", SLIDER_BLOCK_ADMIN_PATH),
+      array(
+        'editor_script'  => 'create-block-slider-block-editor-script',
+        'editor_style'   => 'create-block-slider-block-frontend-style',
+        'render_callback' => function ($attributes, $content) {
+          if (!is_admin()) {
+            wp_enqueue_style('create-block-slider-block-frontend-style');
+            wp_enqueue_script('essential-blocks-slickjs');
+            wp_enqueue_script('slider-block-frontend-js');
+          }
+          return $content;
+        }
+      )
+    );
+  }
 }
 add_action('init', 'create_block_slider_block_init');
-
-// function create_block_slider_block_block_init() {
-// 	$dir = dirname( __FILE__ );
-
-// 	$script_asset_path = "$dir/build/index.asset.php";
-// 	if ( ! file_exists( $script_asset_path ) ) {
-// 		throw new Error(
-// 			'You need to run `npm start` or `npm run build` for the "slider-block/slider-block" block first.'
-// 		);
-// 	}
-// 	$index_js     = 'build/index.js';
-// 	$script_asset = require( $script_asset_path );
-// 	wp_register_script(
-// 		'slider-block-slider-block-block-editor',
-// 		plugins_url( $index_js, __FILE__ ),
-// 		array(
-// 			'wp-blocks',
-// 			'wp-i18n',
-// 			'wp-element',
-// 			'wp-block-editor',
-//       'essential-blocks-slickjs',
-// 		),
-// 		$script_asset['version']
-// 	);
-
-//   $editor_css = 'build/index.css';
-// 	wp_register_style(
-// 		'slider-block-slider-block-block-editor-style',
-// 		plugins_url($editor_css, __FILE__),
-// 		array('slider-block-slider-block-block', 'slick-style'),
-// 		filemtime("$dir/$editor_css")
-// 	);
-
-// 	$style_css = 'build/style-index.css';
-// 	wp_register_style(
-// 		'slider-block-slider-block-block',
-// 		plugins_url( $style_css, __FILE__ ),
-// 		array(),
-// 		filemtime( "$dir/$style_css" )
-// 	);
-
-//   $frontend_js = 'build/frontend.js';
-//   wp_register_script(
-//     'slider-block-slider-block-frontend',
-//     plugins_url($frontend_js, __FILE__),
-//     array( "jquery","wp-editor"),
-//     true
-//   );
-
-
-//   $slick_css = 'lib/css/slick.css';
-//   wp_register_style(
-//     'slick-style',
-//     plugins_url($slick_css, __FILE__),
-//     array()
-//   );
-
-//   $slick_js = 'lib/js/slick.min.js';
-//   wp_register_script(
-//     'essential-blocks-slickjs',
-//     plugins_url($slick_js, __FILE__),
-//     array( "jquery","wp-editor"),
-//     true
-//   );
-
-// 	if( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/slider' ) ) {
-//     register_block_type( 'slider-block/slider-block', array(
-//       'editor_script' => 'slider-block-slider-block-block-editor',
-//       'editor_style'  => 'slider-block-slider-block-block-editor-style',
-//       'render_callback' => function( $attributes, $content ) {
-//         if( !is_admin() ) {
-//           wp_enqueue_style('slider-block-slider-block-block');
-//           wp_enqueue_style('slick-style');
-//           wp_enqueue_script('essential-blocks-slickjs');
-//           wp_enqueue_script('slider-block-slider-block-frontend');
-//         }
-//           return $content;
-//       }
-//     ));
-//   }
-// }
-// add_action( 'init', 'create_block_slider_block_block_init' );
