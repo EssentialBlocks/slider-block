@@ -1,24 +1,25 @@
-const { registerBlockType } = wp.blocks;
-const { __ } = wp.i18n;
+import { __ } from "@wordpress/i18n";
+import { registerBlockType } from "@wordpress/blocks";
 
 import "./style.scss";
 import Edit from "./edit";
-import save from "./save";
+import Save from "./save";
 import attributes from "./attributes";
 import Icon from "./icon";
 import Example from "./example";
 
-registerBlockType("slider-block/slider-block", {
-	title: __("Image Slider Block", "slider-block"),
-	description: __(
-		"Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
-		"slider-block"
-	),
-	category: "widgets",
-	keywords: [__("slider"), __("carousel"), __("images")],
+import metadata from "../block.json";
+const { ebConditionalRegisterBlockType } = EBSliderControls;
+
+ebConditionalRegisterBlockType(metadata, {
+	keywords: [
+		__("slider", "essential-blocks"),
+		__("carousel", "essential-blocks"),
+		__("images", "essential-blocks"),
+	],
 	icon: Icon,
 	example: Example,
 	attributes,
 	edit: Edit,
-	save,
+	save: Save,
 });

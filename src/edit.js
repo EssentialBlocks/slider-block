@@ -1,22 +1,21 @@
 /**
  * WordPress dependencies
  */
-const { __ } = wp.i18n; 
-const { useEffect, createRef } = wp.element;
-const {
+import { __ } from "@wordpress/i18n";
+import { useEffect, createRef } from "@wordpress/element";
+import {
 	MediaUpload,
 	MediaPlaceholder,
 	BlockControls,
-	useBlockProps,
-} = wp.blockEditor;
-const { ToolbarGroup, ToolbarItem, ToolbarButton, Button } = wp.components;
-const { select } = wp.data;
+	useBlockProps
+} from "@wordpress/block-editor";
+import { ToolbarGroup, ToolbarItem, ToolbarButton } from "@wordpress/components";
+import { select } from "@wordpress/data";
 
 /**
  * Internal dependencies
  */
 import Inspector from "./inspector";
-import "./editor.scss";
 import {
 	WRAPPER_BG,
 	WRAPPER_MARGIN,
@@ -36,26 +35,33 @@ import {
 	DOTS_SIZE,
 	SLIDES_GAP,
 } from "./constants/constants";
-import {TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY} from "./constants/typography-constant";
-import {
+import { TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY } from "./constants/typography-constant";
+
+const {
 	softMinifyCssStrings,
-	isCssExists,
 	generateTypographyStyles,
 	generateDimensionsControlStyles,
 	generateBorderShadowStyles,
 	generateResponsiveRangeStyles,
 	generateBackgroundControlStyles,
-	mimmikCssForPreviewBtnClick,
-	duplicateBlockIdFix,
-} from "../util/helpers";
+	// mimmikCssForPreviewBtnClick,
+	duplicateBlockIdFix
+} = window.EBSliderControls;
+
+const editorStoreForGettingPreivew =
+	eb_style_handler.editor_type === "edit-site"
+		? "core/edit-site"
+		: "core/edit-post";
+
 
 /**
  * External dependencies
  */
+import classnames from "classnames";
 import Slider from "react-slick";
 
 export default function Edit(props) {
-	const { attributes, setAttributes, clientId, isSelected } = props;
+	const { attributes, setAttributes, className, clientId, isSelected } = props;
 	const {
 		resOption,
 		blockId,
@@ -93,7 +99,7 @@ export default function Edit(props) {
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 	useEffect(() => {
 		setAttributes({
-			resOption: select("core/edit-post").__experimentalGetPreviewDeviceType(),
+			resOption: select(editorStoreForGettingPreivew).__experimentalGetPreviewDeviceType(),
 		});
 	}, []);
 
@@ -109,16 +115,16 @@ export default function Edit(props) {
 		});
 	}, []);
 
-	// this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
-	useEffect(() => {
-		mimmikCssForPreviewBtnClick({
-			domObj: document,
-			select,
-		});
-	}, []);
+	// // this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
+	// useEffect(() => {
+	// 	mimmikCssForPreviewBtnClick({
+	// 		domObj: document,
+	// 		select,
+	// 	});
+	// }, []);
 
 	const blockProps = useBlockProps({
-		className: `eb-guten-block-main-parent-wrapper`,
+		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
 	});
 
 	/**
@@ -376,8 +382,11 @@ export default function Edit(props) {
 			${wrapperMarginDesktop}
 			${wrapperPaddingDesktop}
 			${wrapperBDShadowDesktop}
+			transition: ${wrapperBDShadowTransitionStyle}, ${wrapperBgTransitionStyle};
 			${wrapperBackgroundStylesDesktop}
-			${wrapperBgTransitionStyle}
+		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverDesktop}
 		}
 	`;
 	const wrapperStylesTab = `
@@ -387,6 +396,9 @@ export default function Edit(props) {
 			${wrapperBDShadowTab}
 			${wrapperBackgroundStylesTab}
 		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverTab}
+		}
 	`;
 	const wrapperStylesMobile = `
 		.eb-slider-wrapper.${blockId}{
@@ -394,6 +406,9 @@ export default function Edit(props) {
 			${wrapperPaddingMobile}
 			${wrapperBDShadowMobile}
 			${wrapperBackgroundStylesMobile}
+		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverMobile}
 		}
 	`;
 
@@ -406,7 +421,7 @@ export default function Edit(props) {
 			align-items: ${verticalAlign};
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightDesktop : ""}
+			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightDesktop : ""}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
 			background-color: ${overlayColor};
@@ -429,6 +444,7 @@ export default function Edit(props) {
 			${buttonPaddingDesktop}
 			${buttonTypographyDesktop}
 			${buttonBDShadowDesktop}
+			transition: ${buttonBDShadowTransitionStyle};
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			color: ${buttonHoverColor};
@@ -442,7 +458,7 @@ export default function Edit(props) {
 			${slidesGapTab}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightTab : ""}
+			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightTab : ""}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginTab}
@@ -468,7 +484,7 @@ export default function Edit(props) {
 			${slidesGapMobile}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType==="content" && sliderContentType==="content-1")) ? sliderHeightMobile : ""}
+			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightMobile : ""}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginMobile}
@@ -564,23 +580,23 @@ export default function Edit(props) {
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
-		${isCssExists(wrapperStylesDesktop) ? wrapperStylesDesktop : " "}
-		${isCssExists(sliderStylesDesktop) ? sliderStylesDesktop : " "}
-		${isCssExists(sliderControlsStylesDesktop) ? sliderControlsStylesDesktop : " "}
+		${wrapperStylesDesktop}
+		${sliderStylesDesktop}
+		${sliderControlsStylesDesktop}
 	`);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
-		${isCssExists(wrapperStylesTab) ? wrapperStylesTab : " "}
-		${isCssExists(sliderStylesTab) ? sliderStylesTab : " "}
-		${isCssExists(sliderControlsStylesTab) ? sliderControlsStylesTab : " "}
+		${wrapperStylesTab}
+		${sliderStylesTab}
+		${sliderControlsStylesTab}
 	`);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
-		${isCssExists(wrapperStylesMobile) ? wrapperStylesMobile : " "}
-		${isCssExists(sliderStylesMobile) ? sliderStylesMobile : " "}
-		${isCssExists(sliderControlsStylesMobile) ? sliderControlsStylesMobile : " "}
+		${wrapperStylesMobile}
+		${sliderStylesMobile}
+		${sliderControlsStylesMobile}
 	`);
 
 	// Set All Style in "blockMeta" Attribute
@@ -642,7 +658,7 @@ export default function Edit(props) {
 			item.alt = selectedImage.alt;
 			item.id = selectedIndex;
 			item.imageId = selectedImage.id;
-			if (images.length > 0 ) {
+			if (images.length > 0) {
 				images.map((image, index) => {
 					if (selectedImage.id == image.imageId) {
 						item.title = image.title ? image.title : `Slider ${selectedIndex + 1}`;
@@ -677,7 +693,7 @@ export default function Edit(props) {
 				isAppender={hasImages}
 				dropZoneUIOnly={hasImages && !isSelected}
 				labels={{
-					title: !hasImages && __("Images"),
+					title: !hasImages && __("Images", "essential-blocks"),
 					instructions:
 						!hasImages &&
 						__(
@@ -706,20 +722,20 @@ export default function Edit(props) {
 				<ToolbarItem>
 					{() => (
 						<MediaUpload
-						onSelect={(selectedImages) => onImageSelect(selectedImages, images)}
-						allowedTypes={["image"]}
-						multiple
-						gallery
-						value={images.map((img) => img.imageId)}
-						render={({ open }) => (
-							<ToolbarButton
-								className="components-toolbar__control"
-								label={__("Edit gallery")}
-								icon="edit"
-								onClick={open}
-							/>
-						)}
-					/>
+							onSelect={(selectedImages) => onImageSelect(selectedImages, images)}
+							allowedTypes={["image"]}
+							multiple
+							gallery
+							value={images.map((img) => img.imageId)}
+							render={({ open }) => (
+								<ToolbarButton
+									className="components-toolbar__control"
+									label={__("Edit gallery", "essential-blocks")}
+									icon="edit"
+									onClick={open}
+								/>
+							)}
+						/>
 					)}
 				</ToolbarItem>
 			</ToolbarGroup>
@@ -755,8 +771,8 @@ export default function Edit(props) {
 			</style>
 
 			<div className={`eb-slider-wrapper ${blockId}`}>
-				<Slider 
-					ref={slider} 
+				<Slider
+					ref={slider}
 					{...settings}
 					key={`${autoplay}-${adaptiveHeight}`}
 					className={sliderType}
@@ -775,7 +791,7 @@ export default function Edit(props) {
 									{image.showButton && image.buttonText && image.buttonText.length > 0 && (
 										<a
 											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-											className="eb-slider-button" 
+											className="eb-slider-button"
 											target={image.openNewTab ? "_blank" : "_self"}
 											rel="noopener"
 										>

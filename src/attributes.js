@@ -19,13 +19,13 @@ import {
 } from "./constants/constants";
 import * as TYPOGRAPHY from "./constants/typography-constant";
 
-import {
+const {
 	generateDimensionsAttributes,
 	generateTypographyAttributes,
 	generateBackgroundAttributes,
 	generateBorderShadowAttributes,
 	generateResponsiveRangeAttributes,
-} from "../util/helpers";
+} = window.EBSliderControls;
 
 const attributes = {
 	resOption: {

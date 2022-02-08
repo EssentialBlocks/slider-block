@@ -1,4 +1,4 @@
-const { __ } = wp.i18n;
+import { __ } from "@wordpress/i18n";
 
 // the consts defined here should be unique from one another
 export const WRAPPER_BG = "wrprBg";
@@ -25,28 +25,28 @@ export const NORMAL_HOVER = [
 ];
 
 export const VERTICAL_ALIGN = [
-	{ label: __("Top"), value: "flex-start" },
-	{ label: __("Middle"), value: "center" },
-	{ label: __("Bottom"), value: "flex-end" },
+	{ label: __("Top", "essential-blocks"), value: "flex-start" },
+	{ label: __("Middle", "essential-blocks"), value: "center" },
+	{ label: __("Bottom", "essential-blocks"), value: "flex-end" },
 ];
 
 export const TEXT_ALIGN = [
-	{ label: __("Left"), value: "left" },
-	{ label: __("Right"), value: "right" },
-	{ label: __("Center"), value: "center" },
-	{ label: __("Justify"), value: "justify" },
+	{ label: __("Left", "essential-blocks"), value: "left" },
+	{ label: __("Right", "essential-blocks"), value: "right" },
+	{ label: __("Center", "essential-blocks"), value: "center" },
+	{ label: __("Justify", "essential-blocks"), value: "justify" },
 ];
 
 export const SLIDER_TYPE = [
-	{ label: __("Image Only"), value: "image" },
-	{ label: __("Image with Content"), value: "content" },
+	{ label: __("Image Only", "essential-blocks"), value: "image" },
+	{ label: __("Image with Content", "essential-blocks"), value: "content" },
 ];
 
 export const SLIDER_CONTENT_TYPE = [
-	{ label: __("Content Overlay"), value: "content-1" },
-	{ label: __("Content Bottom"), value: "content-2" },
-	{ label: __("Content Right"), value: "content-3" },
-	{ label: __("Content Left"), value: "content-4" },
+	{ label: __("Content Overlay", "essential-blocks"), value: "content-1" },
+	{ label: __("Content Bottom", "essential-blocks"), value: "content-2" },
+	{ label: __("Content Right", "essential-blocks"), value: "content-3" },
+	{ label: __("Content Left", "essential-blocks"), value: "content-4" },
 ];
 
 export const UNIT_TYPES = [
