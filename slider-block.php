@@ -93,9 +93,9 @@ function create_block_slider_block_init()
     true
   );
 
-  if (!WP_Block_Type_Registry::get_instance()->is_registered('essential-blocks/advanced-heading')) {
+  if (!WP_Block_Type_Registry::get_instance()->is_registered('essential-blocks/slider')) {
     register_block_type(
-      Slider_Helper::get_block_register_path("advanced-heading/advanced-heading", SLIDER_BLOCK_ADMIN_PATH),
+      Slider_Helper::get_block_register_path("slider-block/slider-block", SLIDER_BLOCK_ADMIN_PATH),
       array(
         'editor_script'  => 'create-block-slider-block-editor-script',
         'editor_style'   => 'create-block-slider-block-frontend-style',
