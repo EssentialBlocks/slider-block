@@ -48,6 +48,9 @@ node_modules/**/*.* export-ignore
 dist/**/*.* export-ignore
 **/*.zip export-ignore
 src export-ignore
-util	export-ignore
+controls export-ignore
+config export-ignore
+lib/style-handler/style-handler.js export-ignore
+lib/style-handler/helpers.js export-ignore
 .wordpress-org	export-ignore
 .idea export-ignore

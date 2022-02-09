@@ -4,22 +4,34 @@
 	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
 	"author": "WPDeveloper",
 	"license": "GPL-2.0-or-later",
-	"main": "build/index.js",
+	"main": "Gruntfile.js",
 	"scripts": {
-		"build": "wp-scripts build",
-		"format:js": "wp-scripts format-js",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
 		"start": "wp-scripts start",
+		"build": "wp-scripts build",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
-		"@babel/plugin-proposal-class-properties": "^7.10.4",
-		"@wordpress/scripts": "^14.1.0"
+		"@babel/core": "^7.16.5",
+		"@babel/plugin-proposal-class-properties": "^7.16.5",
+		"@babel/preset-env": "^7.16.5",
+		"@babel/preset-react": "^7.16.5",
+		"@wordpress/block-editor": "^8.0.12",
+		"@wordpress/blocks": "^11.1.5",
+		"@wordpress/components": "^19.1.6",
+		"@wordpress/compose": "^5.0.7",
+		"@wordpress/data": "^6.1.5",
+		"@wordpress/element": "^4.0.4",
+		"@wordpress/i18n": "^4.2.4",
+		"@wordpress/scripts": "^19.2.2",
+		"babel-loader": "^8.2.3",
+		"lodash": "^4.17.21",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	},
 	"dependencies": {
 		"react-list-drag-and-drop": "^0.9.2",
 		"react-slick": "^0.27.1",
-		"slick-carousel": "^1.8.1"
+		"slick-carousel": "^1.8.1",
+		"classnames": "^2.3.1"
 	}
 }

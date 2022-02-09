@@ -45,9 +45,11 @@ node_modules
 gulpfile.js
 .git
 node_modules/**/*.*
-dist/**/*.*
 **/*.zip
 src
-util
+controls
+config
+lib/style-handler/style-handler.js
+lib/style-handler/helpers.js
 .wordpress-org
 .idea
