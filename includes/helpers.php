@@ -59,6 +59,16 @@ class Slider_Helper
                 'rest_rootURL' => get_rest_url(),
             ));
 
+            if ($hook == 'post-new.php' || $hook == 'post.php') {
+                wp_localize_script('slider-block-controls-util', 'eb_conditional_localize', array(
+                    'editor_type' => 'edit-post'
+                ));
+            } else if ($hook == 'site-editor.php') {
+                wp_localize_script('slider-block-controls-util', 'eb_conditional_localize', array(
+                    'editor_type' => 'edit-site'
+                ));
+            }
+
             wp_enqueue_style(
                 'essential-blocks-editor-css',
                 SLIDER_BLOCK_ADMIN_URL . '/dist/controls.css',
