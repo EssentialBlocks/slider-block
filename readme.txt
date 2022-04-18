@@ -88,7 +88,7 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.3.0 - 09/02/2022 =
+= 1.3.0 - 18/04/2022 =
 * Added: Animation for all blocks
 * Added: Responsive Block Show/Hide option
 * Added: Custom CSS for all blcoks
