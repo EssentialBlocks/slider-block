@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
- * Version:         1.2.0
+ * Version:         1.3.0
  * Author:          WPDeveloper
  * Author URI: 		  https://wpdeveloper.net
  * License:         GPL-3.0-or-later
@@ -27,7 +27,7 @@ require_once __DIR__ . '/lib/style-handler/style-handler.php';
 
 function create_block_slider_block_init()
 {
-  define('SLIDER_BLOCK_VERSION', "1.2.0");
+  define('SLIDER_BLOCK_VERSION', "1.3.0");
   define('SLIDER_BLOCK_ADMIN_URL', plugin_dir_url(__FILE__));
   define('SLIDER_BLOCK_ADMIN_PATH', dirname(__FILE__));
 
@@ -45,7 +45,8 @@ function create_block_slider_block_init()
     'wp-element',
     'wp-block-editor',
     'slider-block-controls-util',
-    'essential-blocks-slickjs'
+    'essential-blocks-slickjs',
+    'essential-blocks-eb-animation',
   ));
 
   wp_register_script(
@@ -54,6 +55,14 @@ function create_block_slider_block_init()
     $all_dependencies,
     $script_asset['version'],
     true
+  );
+
+  $animate_css = SLIDER_BLOCK_ADMIN_URL . 'lib/css/animate.min.css';
+  wp_register_style(
+    'essential-blocks-animation',
+    $animate_css,
+    array(),
+    SLIDER_BLOCK_VERSION
   );
 
   $slick_css = SLIDER_BLOCK_ADMIN_URL . 'lib/css/slick.css';
@@ -73,12 +82,24 @@ function create_block_slider_block_init()
     true
   );
 
+  $load_animation_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/eb-animation-load.js';
+  wp_register_script(
+    'essential-blocks-eb-animation',
+    $load_animation_js,
+    array("jquery"),
+    SLIDER_BLOCK_VERSION,
+    true
+  );
+
   $style_css = SLIDER_BLOCK_ADMIN_URL . 'dist/style.css';
   //Frontend & Editor Style
   wp_register_style(
     'create-block-slider-block-frontend-style',
     $style_css,
-    array('slick-style'),
+    array(
+      'slick-style',
+      'essential-blocks-animation'
+    ),
     SLIDER_BLOCK_VERSION
   );
 
@@ -103,6 +124,7 @@ function create_block_slider_block_init()
           if (!is_admin()) {
             wp_enqueue_style('create-block-slider-block-frontend-style');
             wp_enqueue_script('essential-blocks-slickjs');
+            wp_enqueue_script('essential-blocks-eb-animation');
             wp_enqueue_script('slider-block-frontend-js');
           }
           return $content;

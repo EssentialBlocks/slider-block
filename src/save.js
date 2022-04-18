@@ -18,6 +18,7 @@ const Save = ({ attributes }) => {
 		speed,
 		initialSlide,
 		textAlign,
+		classHook,
 	} = attributes;
 
 	//Slider Settings
@@ -38,13 +39,13 @@ const Save = ({ attributes }) => {
 			{
 				breakpoint: 1025,
 				settings: {
-					slidesToShow: attributes.TABslideToShowRange,
+					slidesToShow: attributes.TABslideToShowRange || attributes.slideToShowRange,
 				}
 			},
 			{
 				breakpoint: 767,
 				settings: {
-					slidesToShow: attributes.MOBslideToShowRange,
+					slidesToShow: attributes.MOBslideToShowRange || attributes.slideToShowRange,
 				}
 			}
 		]
@@ -52,42 +53,44 @@ const Save = ({ attributes }) => {
 
 	return (
 		<div {...useBlockProps.save()}>
-			<div 
-				className={`eb-slider-wrapper ${blockId}`} 
-				data-settings={JSON.stringify(settings)}
-				data-images={JSON.stringify(images)}
-				data-sliderContentType={sliderContentType}
-				data-sliderType={sliderType}
-				data-textAlign={textAlign}
-			>
+			<div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
 				<div
-					className={sliderType}
+					className={`eb-slider-wrapper ${blockId}`}
+					data-settings={JSON.stringify(settings)}
+					data-images={JSON.stringify(images)}
+					data-sliderContentType={sliderContentType}
+					data-sliderType={sliderType}
+					data-textAlign={textAlign}
 				>
-					{images.map((image) => (
-						<div className={`eb-slider-item ${sliderContentType}`}>
-							<img className="eb-slider-image" src={image.url} />
-							{sliderType === "content" && (
-								<div className={`eb-slider-content align-${textAlign}`}>
-									{image.title && image.title.length > 0 && (
-										<h2 className="eb-slider-title">{image.title}</h2>
-									)}
-									{image.subtitle && image.subtitle.length > 0 && (
-										<p className="eb-slider-subtitle">{image.subtitle}</p>
-									)}
-									{image.showButton && image.buttonText && image.buttonText.length > 0 && (
-										<a
-											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-											className="eb-slider-button" 
-											target={image.openNewTab ? "_blank" : "_self"}
-											rel="noopener"
-										>
-											{image.buttonText}
-										</a>
-									)}
-								</div>
-							)}
-						</div>
-					))}
+					<div
+						className={sliderType}
+					>
+						{images.map((image, index) => (
+							<div className={`eb-slider-item ${sliderContentType}`} key={index}>
+								<img className="eb-slider-image" src={image.url} />
+								{sliderType === "content" && (
+									<div className={`eb-slider-content align-${textAlign}`}>
+										{image.title && image.title.length > 0 && (
+											<h2 className="eb-slider-title">{image.title}</h2>
+										)}
+										{image.subtitle && image.subtitle.length > 0 && (
+											<p className="eb-slider-subtitle">{image.subtitle}</p>
+										)}
+										{image.showButton && image.buttonText && image.buttonText.length > 0 && (
+											<a
+												href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
+												className="eb-slider-button"
+												target={image.openNewTab ? "_blank" : "_self"}
+												rel="noopener"
+											>
+												{image.buttonText}
+											</a>
+										)}
+									</div>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>

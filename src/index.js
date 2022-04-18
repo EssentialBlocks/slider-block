@@ -7,6 +7,7 @@ import Save from "./save";
 import attributes from "./attributes";
 import Icon from "./icon";
 import Example from "./example";
+import deprecated from "./deprecated";
 
 import metadata from "../block.json";
 const { ebConditionalRegisterBlockType } = EBSliderControls;
@@ -22,4 +23,5 @@ ebConditionalRegisterBlockType(metadata, {
 	attributes,
 	edit: Edit,
 	save: Save,
+	deprecated,
 });

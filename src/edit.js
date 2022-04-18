@@ -7,9 +7,13 @@ import {
 	MediaUpload,
 	MediaPlaceholder,
 	BlockControls,
-	useBlockProps
+	useBlockProps,
 } from "@wordpress/block-editor";
-import { ToolbarGroup, ToolbarItem, ToolbarButton } from "@wordpress/components";
+import {
+	ToolbarGroup,
+	ToolbarItem,
+	ToolbarButton,
+} from "@wordpress/components";
 import { select } from "@wordpress/data";
 
 /**
@@ -35,7 +39,11 @@ import {
 	DOTS_SIZE,
 	SLIDES_GAP,
 } from "./constants/constants";
-import { TITLE_TYPOGRAPHY, SUBTITLE_TYPOGRAPHY, BUTTON_TYPOGRAPHY } from "./constants/typography-constant";
+import {
+	TITLE_TYPOGRAPHY,
+	SUBTITLE_TYPOGRAPHY,
+	BUTTON_TYPOGRAPHY,
+} from "./constants/typography-constant";
 
 const {
 	softMinifyCssStrings,
@@ -45,14 +53,13 @@ const {
 	generateResponsiveRangeStyles,
 	generateBackgroundControlStyles,
 	// mimmikCssForPreviewBtnClick,
-	duplicateBlockIdFix
+	duplicateBlockIdFix,
 } = window.EBSliderControls;
 
 const editorStoreForGettingPreivew =
-	eb_style_handler.editor_type === "edit-site"
+	eb_conditional_localize.editor_type === "edit-site"
 		? "core/edit-site"
 		: "core/edit-post";
-
 
 /**
  * External dependencies
@@ -94,12 +101,15 @@ export default function Edit(props) {
 		dotsActiveColor,
 		textAlign,
 		verticalAlign,
+		classHook,
 	} = attributes;
 
 	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
 	useEffect(() => {
 		setAttributes({
-			resOption: select(editorStoreForGettingPreivew).__experimentalGetPreviewDeviceType(),
+			resOption: select(
+				editorStoreForGettingPreivew
+			).__experimentalGetPreviewDeviceType(),
 		});
 	}, []);
 
@@ -114,14 +124,6 @@ export default function Edit(props) {
 			clientId,
 		});
 	}, []);
-
-	// // this useEffect is for mimmiking css when responsive options clicked from wordpress's 'preview' button
-	// useEffect(() => {
-	// 	mimmikCssForPreviewBtnClick({
-	// 		domObj: document,
-	// 		select,
-	// 	});
-	// }, []);
 
 	const blockProps = useBlockProps({
 		className: classnames(className, `eb-guten-block-main-parent-wrapper`),
@@ -421,7 +423,7 @@ export default function Edit(props) {
 			align-items: ${verticalAlign};
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightDesktop : ""}
+			${isCustomHeight ? sliderHeightDesktop : ""}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
 			background-color: ${overlayColor};
@@ -458,7 +460,12 @@ export default function Edit(props) {
 			${slidesGapTab}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightTab : ""}
+			${isCustomHeight &&
+			(sliderType === "image" ||
+				(sliderType === "content" && sliderContentType === "content-1"))
+			? sliderHeightTab
+			: ""
+		}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginTab}
@@ -484,7 +491,12 @@ export default function Edit(props) {
 			${slidesGapMobile}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			${isCustomHeight && (sliderType === "image" || (sliderType === "content" && sliderContentType === "content-1")) ? sliderHeightMobile : ""}
+			${isCustomHeight &&
+			(sliderType === "image" ||
+				(sliderType === "content" && sliderContentType === "content-1"))
+			? sliderHeightMobile
+			: ""
+		}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginMobile}
@@ -627,17 +639,17 @@ export default function Edit(props) {
 		vertical,
 		responsive: [
 			{
-				breakpoint: 1025,
+				breakpoint: 1024,
 				settings: {
-					slidesToShow: parseInt(slideToShowTab.replace(/[^0-9]/g, "")),
-				}
+					slidesToShow: slideToShowTab ? parseInt(slideToShowTab.replace(/[^0-9]/g, "")) : parseInt(slideToShowDesktop.replace(/[^0-9]/g, "")),
+				},
 			},
 			{
 				breakpoint: 767,
 				settings: {
-					slidesToShow: parseInt(slideToShowMobile.replace(/[^0-9]/g, "")),
-				}
-			}
+					slidesToShow: slideToShowMobile ? parseInt(slideToShowMobile.replace(/[^0-9]/g, "")) : parseInt(slideToShowDesktop.replace(/[^0-9]/g, "")),
+				},
+			},
 		]
 	};
 
@@ -661,17 +673,20 @@ export default function Edit(props) {
 			if (images.length > 0) {
 				images.map((image, index) => {
 					if (selectedImage.id == image.imageId) {
-						item.title = image.title ? image.title : `Slider ${selectedIndex + 1}`;
-						item.subtitle = image.subtitle ? image.subtitle : "Essential Blocks Slider Subtitle";
+						item.title = image.title
+							? image.title
+							: `Slider ${selectedIndex + 1}`;
+						item.subtitle = image.subtitle
+							? image.subtitle
+							: "Essential Blocks Slider Subtitle";
 						item.showButton = image.showButton ? image.showButton : true;
 						item.buttonText = image.buttonText ? image.buttonText : "See More";
 						item.buttonUrl = image.buttonUrl;
 						item.openNewTab = image.openNewTab ? image.openNewTab : false;
 						item.isValidUrl = image.isValidUrl;
 					}
-				})
-			}
-			else {
+				});
+			} else {
 				item.title = `Slider ${selectedIndex + 1}`;
 				item.subtitle = "Essential Blocks Slider Subtitle";
 				item.showButton = true;
@@ -709,40 +724,43 @@ export default function Edit(props) {
 		);
 	}
 
-	return [
-		isSelected && (
-			<Inspector
-				attributes={attributes}
-				setAttributes={setAttributes}
-				slider={slider}
-			/>
-		),
-		<BlockControls>
-			<ToolbarGroup>
-				<ToolbarItem>
-					{() => (
-						<MediaUpload
-							onSelect={(selectedImages) => onImageSelect(selectedImages, images)}
-							allowedTypes={["image"]}
-							multiple
-							gallery
-							value={images.map((img) => img.imageId)}
-							render={({ open }) => (
-								<ToolbarButton
-									className="components-toolbar__control"
-									label={__("Edit gallery", "essential-blocks")}
-									icon="edit"
-									onClick={open}
-								/>
-							)}
-						/>
-					)}
-				</ToolbarItem>
-			</ToolbarGroup>
-		</BlockControls>,
-		<div {...blockProps}>
-			<style>
-				{`
+	return (
+		<>
+			{isSelected && (
+				<Inspector
+					attributes={attributes}
+					setAttributes={setAttributes}
+					slider={slider}
+				/>
+			)}
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarItem>
+						{() => (
+							<MediaUpload
+								onSelect={(selectedImages) =>
+									onImageSelect(selectedImages, images)
+								}
+								allowedTypes={["image"]}
+								multiple
+								gallery
+								value={images.map((img) => img.imageId)}
+								render={({ open }) => (
+									<ToolbarButton
+										className="components-toolbar__control"
+										label={__("Edit gallery", "essential-blocks")}
+										icon="edit"
+										onClick={open}
+									/>
+								)}
+							/>
+						)}
+					</ToolbarItem>
+				</ToolbarGroup>
+			</BlockControls>
+			<div {...blockProps}>
+				<style>
+					{`
 				${desktopAllStyles}
 
 				/* mimmikcssStart */ 
@@ -768,42 +786,51 @@ export default function Edit(props) {
 				
 				}
 				`}
-			</style>
+				</style>
 
-			<div className={`eb-slider-wrapper ${blockId}`}>
-				<Slider
-					ref={slider}
-					{...settings}
-					key={`${autoplay}-${adaptiveHeight}`}
-					className={sliderType}
-				>
-					{images.map((image) => (
-						<div className={`eb-slider-item ${sliderContentType}`}>
-							<img className="eb-slider-image" src={image.url} />
-							{sliderType === "content" && (
-								<div className={`eb-slider-content align-${textAlign}`}>
-									{image.title && image.title.length > 0 && (
-										<h2 className="eb-slider-title">{image.title}</h2>
-									)}
-									{image.subtitle && image.subtitle.length > 0 && (
-										<p className="eb-slider-subtitle">{image.subtitle}</p>
-									)}
-									{image.showButton && image.buttonText && image.buttonText.length > 0 && (
-										<a
-											href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-											className="eb-slider-button"
-											target={image.openNewTab ? "_blank" : "_self"}
-											rel="noopener"
-										>
-											{image.buttonText}
-										</a>
+				<div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
+					<div className={`eb-slider-wrapper ${blockId}`}>
+						<Slider
+							ref={slider}
+							{...settings}
+							key={`${autoplay}-${adaptiveHeight}`}
+							className={sliderType}
+						>
+							{images.map((image, index) => (
+								<div className={`eb-slider-item ${sliderContentType}`} key={index} >
+									<img className="eb-slider-image" src={image.url} />
+									{sliderType === "content" && (
+										<div className={`eb-slider-content align-${textAlign}`}>
+											{image.title && image.title.length > 0 && (
+												<h2 className="eb-slider-title">{image.title}</h2>
+											)}
+											{image.subtitle && image.subtitle.length > 0 && (
+												<p className="eb-slider-subtitle">{image.subtitle}</p>
+											)}
+											{image.showButton &&
+												image.buttonText &&
+												image.buttonText.length > 0 && (
+													<a
+														href={
+															image.buttonUrl && image.isValidUrl
+																? image.buttonUrl
+																: "#"
+														}
+														className="eb-slider-button"
+														target={image.openNewTab ? "_blank" : "_self"}
+														rel="noopener"
+													>
+														{image.buttonText}
+													</a>
+												)}
+										</div>
 									)}
 								</div>
-							)}
-						</div>
-					))}
-				</Slider>
+							))}
+						</Slider>
+					</div>
+				</div>
 			</div>
-		</div>,
-	];
-};
+		</>
+	);
+}
