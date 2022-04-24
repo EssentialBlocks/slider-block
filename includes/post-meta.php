@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class Advanced_Heading_Post_Meta
+class EB_Slider_Post_Meta
 {
     public function __construct()
     {
@@ -39,4 +39,4 @@ class Advanced_Heading_Post_Meta
     }
 }
 
-new Advanced_Heading_Post_Meta();
+new EB_Slider_Post_Meta();
