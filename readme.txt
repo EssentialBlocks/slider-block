@@ -88,10 +88,10 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-- 1.3.1 - dev =
+- 1.3.1 - 29/05/2022 =
 * Added: Slider title from caption
 * Added: Animation, responsive controls
-* Improved: Controls and structure 
+* Improved: Controls and structure
 
 = 1.3.0 - 18/04/2022 =
 * Added: Animation for all blocks
