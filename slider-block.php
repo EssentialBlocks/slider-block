@@ -133,4 +133,4 @@ function create_block_slider_block_init()
     );
   }
 }
-add_action('init', 'create_block_slider_block_init');
+add_action('init', 'create_block_slider_block_init', 99);
