@@ -331,7 +331,7 @@ function Inspector(props) {
 												resRequiredProps={resRequiredProps}
 												units={[]}
 												min={1}
-												max={4}
+												max={8}
 												step={1}
 											/>
 										)}
