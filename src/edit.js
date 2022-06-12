@@ -669,7 +669,6 @@ export default function Edit(props) {
 	}, [initialSlide]);
 
 	function onImageSelect(selectedImages, images) {
-		console.log({ selectedImages });
 		let updatedImages = [];
 		selectedImages.map((selectedImage, selectedIndex) => {
 			let item = {};
