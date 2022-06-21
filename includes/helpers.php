@@ -40,10 +40,12 @@ class Slider_Helper
      */
     public function enqueues($hook)
     {
+        global $pagenow;
+
         /**
-         * Only for Admin Add/Edit Pages 
+         * Only for admin add/edit pages/posts
          */
-        if ($hook == 'post-new.php' || $hook == 'post.php' || $hook == 'site-editor.php') {
+        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
 
             $controls_dependencies = include_once SLIDER_BLOCK_ADMIN_PATH . '/dist/controls.asset.php';
             wp_register_script(
@@ -59,11 +61,11 @@ class Slider_Helper
                 'rest_rootURL' => get_rest_url(),
             ));
 
-            if ($hook == 'post-new.php' || $hook == 'post.php') {
+            if ($pagenow == 'post-new.php' || $pagenow == 'post.php') {
                 wp_localize_script('slider-block-controls-util', 'eb_conditional_localize', array(
                     'editor_type' => 'edit-post'
                 ));
-            } else if ($hook == 'site-editor.php') {
+            } else if ($pagenow == 'site-editor.php' || $pagenow == 'themes.php') {
                 wp_localize_script('slider-block-controls-util', 'eb_conditional_localize', array(
                     'editor_type' => 'edit-site'
                 ));
