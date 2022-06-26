@@ -669,6 +669,7 @@ export default function Edit(props) {
 	}, [initialSlide]);
 
 	function onImageSelect(selectedImages, images) {
+		console.log("selectedImages", images);
 		let updatedImages = [];
 		selectedImages.map((selectedImage, selectedIndex) => {
 			let item = {};
@@ -691,6 +692,16 @@ export default function Edit(props) {
 						item.buttonUrl = image.buttonUrl;
 						item.openNewTab = image.openNewTab ? image.openNewTab : false;
 						item.isValidUrl = image.isValidUrl;
+					} else {
+						item.title = item.caption
+							? item.caption
+							: `Slider ${selectedIndex + 1}`;
+						item.subtitle = "Essential Blocks Slider Subtitle";
+						item.showButton = true;
+						item.buttonText = "See More";
+						item.buttonUrl = "";
+						item.openNewTab = false;
+						item.isValidUrl = true;
 					}
 				});
 			} else {
