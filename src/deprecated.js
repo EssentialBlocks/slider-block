@@ -8,6 +8,9 @@ import attributes from "./attributes";
 const deprecated = [
 	{
 		attributes: { ...attributes },
+		supports: {
+			align: ["wide", "full"],
+		},
 		save: ({ attributes }) => {
 			const {
 				blockId,
@@ -47,15 +50,15 @@ const deprecated = [
 						breakpoint: 1025,
 						settings: {
 							slidesToShow: attributes.TABslideToShowRange,
-						}
+						},
 					},
 					{
 						breakpoint: 767,
 						settings: {
 							slidesToShow: attributes.MOBslideToShowRange,
-						}
-					}
-				]
+						},
+					},
+				],
 			};
 
 			return (
@@ -68,11 +71,12 @@ const deprecated = [
 						data-sliderType={sliderType}
 						data-textAlign={textAlign}
 					>
-						<div
-							className={sliderType}
-						>
+						<div className={sliderType}>
 							{images.map((image, index) => (
-								<div className={`eb-slider-item ${sliderContentType}`} key={index}>
+								<div
+									className={`eb-slider-item ${sliderContentType}`}
+									key={index}
+								>
 									<img className="eb-slider-image" src={image.url} />
 									{sliderType === "content" && (
 										<div className={`eb-slider-content align-${textAlign}`}>
@@ -82,16 +86,22 @@ const deprecated = [
 											{image.subtitle && image.subtitle.length > 0 && (
 												<p className="eb-slider-subtitle">{image.subtitle}</p>
 											)}
-											{image.showButton && image.buttonText && image.buttonText.length > 0 && (
-												<a
-													href={image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"}
-													className="eb-slider-button"
-													target={image.openNewTab ? "_blank" : "_self"}
-													rel="noopener"
-												>
-													{image.buttonText}
-												</a>
-											)}
+											{image.showButton &&
+												image.buttonText &&
+												image.buttonText.length > 0 && (
+													<a
+														href={
+															image.buttonUrl && image.isValidUrl
+																? image.buttonUrl
+																: "#"
+														}
+														className="eb-slider-button"
+														target={image.openNewTab ? "_blank" : "_self"}
+														rel="noopener"
+													>
+														{image.buttonText}
+													</a>
+												)}
 										</div>
 									)}
 								</div>

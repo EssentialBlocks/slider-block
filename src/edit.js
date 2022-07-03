@@ -380,238 +380,238 @@ export default function Edit(props) {
 
 	// wrapper styles css in strings ⬇
 	const wrapperStylesDesktop = `
-		 .eb-slider-wrapper.${blockId}{
-			 ${wrapperMarginDesktop}
-			 ${wrapperPaddingDesktop}
-			 ${wrapperBDShadowDesktop}
-			 transition: ${wrapperBDShadowTransitionStyle}, ${wrapperBgTransitionStyle};
-			 ${wrapperBackgroundStylesDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId}:hover {
-			 ${wrapperBDShadowHoverDesktop}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginDesktop}
+			${wrapperPaddingDesktop}
+			${wrapperBDShadowDesktop}
+			transition: ${wrapperBDShadowTransitionStyle}, ${wrapperBgTransitionStyle};
+			${wrapperBackgroundStylesDesktop}
+		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverDesktop}
+		}
+	`;
 	const wrapperStylesTab = `
-		 .eb-slider-wrapper.${blockId}{
-			 ${wrapperMarginTab}
-			 ${wrapperPaddingTab}
-			 ${wrapperBDShadowTab}
-			 ${wrapperBackgroundStylesTab}
-		 }
-		 .eb-slider-wrapper.${blockId}:hover {
-			 ${wrapperBDShadowHoverTab}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginTab}
+			${wrapperPaddingTab}
+			${wrapperBDShadowTab}
+			${wrapperBackgroundStylesTab}
+		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverTab}
+		}
+	`;
 	const wrapperStylesMobile = `
-		 .eb-slider-wrapper.${blockId}{
-			 ${wrapperMarginMobile}
-			 ${wrapperPaddingMobile}
-			 ${wrapperBDShadowMobile}
-			 ${wrapperBackgroundStylesMobile}
-		 }
-		 .eb-slider-wrapper.${blockId}:hover {
-			 ${wrapperBDShadowHoverMobile}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId}{
+			${wrapperMarginMobile}
+			${wrapperPaddingMobile}
+			${wrapperBDShadowMobile}
+			${wrapperBackgroundStylesMobile}
+		}
+		.eb-slider-wrapper.${blockId}:hover {
+			${wrapperBDShadowHoverMobile}
+		}
+	`;
 
 	const sliderStylesDesktop = `
-		 .eb-slider-wrapper.${blockId} .slick-slide {
-			 ${slidesGapDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item {
-			 text-align: ${textAlign};
-			 align-items: ${verticalAlign};
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			 ${isCustomHeight ? sliderHeightDesktop : ""}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
-			 background-color: ${overlayColor};
-			 justify-content: ${verticalAlign};
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
-			 color: ${titleColor};
-			 ${titleMarginDesktop}
-			 ${titleTypographyDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
-			 color: ${subtitleColor};
-			 ${subtitleMarginDesktop}
-			 ${subtitleTypographyDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
-			 color: ${buttonColor};
-			 background-color: ${buttonBGColor};
-			 ${buttonMarginDesktop}
-			 ${buttonPaddingDesktop}
-			 ${buttonTypographyDesktop}
-			 ${buttonBDShadowDesktop}
-			 transition: ${buttonBDShadowTransitionStyle};
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
-			 color: ${buttonHoverColor};
-			 background-color: ${buttonHoverBGColor};
-			 ${buttonTypographyDesktop}
-			 ${buttonBDShadowHoverDesktop}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
+			text-align: ${textAlign};
+			align-items: ${verticalAlign};
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${isCustomHeight ? sliderHeightDesktop : ""}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
+			background-color: ${overlayColor};
+			justify-content: ${verticalAlign};
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			color: ${titleColor};
+			${titleMarginDesktop}
+			${titleTypographyDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			color: ${subtitleColor};
+			${subtitleMarginDesktop}
+			${subtitleTypographyDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			color: ${buttonColor};
+			background-color: ${buttonBGColor};
+			${buttonMarginDesktop}
+			${buttonPaddingDesktop}
+			${buttonTypographyDesktop}
+			${buttonBDShadowDesktop}
+			transition: ${buttonBDShadowTransitionStyle};
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			color: ${buttonHoverColor};
+			background-color: ${buttonHoverBGColor};
+			${buttonTypographyDesktop}
+			${buttonBDShadowHoverDesktop}
+		}
+	`;
 	const sliderStylesTab = `
-		 .eb-slider-wrapper.${blockId} .slick-slide {
-			 ${slidesGapTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			 ${
-					isCustomHeight &&
-					(sliderType === "image" ||
-						(sliderType === "content" && sliderContentType === "content-1"))
-						? sliderHeightTab
-						: ""
-				}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
-			 ${titleMarginTab}
-			 ${titleTypographyTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
-			 ${subtitleMarginTab}
-			 ${subtitleTypographyTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
-			 ${buttonMarginTab}
-			 ${buttonPaddingTab}
-			 ${buttonTypographyTab}
-			 ${buttonBDShadowTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
-			 ${buttonTypographyTab}
-			 ${buttonBDShadowHoverTab}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${
+				isCustomHeight &&
+				(sliderType === "image" ||
+					(sliderType === "content" && sliderContentType === "content-1"))
+					? sliderHeightTab
+					: ""
+			}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			${titleMarginTab}
+			${titleTypographyTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			${subtitleMarginTab}
+			${subtitleTypographyTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			${buttonMarginTab}
+			${buttonPaddingTab}
+			${buttonTypographyTab}
+			${buttonBDShadowTab}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			${buttonTypographyTab}
+			${buttonBDShadowHoverTab}
+		}
+	`;
 	const sliderStylesMobile = `
-		 .eb-slider-wrapper.${blockId} .slick-slide {
-			 ${slidesGapMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
-			 ${
-					isCustomHeight &&
-					(sliderType === "image" ||
-						(sliderType === "content" && sliderContentType === "content-1"))
-						? sliderHeightMobile
-						: ""
-				}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
-			 ${titleMarginMobile}
-			 ${titleTypographyMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
-			 ${subtitleMarginMobile}
-			 ${subtitleTypographyMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
-			 ${buttonMarginMobile}
-			 ${buttonPaddingMobile}
-			 ${buttonTypographyMobile}
-			 ${buttonBDShadowMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
-			 ${buttonTypographyMobile}
-			 ${buttonBDShadowHoverMobile}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-slide {
+			${slidesGapMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
+			${
+				isCustomHeight &&
+				(sliderType === "image" ||
+					(sliderType === "content" && sliderContentType === "content-1"))
+					? sliderHeightMobile
+					: ""
+			}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+			${titleMarginMobile}
+			${titleTypographyMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+			${subtitleMarginMobile}
+			${subtitleTypographyMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+			${buttonMarginMobile}
+			${buttonPaddingMobile}
+			${buttonTypographyMobile}
+			${buttonBDShadowMobile}
+		}
+		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+			${buttonTypographyMobile}
+			${buttonBDShadowHoverMobile}
+		}
+	`;
 	const sliderControlsStylesDesktop = `
-		 .eb-slider-wrapper.${blockId} .slick-prev {
-			 ${leftArrowPositionDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-next {
-			 ${rightArrowPositionDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-prev:before, 
-		 .eb-slider-wrapper.${blockId} .slick-next:before {
-			 color: ${arrowColor} !important;
-			 ${arrowSizeDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-prev:hover:before, 
-		 .eb-slider-wrapper.${blockId} .slick-next:hover:before {
-			 color: ${arrowHoverColor} !important;
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots {
-			 ${dotsPositionDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li {
-			 ${dotsGapDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li button:before {
-			 color: ${dotsColor} !important;
-			 ${dotsSizeDesktop}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li.slick-active button:before {
-			 color: ${dotsActiveColor} !important;
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			color: ${arrowColor} !important;
+			${arrowSizeDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:hover:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:hover:before {
+			color: ${arrowHoverColor} !important;
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			color: ${dotsColor} !important;
+			${dotsSizeDesktop}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li.slick-active button:before {
+			color: ${dotsActiveColor} !important;
+		}
+	`;
 	const sliderControlsStylesTab = `
-		 .eb-slider-wrapper.${blockId} .slick-prev {
-			 ${leftArrowPositionTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-next {
-			 ${rightArrowPositionTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-prev:before, 
-		 .eb-slider-wrapper.${blockId} .slick-next:before {
-			 ${arrowSizeTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots {
-			 ${dotsPositionTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li {
-			 ${dotsGapTab}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li button:before {
-			 ${dotsSizeTab}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			${arrowSizeTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapTab}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			${dotsSizeTab}
+		}
+	`;
 	const sliderControlsStylesMobile = `
-		 .eb-slider-wrapper.${blockId} .slick-prev {
-			 ${leftArrowPositionMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-next {
-			 ${rightArrowPositionMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-prev:before, 
-		 .eb-slider-wrapper.${blockId} .slick-next:before {
-			 ${arrowSizeMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots {
-			 ${dotsPositionMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li {
-			 ${dotsGapMobile}
-		 }
-		 .eb-slider-wrapper.${blockId} .slick-dots li button:before {
-			 ${dotsSizeMobile}
-		 }
-	 `;
+		.eb-slider-wrapper.${blockId} .slick-prev {
+			${leftArrowPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-next {
+			${rightArrowPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-next:before {
+			${arrowSizeMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots {
+			${dotsPositionMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li {
+			${dotsGapMobile}
+		}
+		.eb-slider-wrapper.${blockId} .slick-dots li button:before {
+			${dotsSizeMobile}
+		}
+	`;
 
 	// all css styles for large screen width (desktop/laptop) in strings ⬇
 	const desktopAllStyles = softMinifyCssStrings(`
-		 ${wrapperStylesDesktop}
-		 ${sliderStylesDesktop}
-		 ${sliderControlsStylesDesktop}
-	 `);
+		${wrapperStylesDesktop}
+		${sliderStylesDesktop}
+		${sliderControlsStylesDesktop}
+	`);
 
 	// all css styles for Tab in strings ⬇
 	const tabAllStyles = softMinifyCssStrings(`
-		 ${wrapperStylesTab}
-		 ${sliderStylesTab}
-		 ${sliderControlsStylesTab}
-	 `);
+		${wrapperStylesTab}
+		${sliderStylesTab}
+		${sliderControlsStylesTab}
+	`);
 
 	// all css styles for Mobile in strings ⬇
 	const mobileAllStyles = softMinifyCssStrings(`
-		 ${wrapperStylesMobile}
-		 ${sliderStylesMobile}
-		 ${sliderControlsStylesMobile}
-	 `);
+		${wrapperStylesMobile}
+		${sliderStylesMobile}
+		${sliderControlsStylesMobile}
+	`);
 
 	// Set All Style in "blockMeta" Attribute
 	useEffect(() => {
@@ -780,31 +780,31 @@ export default function Edit(props) {
 			<div {...blockProps}>
 				<style>
 					{`
-				 ${desktopAllStyles}
- 
-				 /* mimmikcssStart */ 
- 
-				 ${resOption === "Tablet" ? tabAllStyles : " "}
-				 ${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
- 
-				 /* mimmikcssEnd */
- 
-				 @media all and (max-width: 1024px) {	
- 
-					 /* tabcssStart */			
-					 ${softMinifyCssStrings(tabAllStyles)}
-					 /* tabcssEnd */			
-				 
-				 }
-				 
-				 @media all and (max-width: 767px) {
-					 
-					 /* mobcssStart */			
-					 ${softMinifyCssStrings(mobileAllStyles)}
-					 /* mobcssEnd */			
-				 
-				 }
-				 `}
+				${desktopAllStyles}
+
+				/* mimmikcssStart */ 
+
+				${resOption === "Tablet" ? tabAllStyles : " "}
+				${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
+
+				/* mimmikcssEnd */
+
+				@media all and (max-width: 1024px) {	
+
+					/* tabcssStart */			
+					${softMinifyCssStrings(tabAllStyles)}
+					/* tabcssEnd */			
+				
+				}
+				
+				@media all and (max-width: 767px) {
+					
+					/* mobcssStart */			
+					${softMinifyCssStrings(mobileAllStyles)}
+					/* mobcssEnd */			
+				
+				}
+				`}
 				</style>
 
 				<div className={`eb-parent-wrapper eb-parent-${blockId} ${classHook}`}>
