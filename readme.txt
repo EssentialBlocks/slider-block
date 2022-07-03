@@ -90,6 +90,8 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.3.2 - dev =
 * Added: Converted style-handler to php for working perfectly with Reusable blocks and FSE
+* Added: Link for only image style
+* Fixed: Image captions not syncing for the new image
 
 = 1.3.1 - 29/05/2022 =
 * Added: Slider title from caption
