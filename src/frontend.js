@@ -24,32 +24,52 @@ window.addEventListener("DOMContentLoaded", (event) => {
 			>
 				{images.map((image) => (
 					<div className={`eb-slider-item ${sliderContentType}`}>
-						<img className="eb-slider-image" src={image.url} />
+						{sliderType === "image" && image.buttonUrl && image.isValidUrl && (
+							<>
+								<a
+									href={
+										image.buttonUrl && image.isValidUrl ? image.buttonUrl : "#"
+									}
+									target={image.openNewTab ? "_blank" : "_self"}
+									rel="noopener"
+								>
+									<img className="eb-slider-image" src={image.url} />
+								</a>
+							</>
+						)}
+						{sliderType === "image" &&
+							!image.buttonUrl &&
+							!image.isValidUrlf && (
+								<img className="eb-slider-image" src={image.url} />
+							)}
 						{sliderType === "content" && (
-							<div className={`eb-slider-content align-${textAlign}`}>
-								{image.title && image.title.length > 0 && (
-									<h2 className="eb-slider-title">{image.title}</h2>
-								)}
-								{image.subtitle && image.subtitle.length > 0 && (
-									<p className="eb-slider-subtitle">{image.subtitle}</p>
-								)}
-								{image.showButton &&
-									image.buttonText &&
-									image.buttonText.length > 0 && (
-										<a
-											href={
-												image.buttonUrl && image.isValidUrl
-													? image.buttonUrl
-													: "#"
-											}
-											className="eb-slider-button"
-											target={image.openNewTab ? "_blank" : "_self"}
-											rel="noopener"
-										>
-											{image.buttonText}
-										</a>
+							<>
+								<img className="eb-slider-image" src={image.url} />
+								<div className={`eb-slider-content align-${textAlign}`}>
+									{image.title && image.title.length > 0 && (
+										<h2 className="eb-slider-title">{image.title}</h2>
 									)}
-							</div>
+									{image.subtitle && image.subtitle.length > 0 && (
+										<p className="eb-slider-subtitle">{image.subtitle}</p>
+									)}
+									{image.showButton &&
+										image.buttonText &&
+										image.buttonText.length > 0 && (
+											<a
+												href={
+													image.buttonUrl && image.isValidUrl
+														? image.buttonUrl
+														: "#"
+												}
+												className="eb-slider-button"
+												target={image.openNewTab ? "_blank" : "_self"}
+												rel="noopener"
+											>
+												{image.buttonText}
+											</a>
+										)}
+								</div>
+							</>
 						)}
 					</div>
 				))}

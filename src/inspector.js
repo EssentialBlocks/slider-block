@@ -357,8 +357,8 @@ function Inspector(props) {
 										/>
 									</PanelBody>
 
-									{sliderType === "content" && (
-										<PanelBody title={__("Slides", "essential-blocks")}>
+									<PanelBody title={__("Slides", "essential-blocks")}>
+										{sliderType === "content" && (
 											<SelectControl
 												label={__("Content Styles", "essential-blocks")}
 												value={sliderContentType}
@@ -367,78 +367,113 @@ function Inspector(props) {
 													setAttributes({ sliderContentType: value })
 												}
 											/>
-											{images.map((item, index) => {
-												return (
-													<PanelBody
-														title={
-															item.title && item.title.length > 0
-																? item.title
-																: "Slider " + (index + 1)
-														}
-														initialOpen={false}
-														onToggle={() =>
-															setAttributes({ initialSlide: index })
-														}
-														className="eb-slider-item-single-panel"
-														key={index}
-													>
-														<TextControl
-															label={__("Title Text", "essential-blocks")}
-															value={item.title}
-															onChange={(text) => handleTitle(text, index)}
-														/>
-														<TextareaControl
-															label={__("Subtitle", "essential-blocks")}
-															value={item.subtitle}
-															onChange={(text) => handleSubtitle(text, index)}
-														/>
-														<ToggleControl
-															label={__("Show Button", "essential-blocks")}
-															checked={item.showButton}
-															onChange={() =>
-																handleShowButton(!item.showButton, index)
-															}
-														/>
-														{item.showButton && (
-															<>
-																<TextControl
-																	label={__("Button Text", "essential-blocks")}
-																	value={item.buttonText}
-																	onChange={(text) =>
-																		handleButtonText(text, index)
-																	}
-																/>
-																<TextControl
-																	label={__("Button URL", "essential-blocks")}
-																	value={item.buttonUrl}
-																	onChange={(text) =>
-																		handleButtonURL(text, index)
-																	}
-																/>
-																{item.buttonUrl &&
-																	item.buttonUrl.length > 0 &&
-																	!item.isValidUrl && (
-																		<span className="error">
-																			URL is not valid
-																		</span>
-																	)}
-																<ToggleControl
-																	label={__(
-																		"Open in New Tab",
-																		"essential-blocks"
-																	)}
-																	checked={item.openNewTab}
-																	onChange={() =>
-																		handleOpenNewTab(!item.openNewTab, index)
-																	}
-																/>
-															</>
-														)}
-													</PanelBody>
-												);
-											})}
-										</PanelBody>
-									)}
+										)}
+										{images.map((item, index) => {
+											return (
+												<PanelBody
+													title={
+														item.title && item.title.length > 0
+															? item.title
+															: "Slider " + (index + 1)
+													}
+													initialOpen={false}
+													onToggle={() =>
+														setAttributes({ initialSlide: index })
+													}
+													className="eb-slider-item-single-panel"
+													key={index}
+												>
+													{sliderType === "content" && (
+														<>
+															<TextControl
+																label={__("Title Text", "essential-blocks")}
+																value={item.title}
+																onChange={(text) => handleTitle(text, index)}
+															/>
+															<TextareaControl
+																label={__("Subtitle", "essential-blocks")}
+																value={item.subtitle}
+																onChange={(text) => handleSubtitle(text, index)}
+															/>
+															<ToggleControl
+																label={__("Show Button", "essential-blocks")}
+																checked={item.showButton}
+																onChange={() =>
+																	handleShowButton(!item.showButton, index)
+																}
+															/>
+															{item.showButton && (
+																<>
+																	<TextControl
+																		label={__(
+																			"Button Text",
+																			"essential-blocks"
+																		)}
+																		value={item.buttonText}
+																		onChange={(text) =>
+																			handleButtonText(text, index)
+																		}
+																	/>
+																	<TextControl
+																		label={__("Button URL", "essential-blocks")}
+																		value={item.buttonUrl}
+																		onChange={(text) =>
+																			handleButtonURL(text, index)
+																		}
+																	/>
+																	{item.buttonUrl &&
+																		item.buttonUrl.length > 0 &&
+																		!item.isValidUrl && (
+																			<span className="error">
+																				URL is not valid
+																			</span>
+																		)}
+																	<ToggleControl
+																		label={__(
+																			"Open in New Tab",
+																			"essential-blocks"
+																		)}
+																		checked={item.openNewTab}
+																		onChange={() =>
+																			handleOpenNewTab(!item.openNewTab, index)
+																		}
+																	/>
+																</>
+															)}
+														</>
+													)}
+													{sliderType === "image" && (
+														<>
+															<TextControl
+																label={__("URL", "essential-blocks")}
+																value={item.buttonUrl}
+																onChange={(text) =>
+																	handleButtonURL(text, index)
+																}
+															/>
+															{item.buttonUrl &&
+																item.buttonUrl.length > 0 &&
+																!item.isValidUrl && (
+																	<span className="error">
+																		URL is not valid
+																	</span>
+																)}
+															<ToggleControl
+																label={__(
+																	"Open in New Tab",
+																	"essential-blocks"
+																)}
+																checked={item.openNewTab}
+																onChange={() =>
+																	handleOpenNewTab(!item.openNewTab, index)
+																}
+															/>
+														</>
+													)}
+												</PanelBody>
+											);
+										})}
+									</PanelBody>
 								</>
 							)}
 							{tab.name === "styles" && (
