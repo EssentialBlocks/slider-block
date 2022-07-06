@@ -1,5 +1,5 @@
 === Image Slider Block ===
-Contributors: wpdevteam, re_enter_rupok, Asif2BD, jamilbd07, rahat89
+Contributors: wpdevteam, re_enter_rupok, Asif2BD, jamilbd07, rahat89, fencermonir
 Tags: gutenberg, block, blocks, editor, progress, progress bar, skill bar, responsive progress bar, animated skillbar, animated progress bar, skill-bars, percentage bar, chart bar, graph bar, gutenberg blocks
 Requires at least: 5.6
 Tested up to: 6.0
@@ -88,7 +88,7 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.3.2 - dev =
+= 1.3.2 - 06/07/2022 =
 * Added: Converted style-handler to php for working perfectly with Reusable blocks and FSE
 * Added: Link for only image style
 * Fixed: Image captions not syncing for the new image
