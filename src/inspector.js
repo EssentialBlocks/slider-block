@@ -69,11 +69,6 @@ const {
 	AdvancedControls,
 } = window.EBSliderControls;
 
-const editorStoreForGettingPreivew =
-	eb_conditional_localize.editor_type === "edit-site"
-		? "core/edit-site"
-		: "core/edit-post";
-
 function Inspector(props) {
 	const { attributes, setAttributes, slider } = props;
 	const {
@@ -192,15 +187,6 @@ function Inspector(props) {
 
 		setAttributes({ images: updatedImageArray });
 	};
-
-	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class only the first time once
-	useEffect(() => {
-		setAttributes({
-			resOption: select(
-				editorStoreForGettingPreivew
-			).__experimentalGetPreviewDeviceType(),
-		});
-	}, []);
 
 	const resRequiredProps = {
 		setAttributes,
