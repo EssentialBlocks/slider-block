@@ -56,11 +56,6 @@ const {
 	duplicateBlockIdFix,
 } = window.EBSliderControls;
 
-const editorStoreForGettingPreivew =
-	eb_conditional_localize.editor_type === "edit-site"
-		? "core/edit-site"
-		: "core/edit-post";
-
 /**
  * External dependencies
  */
@@ -103,15 +98,6 @@ export default function Edit(props) {
 		verticalAlign,
 		classHook,
 	} = attributes;
-
-	// this useEffect is for setting the resOption attribute to desktop/tab/mobile depending on the added 'eb-res-option-' class
-	useEffect(() => {
-		setAttributes({
-			resOption: select(
-				editorStoreForGettingPreivew
-			).__experimentalGetPreviewDeviceType(),
-		});
-	}, []);
 
 	// this useEffect is for creating a unique id for each block's unique className by a random unique number
 	useEffect(() => {
@@ -415,7 +401,7 @@ export default function Edit(props) {
 	`;
 
 	const sliderStylesDesktop = `
-		.eb-slider-wrapper.${blockId} .slick-slide {
+		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapDesktop}
 		}
 		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
@@ -456,7 +442,7 @@ export default function Edit(props) {
 		}
 	`;
 	const sliderStylesTab = `
-		.eb-slider-wrapper.${blockId} .slick-slide {
+		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapTab}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
@@ -488,7 +474,7 @@ export default function Edit(props) {
 		}
 	`;
 	const sliderStylesMobile = `
-		.eb-slider-wrapper.${blockId} .slick-slide {
+		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapMobile}
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {

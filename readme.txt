@@ -89,6 +89,7 @@ Yes, it will work with any standard WordPress theme.
 == Changelog ==
 
 = 1.3.3 - dev =
+* Fixed: slider gap broken issue
 * Fixed: style handler php warning
 
 = 1.3.2 - 06/07/2022 =
