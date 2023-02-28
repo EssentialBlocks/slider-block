@@ -37,14 +37,15 @@
 					padding: 20px 30px;
 					display: flex;
 					flex-flow: column;
-					&.align-left .eb-slider-button, 
-					&.align-justify .eb-slider-button{
+					box-sizing: border-box;
+					&.align-left .eb-slider-button,
+					&.align-justify .eb-slider-button {
 						align-self: flex-start;
 					}
-					&.align-center .eb-slider-button{
+					&.align-center .eb-slider-button {
 						align-self: center;
 					}
-					&.align-right .eb-slider-button{
+					&.align-right .eb-slider-button {
 						align-self: flex-end;
 					}
 				}
@@ -76,7 +77,8 @@
 			}
 		}
 	}
-	.slick-prev, .slick-next {
+	.slick-prev,
+	.slick-next {
 		z-index: 99;
 	}
 	ul.slick-dots {
