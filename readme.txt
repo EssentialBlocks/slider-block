@@ -88,6 +88,9 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
+= 1.3.5 - dev =
+* Added: Alt text option for image
+
 = 1.3.4 - dev =
 * Fixed: slider gap broken issue
 
