@@ -13,7 +13,6 @@ class EB_Slider_Font_Loader {
     protected static $instances = null;
 
     public static $gfonts      = [];
-    private static $blocks     = [];
     private static $block_name = [];
 
     /**
@@ -79,11 +78,10 @@ class EB_Slider_Font_Loader {
      * @access public
      */
     public function fonts_loader( $handle_name = 'eb-block-fonts' ) {
-        $eb_settings = get_option( 'eb_settings', [] );
-        $googleFont  = ! empty( $eb_settings['googleFont'] ) ? $eb_settings['googleFont'] : 'true';
-
-        if ( 'essential-blocks' !== self::$block_name ) {
-            $googleFont = true;
+        $googleFont = true;
+        if ( 'essential-blocks' === self::$block_name ) {
+            $eb_settings = get_option( 'eb_settings', [] );
+            $googleFont  = ! empty( $eb_settings['googleFont'] ) ? $eb_settings['googleFont'] : 'true';
         }
 
         if ( 'false' !== $googleFont ) {
