@@ -512,12 +512,12 @@ export default function Edit(props) {
 		.eb-slider-wrapper.${blockId} .slick-next {
 			${rightArrowPositionDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-prev:before,
 		.eb-slider-wrapper.${blockId} .slick-next:before {
 			color: ${arrowColor} !important;
 			${arrowSizeDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .slick-prev:hover:before, 
+		.eb-slider-wrapper.${blockId} .slick-prev:hover:before,
 		.eb-slider-wrapper.${blockId} .slick-next:hover:before {
 			color: ${arrowHoverColor} !important;
 		}
@@ -542,7 +542,7 @@ export default function Edit(props) {
 		.eb-slider-wrapper.${blockId} .slick-next {
 			${rightArrowPositionTab}
 		}
-		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-prev:before,
 		.eb-slider-wrapper.${blockId} .slick-next:before {
 			${arrowSizeTab}
 		}
@@ -563,7 +563,7 @@ export default function Edit(props) {
 		.eb-slider-wrapper.${blockId} .slick-next {
 			${rightArrowPositionMobile}
 		}
-		.eb-slider-wrapper.${blockId} .slick-prev:before, 
+		.eb-slider-wrapper.${blockId} .slick-prev:before,
 		.eb-slider-wrapper.${blockId} .slick-next:before {
 			${arrowSizeMobile}
 		}
@@ -657,41 +657,51 @@ export default function Edit(props) {
 	function onImageSelect(selectedImages, images) {
 		let updatedImages = [];
 		selectedImages.map((selectedImage, selectedIndex) => {
-			let item = {};
-			item.url = selectedImage.url;
-			item.alt = selectedImage.alt;
-			item.id = selectedIndex;
-			item.imageId = selectedImage.id;
-			item.caption = selectedImage.caption;
+			let item = {
+				url: selectedImage.url,
+				alt: selectedImage.alt,
+				id: selectedIndex,
+				imageId: selectedImage.id,
+				caption: selectedImage.caption,
+			};
+
 			if (images.length > 0) {
-				images.map((image, index) => {
-					if (selectedImage.id == image.imageId) {
-						item.title = image.title
-							? image.title
-							: `Slider ${selectedIndex + 1}`;
-						item.subtitle = image.subtitle
-							? image.subtitle
-							: "Essential Blocks Slider Subtitle";
-						item.showButton = image.showButton ? image.showButton : true;
-						item.buttonText = image.buttonText ? image.buttonText : "See More";
-						item.buttonUrl = image.buttonUrl;
-						item.openNewTab = image.openNewTab ? image.openNewTab : false;
-						item.isValidUrl = image.isValidUrl;
-					} else {
-						item.title = item.caption
-							? item.caption
-							: `Slider ${selectedIndex + 1}`;
-						item.subtitle = "Essential Blocks Slider Subtitle";
-						item.showButton = true;
-						item.buttonText = "See More";
-						item.buttonUrl = "";
-						item.openNewTab = false;
-						item.isValidUrl = true;
-					}
-				});
+				const thisImage = images.filter(
+					(data, index) => data.imageId === selectedImage.id
+				);
+
+				if (thisImage.length > 0) {
+					item.title = thisImage[0].title
+						? thisImage[0].title
+						: `Slider ${selectedIndex + 1}`;
+					item.subtitle = thisImage[0].subtitle
+						? thisImage[0].subtitle
+						: "Essential Blocks Slider Subtitle";
+					item.showButton = thisImage[0].showButton
+						? thisImage[0].showButton
+						: true;
+					item.buttonText = thisImage[0].buttonText
+						? thisImage[0].buttonText
+						: "See More";
+					item.buttonUrl = thisImage[0].buttonUrl;
+					item.openNewTab = thisImage[0].openNewTab
+						? thisImage[0].openNewTab
+						: false;
+					item.isValidUrl = thisImage[0].isValidUrl;
+				} else {
+					item.title = selectedImage.caption
+						? selectedImage.caption
+						: `Slider ${selectedIndex + 1}`;
+					item.subtitle = "Essential Blocks Slider Subtitle";
+					item.showButton = true;
+					item.buttonText = "See More";
+					item.buttonUrl = "";
+					item.openNewTab = false;
+					item.isValidUrl = true;
+				}
 			} else {
-				item.title = item.caption
-					? item.caption
+				item.title = selectedImage.caption
+					? selectedImage.caption
 					: `Slider ${selectedIndex + 1}`;
 				item.subtitle = "Essential Blocks Slider Subtitle";
 				item.showButton = true;
@@ -768,27 +778,27 @@ export default function Edit(props) {
 					{`
 				${desktopAllStyles}
 
-				/* mimmikcssStart */ 
+				/* mimmikcssStart */
 
 				${resOption === "Tablet" ? tabAllStyles : " "}
 				${resOption === "Mobile" ? tabAllStyles + mobileAllStyles : " "}
 
 				/* mimmikcssEnd */
 
-				@media all and (max-width: 1024px) {	
+				@media all and (max-width: 1024px) {
 
-					/* tabcssStart */			
+					/* tabcssStart */
 					${softMinifyCssStrings(tabAllStyles)}
-					/* tabcssEnd */			
-				
+					/* tabcssEnd */
+
 				}
-				
+
 				@media all and (max-width: 767px) {
-					
-					/* mobcssStart */			
+
+					/* mobcssStart */
 					${softMinifyCssStrings(mobileAllStyles)}
-					/* mobcssEnd */			
-				
+					/* mobcssEnd */
+
 				}
 				`}
 				</style>
