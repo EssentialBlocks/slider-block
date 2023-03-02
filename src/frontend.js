@@ -33,18 +33,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
 									target={image.openNewTab ? "_blank" : "_self"}
 									rel="noopener"
 								>
-									<img className="eb-slider-image" src={image.url} />
+									<img
+										className="eb-slider-image"
+										src={image.url}
+										alt={image.alt ? image.alt : image.title}
+									/>
 								</a>
 							</>
 						)}
 						{sliderType === "image" &&
 							!image.buttonUrl &&
 							!image.isValidUrlf && (
-								<img className="eb-slider-image" src={image.url} />
+								<img
+									className="eb-slider-image"
+									src={image.url}
+									alt={image.alt ? image.alt : image.title}
+								/>
 							)}
 						{sliderType === "content" && (
 							<>
-								<img className="eb-slider-image" src={image.url} />
+								<img
+									className="eb-slider-image"
+									src={image.url}
+									alt={image.alt ? image.alt : image.title}
+								/>
 								<div className={`eb-slider-content align-${textAlign}`}>
 									{image.title && image.title.length > 0 && (
 										<h2 className="eb-slider-title">{image.title}</h2>

@@ -54,11 +54,11 @@ const attributes = {
 	},
 	sliderType: {
 		type: "string",
-		default: "image"
+		default: "image",
 	},
 	sliderContentType: {
 		type: "string",
-		default: "content-1"
+		default: "content-1",
 	},
 	images: {
 		type: "array",
@@ -251,7 +251,7 @@ const attributes = {
 	...generateResponsiveRangeAttributes(SLIDE_TO_SHOW, {
 		defaultRange: 1,
 	}),
-	
+
 	// range controller Slider Height
 	...generateResponsiveRangeAttributes(CUSTOM_HEIGHT, {
 		defaultRange: 400,
