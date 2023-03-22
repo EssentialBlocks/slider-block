@@ -2,7 +2,7 @@
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, jamilbd07, rahat89, fencermonir
 Tags: gutenberg, block, blocks, editor, progress, progress bar, skill bar, responsive progress bar, animated skillbar, animated progress bar, skill-bars, percentage bar, chart bar, graph bar, gutenberg blocks
 Requires at least: 5.6
-Tested up to: 6.0
+Tested up to: 6.1
 Stable tag: 1.3.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -88,7 +88,7 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.3.6 - dev =
+= 1.3.6 - 22/03/2023 =
 * Improved: controls
 
 = 1.3.5 - 02/03/2023 =
