@@ -10,7 +10,7 @@ import Example from "./example";
 import deprecated from "./deprecated";
 
 import metadata from "../block.json";
-const { ebConditionalRegisterBlockType } = EBSliderControls;
+const { ebConditionalRegisterBlockType } = window.EBSliderControls;
 
 ebConditionalRegisterBlockType(metadata, {
 	keywords: [
