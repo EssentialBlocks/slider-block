@@ -8,6 +8,9 @@ import {
 	BUTTON_MARGIN,
 	BUTTON_PADDING,
 	BUTTON_BORDER_SHADOW,
+	BUTTON2_MARGIN,
+	BUTTON2_PADDING,
+	BUTTON2_BORDER_SHADOW,
 	SLIDE_TO_SHOW,
 	CUSTOM_HEIGHT,
 	DOTS_GAP,
@@ -144,9 +147,30 @@ const attributes = {
 		type: "string",
 		default: "#333333",
 	},
+
+	secondButtonColorType: {
+		type: "string",
+		default: "normal",
+	},
+	secondButtonColor: {
+		type: "string",
+		default: "#ffffff",
+	},
+	secondButtonHoverColor: {
+		type: "string",
+		default: "#ffffff",
+	},
+	secondButtonBGColor: {
+		type: "string",
+		default: "#333333",
+	},
+	secondButtonHoverBGColor: {
+		type: "string",
+		default: "#333333",
+	},
 	overlayColor: {
 		type: "string",
-		default: "rgb(184 133 228 / 75%)",
+		default: "rgb(234 233 235 / 75%)",
 	},
 	arrowColorType: {
 		type: "string",
@@ -175,6 +199,19 @@ const attributes = {
 	verticalAlign: {
 		type: "string",
 		default: "center",
+	},
+	isRTLEnable: {
+		type: "boolean",
+		default: false,
+	},
+
+	arrowPrevIcon: {
+		type: "string",
+		default: "fas fa-arrow-alt-circle-left",
+	},
+	arrowNextIcon: {
+		type: "string",
+		default: "fas fa-arrow-alt-circle-right",
 	},
 
 	// typography attributes ⬇
@@ -217,6 +254,20 @@ const attributes = {
 		left: 30,
 		isLinked: false,
 	}),
+	...generateDimensionsAttributes(BUTTON2_MARGIN, {
+		top: 0,
+		bottom: 20,
+		right: 10,
+		left: 0,
+		isLinked: false,
+	}),
+	...generateDimensionsAttributes(BUTTON2_PADDING, {
+		top: 10,
+		bottom: 10,
+		right: 30,
+		left: 30,
+		isLinked: false,
+	}),
 
 	// border shadow attributes for Wrapper ⬇
 	...generateBorderShadowAttributes(WRAPPER_BORDER_SHADOW, {
@@ -231,6 +282,16 @@ const attributes = {
 	}),
 	// border shadow attributes for Button ⬇
 	...generateBorderShadowAttributes(BUTTON_BORDER_SHADOW, {
+		bdrDefaults: {
+			top: 1,
+			bottom: 1,
+			right: 1,
+			left: 1,
+		},
+		// noShadow: true,
+		// noBorder: true,
+	}),
+	...generateBorderShadowAttributes(BUTTON2_BORDER_SHADOW, {
 		bdrDefaults: {
 			top: 1,
 			bottom: 1,
