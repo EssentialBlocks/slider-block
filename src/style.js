@@ -543,7 +543,19 @@ export default function Style(props) {
 			${button2BDShadowHoverMobile}
 		}
 	`;
+
+	const [arrowValueDesktop] = arrowSizeDesktop ? arrowSizeDesktop.match(/(\d+)([a-zA-Z]+)/) : '';
+	const [arrowValueTab] = arrowSizeTab ? arrowSizeTab.match(/(\d+)([a-zA-Z]+)/) : "";
+	const [arrowValueMobile] = arrowSizeMobile ? arrowSizeMobile.match(/(\d+)([a-zA-Z]+)/) : "";
+
 	const sliderControlsStylesDesktop = `
+		${arrowValueDesktop ? `
+			.eb-slider-wrapper.${blockId} .slick-prev,
+			.eb-slider-wrapper.${blockId} .slick-next {
+				height: ${arrowValueDesktop};
+				width: ${arrowValueDesktop};
+			}
+		` : ""}
 		.eb-slider-wrapper.${blockId} .slick-prev {
 			${leftArrowPositionDesktop}
 		}
@@ -574,6 +586,13 @@ export default function Style(props) {
 		}
 	`;
 	const sliderControlsStylesTab = `
+		${arrowValueTab ? `
+			.eb-slider-wrapper.${blockId} .slick-prev,
+			.eb-slider-wrapper.${blockId} .slick-next {
+				height: ${arrowValueTab};
+				width: ${arrowValueTab};
+			}
+		` : ""}
 		.eb-slider-wrapper.${blockId} .slick-prev {
 			${leftArrowPositionTab}
 		}
@@ -595,6 +614,13 @@ export default function Style(props) {
 		}
 	`;
 	const sliderControlsStylesMobile = `
+	${arrowValueMobile ? `
+		.eb-slider-wrapper.${blockId} .slick-prev,
+		.eb-slider-wrapper.${blockId} .slick-next {
+			height: ${arrowValueMobile};
+			width: ${arrowValueMobile};
+		}
+	` : ""}
 		.eb-slider-wrapper.${blockId} .slick-prev {
 			${leftArrowPositionMobile}
 		}

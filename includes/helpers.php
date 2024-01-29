@@ -59,7 +59,7 @@ class Slider_Helper
             wp_localize_script('slider-block-controls-util', 'EssentialBlocksLocalize', array(
                 'eb_wp_version' => (float) get_bloginfo('version'),
                 'rest_rootURL' => get_rest_url(),
-								'fontAwesome' => "false"
+								'fontAwesome' => "true"
             ));
 
             if ($pagenow == 'post-new.php' || $pagenow == 'post.php') {
@@ -80,7 +80,7 @@ class Slider_Helper
             wp_enqueue_style(
                 'essential-blocks-editor-css',
                 SLIDER_BLOCK_ADMIN_URL . '/dist/modules.css',
-                array('essential-blocks-icon-picker-css'),
+                array('essential-blocks-icon-picker-css', 'essential-blocks-fontawesome'),
                 $controls_dependencies['version'],
                 'all'
             );

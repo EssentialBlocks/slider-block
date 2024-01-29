@@ -90,6 +90,11 @@ function create_block_slider_block_init() {
         true
     );
 
+		wp_register_style(
+			'essential-blocks-fontawesome',
+			SLIDER_BLOCK_ADMIN_URL . '/lib/css/fontawesome/css/all.min.css',
+		);
+
     $style_css = SLIDER_BLOCK_ADMIN_URL . 'dist/style.css';
     //Frontend & Editor Style
     wp_register_style(
@@ -97,7 +102,8 @@ function create_block_slider_block_init() {
         $style_css,
         [
             'slick-style',
-            'essential-blocks-animation'
+            'essential-blocks-animation',
+						'essential-blocks-fontawesome'
         ],
         SLIDER_BLOCK_VERSION
     );
