@@ -74,7 +74,7 @@ class Slider_Helper
 
 						wp_register_style(
 							'essential-blocks-icon-picker-css',
-							SLIDER_BLOCK_ADMIN_URL . '/dist/style-modules.css',
+							SLIDER_BLOCK_ADMIN_URL . '/dist/style-modules.css'
 						);
 
             wp_enqueue_style(
