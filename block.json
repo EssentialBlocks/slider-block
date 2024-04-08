@@ -4,6 +4,5 @@
 	"category": "widgets",
 	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
 	"keywords": ["slider", "carousel", "images"],
-	"textdomain": "slider-block",
-	"editorScript": "file:./dist/index.js"
+	"textdomain": "slider-block"
 }
