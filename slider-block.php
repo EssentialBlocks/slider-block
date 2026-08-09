@@ -3,15 +3,23 @@
 /**
  * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
- * Version:         1.3.8
+ * Version:         1.5.0
  * Author:          WPDeveloper
  * Author URI:           https://wpdeveloper.net
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     slider-block
+ * Requires at least: 5.6
+ * Tested up to:    7.0
+ * Requires PHP:    7.0
  *
  * @package         slider-block
  */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 /**
  * Registers all block assets so that they can be enqueued through the block editor
@@ -23,22 +31,34 @@
 require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
-require_once __DIR__ . '/lib/style-handler/style-handler.php';
+
+// Shipped as a git submodule; absent in an uninitialised checkout.
+if ( file_exists( __DIR__ . '/lib/style-handler/style-handler.php' ) ) {
+    require_once __DIR__ . '/lib/style-handler/style-handler.php';
+}
 
 function create_block_slider_block_init() {
-    define( 'SLIDER_BLOCK_VERSION', "1.3.8" );
-    define( 'SLIDER_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
-    define( 'SLIDER_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    if ( ! defined( 'SLIDER_BLOCK_VERSION' ) ) {
+        define( 'SLIDER_BLOCK_VERSION', "1.5.0" );
+    }
+    if ( ! defined( 'SLIDER_BLOCK_ADMIN_URL' ) ) {
+        define( 'SLIDER_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
+    }
+    if ( ! defined( 'SLIDER_BLOCK_ADMIN_PATH' ) ) {
+        define( 'SLIDER_BLOCK_ADMIN_PATH', dirname( __FILE__ ) );
+    }
 
-    $script_asset_path = SLIDER_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
-    if ( ! file_exists( $script_asset_path ) ) {
+    $script_asset_path   = SLIDER_BLOCK_ADMIN_PATH . "/dist/index.asset.php";
+    $frontend_asset_path = SLIDER_BLOCK_ADMIN_PATH . '/dist/frontend/index.asset.php';
+    if ( ! file_exists( $script_asset_path ) || ! file_exists( $frontend_asset_path ) ) {
         throw new Error(
             'You need to run `npm start` or `npm run build` for the "block/testimonial" block first.'
         );
     }
     $index_js         = SLIDER_BLOCK_ADMIN_URL . 'dist/index.js';
     $script_asset     = require $script_asset_path;
-    $all_dependencies = array_merge( $script_asset['dependencies'], [
+    $script_asset     = is_array( $script_asset ) ? $script_asset : [];
+    $all_dependencies = array_merge( isset( $script_asset['dependencies'] ) ? $script_asset['dependencies'] : [], [
         'wp-blocks',
         'wp-i18n',
         'wp-element',
@@ -52,7 +72,7 @@ function create_block_slider_block_init() {
         'create-block-slider-block-editor-script',
         $index_js,
         $all_dependencies,
-        $script_asset['version'],
+        isset( $script_asset['version'] ) ? $script_asset['version'] : SLIDER_BLOCK_VERSION,
         true
     );
 
@@ -92,7 +112,9 @@ function create_block_slider_block_init() {
 
 		wp_register_style(
 			'essential-blocks-fontawesome',
-			SLIDER_BLOCK_ADMIN_URL . '/lib/css/fontawesome/css/all.min.css'
+			SLIDER_BLOCK_ADMIN_URL . 'lib/css/fontawesome/css/all.min.css',
+			[],
+			SLIDER_BLOCK_VERSION
 		);
 
     $style_css = SLIDER_BLOCK_ADMIN_URL . 'dist/style.css';
@@ -110,12 +132,13 @@ function create_block_slider_block_init() {
 
     //Frontend Style
     $frontend_js    = SLIDER_BLOCK_ADMIN_URL . 'dist/frontend/index.js';
-    $frontend_asset = require SLIDER_BLOCK_ADMIN_PATH . '/dist/frontend/index.asset.php';
+    $frontend_asset = require $frontend_asset_path;
+    $frontend_asset = is_array( $frontend_asset ) ? $frontend_asset : [];
     wp_register_script(
         'slider-block-frontend-js',
         $frontend_js,
-        $frontend_asset['dependencies'],
-        $frontend_asset['version'],
+        isset( $frontend_asset['dependencies'] ) ? $frontend_asset['dependencies'] : [],
+        isset( $frontend_asset['version'] ) ? $frontend_asset['version'] : SLIDER_BLOCK_VERSION,
         true
     );
 

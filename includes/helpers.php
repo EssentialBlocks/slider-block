@@ -45,14 +45,23 @@ class Slider_Helper
         /**
          * Only for admin add/edit pages/posts
          */
-        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
+        $query_string = isset($_SERVER['QUERY_STRING']) ? sanitize_text_field(wp_unslash($_SERVER['QUERY_STRING'])) : '';
 
-            $controls_dependencies = include_once SLIDER_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($query_string) && strpos($query_string, 'gutenberg-edit-site') !== false)) {
+
+            $controls_asset_path = SLIDER_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+            if (!file_exists($controls_asset_path)) {
+                return;
+            }
+            $controls_dependencies = require $controls_asset_path;
+            $controls_dependencies = is_array($controls_dependencies) ? $controls_dependencies : array();
+            $controls_version      = isset($controls_dependencies['version']) ? $controls_dependencies['version'] : SLIDER_BLOCK_VERSION;
+
             wp_register_script(
                 "slider-block-controls-util",
-                SLIDER_BLOCK_ADMIN_URL . '/dist/modules.js',
-                array_merge($controls_dependencies['dependencies'],['lodash']),
-                $controls_dependencies['version'],
+                SLIDER_BLOCK_ADMIN_URL . 'dist/modules.js',
+                array_merge(isset($controls_dependencies['dependencies']) ? $controls_dependencies['dependencies'] : array(), ['lodash']),
+                $controls_version,
                 true
             );
 
@@ -74,21 +83,24 @@ class Slider_Helper
 
 						wp_register_style(
 							'essential-blocks-icon-picker-css',
-							SLIDER_BLOCK_ADMIN_URL . '/dist/style-modules.css'
+							SLIDER_BLOCK_ADMIN_URL . 'dist/style-modules.css',
+							array(),
+							$controls_version
 						);
 
             wp_enqueue_style(
                 'essential-blocks-editor-css',
-                SLIDER_BLOCK_ADMIN_URL . '/dist/modules.css',
+                SLIDER_BLOCK_ADMIN_URL . 'dist/modules.css',
                 array('essential-blocks-icon-picker-css', 'essential-blocks-fontawesome'),
-                $controls_dependencies['version'],
+                $controls_version,
                 'all'
             );
         }
     }
     public static function get_block_register_path($blockname, $blockPath)
     {
-        if ((float) get_bloginfo('version') <= 5.6) {
+        // version_compare(), not a float cast: (float) "5.10" is 5.1, (float) "7.0.3" is 7.0.
+        if (version_compare(get_bloginfo('version'), '5.7', '<')) {
             return $blockname;
         } else {
             return $blockPath;
