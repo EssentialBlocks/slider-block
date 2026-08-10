@@ -99,12 +99,8 @@ class Slider_Helper
     }
     public static function get_block_register_path($blockname, $blockPath)
     {
-        // version_compare(), not a float cast: (float) "5.10" is 5.1, (float) "7.0.3" is 7.0.
-        if (version_compare(get_bloginfo('version'), '5.7', '<')) {
-            return $blockname;
-        } else {
-            return $blockPath;
-        }
+        // Minimum supported WP is 6.0, so path-based registration is always available.
+        return $blockPath;
     }
 }
 Slider_Helper::register();

@@ -9,9 +9,9 @@
  * License:         GPL-3.0-or-later
  * License URI:     https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:     slider-block
- * Requires at least: 5.6
+ * Requires at least: 6.0
  * Tested up to:    7.0
- * Requires PHP:    7.0
+ * Requires PHP:    7.4
  *
  * @package         slider-block
  */
@@ -32,9 +32,33 @@ require_once __DIR__ . '/includes/font-loader.php';
 require_once __DIR__ . '/includes/post-meta.php';
 require_once __DIR__ . '/includes/helpers.php';
 
-// Shipped as a git submodule; absent in an uninitialised checkout.
+/**
+ * Shipped as a git submodule, so it is absent from an uninitialised checkout
+ * and from GitHub's "Download ZIP" (which never includes submodules).
+ *
+ * EbStyleHandler is what turns each block's saved `blockMeta` attribute into
+ * the per-post stylesheet under uploads/eb-style/ and enqueues it on the front
+ * end. Without it the editor still looks right -- it injects its own <style>
+ * tag live -- while the front end silently loses every configured dot, arrow,
+ * spacing and sizing rule. Keep the require guarded so a partial checkout does
+ * not fatal, but surface the state in wp-admin so it cannot go unnoticed.
+ */
 if ( file_exists( __DIR__ . '/lib/style-handler/style-handler.php' ) ) {
     require_once __DIR__ . '/lib/style-handler/style-handler.php';
+} else {
+    add_action( 'admin_notices', 'slider_block_style_handler_missing_notice' );
+}
+
+function slider_block_style_handler_missing_notice() {
+    if ( ! current_user_can( 'activate_plugins' ) ) {
+        return;
+    }
+
+    printf(
+        '<div class="notice notice-error"><p><strong>%1$s</strong> %2$s <code>git submodule update --init --recursive</code></p></div>',
+        esc_html__( 'Image Slider Block:', 'slider-block' ),
+        esc_html__( 'the bundled style-handler library is missing, so slider styling will not be applied on the front end. If you installed this plugin from a git checkout, run:', 'slider-block' )
+    );
 }
 
 function create_block_slider_block_init() {

@@ -131,10 +131,12 @@ Deliberately written with PHP 5.x-safe syntax (`isset(…) ? … : …` rather t
 
 | Field | Plugin header | readme.txt |
 |---|---|---|
-| `Requires at least` | 5.6 | 5.6 |
+| `Requires at least` | 6.0 | 6.0 |
 | `Tested up to` | 7.0 | 7.0 |
-| `Requires PHP` | 7.0 | 7.0 |
+| `Requires PHP` | 7.4 | 7.4 |
 | Version / `Stable tag` | 1.5.0 | 1.5.0 |
+
+The floors were subsequently raised from WP 5.6 / PHP 7.0 to **WP 6.0 / PHP 7.4** as a distribution decision (the recommendation in section 6). With WP 6.0 as the floor, the `< 5.7` branch in `Slider_Helper::get_block_register_path()` is unreachable and was removed — the method now always returns the block path.
 
 Version bumped in all four locations: plugin header, `SLIDER_BLOCK_VERSION`, `readme.txt` `Stable tag`, `package.json`. (No `composer.json` in this plugin.) Changelog entry added for 1.5.0.
 

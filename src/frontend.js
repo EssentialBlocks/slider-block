@@ -56,44 +56,38 @@ window.addEventListener("DOMContentLoaded", (event) => {
             >
                 {images.map((image) => (
                     <div className={`eb-slider-item ${sliderContentType}`}>
+                        {/*
+                          * The editor and save.js always render the image and
+                          * only add the link when there is a valid one, so the
+                          * front end has to do the same. Splitting this across
+                          * two sibling conditions used to drop the image
+                          * entirely whenever a buttonUrl was set but failed
+                          * validation, because neither branch matched.
+                          */}
                         {sliderType === "image" &&
-                            image.buttonUrl &&
-                            image.isValidUrl && (
-                                <>
-                                    <a
-                                        href={
-                                            image.buttonUrl && image.isValidUrl
-                                                ? image.buttonUrl
-                                                : "#"
+                            (image.buttonUrl && image.isValidUrl ? (
+                                <a
+                                    href={image.buttonUrl}
+                                    target={
+                                        image.openNewTab ? "_blank" : "_self"
+                                    }
+                                    rel="noopener"
+                                >
+                                    <img
+                                        className="eb-slider-image"
+                                        src={image.url}
+                                        alt={
+                                            image.alt ? image.alt : image.title
                                         }
-                                        target={
-                                            image.openNewTab
-                                                ? "_blank"
-                                                : "_self"
-                                        }
-                                        rel="noopener"
-                                    >
-                                        <img
-                                            className="eb-slider-image"
-                                            src={image.url}
-                                            alt={
-                                                image.alt
-                                                    ? image.alt
-                                                    : image.title
-                                            }
-                                        />
-                                    </a>
-                                </>
-                            )}
-                        {sliderType === "image" &&
-                            !image.buttonUrl &&
-                            !image.isValidUrlf && (
+                                    />
+                                </a>
+                            ) : (
                                 <img
                                     className="eb-slider-image"
                                     src={image.url}
                                     alt={image.alt ? image.alt : image.title}
                                 />
-                            )}
+                            ))}
                         {sliderType === "content" && (
                             <>
                                 <img
