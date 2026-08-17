@@ -45,14 +45,23 @@ class Slider_Helper
         /**
          * Only for admin add/edit pages/posts
          */
-        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($_SERVER['QUERY_STRING']) && str_contains($_SERVER['QUERY_STRING'], 'gutenberg-edit-site'))) {
+        $query_string = isset($_SERVER['QUERY_STRING']) ? sanitize_text_field(wp_unslash($_SERVER['QUERY_STRING'])) : '';
 
-            $controls_dependencies = include_once SLIDER_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+        if ($pagenow == 'post-new.php' || $pagenow == 'post.php' || $pagenow == 'site-editor.php' || ($pagenow == 'themes.php' && !empty($query_string) && strpos($query_string, 'gutenberg-edit-site') !== false)) {
+
+            $controls_asset_path = SLIDER_BLOCK_ADMIN_PATH . '/dist/modules.asset.php';
+            if (!file_exists($controls_asset_path)) {
+                return;
+            }
+            $controls_dependencies = require $controls_asset_path;
+            $controls_dependencies = is_array($controls_dependencies) ? $controls_dependencies : array();
+            $controls_version      = isset($controls_dependencies['version']) ? $controls_dependencies['version'] : SLIDER_BLOCK_VERSION;
+
             wp_register_script(
                 "slider-block-controls-util",
-                SLIDER_BLOCK_ADMIN_URL . '/dist/modules.js',
-                array_merge($controls_dependencies['dependencies'],['lodash']),
-                $controls_dependencies['version'],
+                SLIDER_BLOCK_ADMIN_URL . 'dist/modules.js',
+                array_merge(isset($controls_dependencies['dependencies']) ? $controls_dependencies['dependencies'] : array(), ['lodash']),
+                $controls_version,
                 true
             );
 
@@ -74,25 +83,35 @@ class Slider_Helper
 
 						wp_register_style(
 							'essential-blocks-icon-picker-css',
-							SLIDER_BLOCK_ADMIN_URL . '/dist/style-modules.css',
+							SLIDER_BLOCK_ADMIN_URL . 'dist/style-modules.css',
+							array(),
+							$controls_version
 						);
 
+            /**
+             * This handle must stay plugin-specific. `dist/modules.css` is built from
+             * this plugin's own `controls` submodule pin, so it differs between the
+             * Essential Blocks single-block plugins. Registering it under a shared
+             * name (it used to be `essential-blocks-editor-css`) meant that whichever
+             * plugin loaded first won the handle outright — WP_Dependencies::add()
+             * returns false for an already-registered handle — and every later
+             * plugin's stylesheet *and its dependencies* were silently dropped. That
+             * is what broke the arrow icon pickers whenever Button Group was active:
+             * the two dependencies below only ever reach the queue through this call.
+             */
             wp_enqueue_style(
-                'essential-blocks-editor-css',
-                SLIDER_BLOCK_ADMIN_URL . '/dist/modules.css',
+                'slider-block-editor-css',
+                SLIDER_BLOCK_ADMIN_URL . 'dist/modules.css',
                 array('essential-blocks-icon-picker-css', 'essential-blocks-fontawesome'),
-                $controls_dependencies['version'],
+                $controls_version,
                 'all'
             );
         }
     }
     public static function get_block_register_path($blockname, $blockPath)
     {
-        if ((float) get_bloginfo('version') <= 5.6) {
-            return $blockname;
-        } else {
-            return $blockPath;
-        }
+        // Minimum supported WP is 6.0, so path-based registration is always available.
+        return $blockPath;
     }
 }
 Slider_Helper::register();

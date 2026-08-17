@@ -1,8 +1,28 @@
-import { render, createRef } from "@wordpress/element";
+import { createRoot, render, createRef } from "@wordpress/element";
 /**
  * External dependencies
  */
 import Slider from "react-slick";
+
+/**
+ * Mount a React element into a container.
+ *
+ * `createRoot` is the React 18+ API and is what WordPress 7.1 (React 19) needs —
+ * `ReactDOM.render`, which `@wordpress/element`'s `render` re-exports, is removed
+ * there. `createRoot` only exists from WordPress 6.2 onwards, and this plugin still
+ * declares 6.0 as its floor, so fall back to `render` when it is unavailable.
+ *
+ * @param {JSX.Element} element   Element to mount.
+ * @param {Element}     container DOM node to mount into.
+ */
+function mount(element, container) {
+    if (typeof createRoot === "function") {
+        createRoot(container).render(element);
+        return;
+    }
+
+    render(element, container);
+}
 
 window.addEventListener("DOMContentLoaded", (event) => {
     const wrappers = document.getElementsByClassName(`eb-slider-wrapper`);
@@ -47,7 +67,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         settings.nextArrow = <SampleNextArrow arrowNextIcon={arrowNextIcon} />;
         settings.prevArrow = <SamplePrevArrow arrowPrevIcon={arrowPrevIcon} />;
 
-        render(
+        mount(
             <Slider
                 ref={slider}
                 {...settings}
@@ -56,44 +76,38 @@ window.addEventListener("DOMContentLoaded", (event) => {
             >
                 {images.map((image) => (
                     <div className={`eb-slider-item ${sliderContentType}`}>
+                        {/*
+                          * The editor and save.js always render the image and
+                          * only add the link when there is a valid one, so the
+                          * front end has to do the same. Splitting this across
+                          * two sibling conditions used to drop the image
+                          * entirely whenever a buttonUrl was set but failed
+                          * validation, because neither branch matched.
+                          */}
                         {sliderType === "image" &&
-                            image.buttonUrl &&
-                            image.isValidUrl && (
-                                <>
-                                    <a
-                                        href={
-                                            image.buttonUrl && image.isValidUrl
-                                                ? image.buttonUrl
-                                                : "#"
+                            (image.buttonUrl && image.isValidUrl ? (
+                                <a
+                                    href={image.buttonUrl}
+                                    target={
+                                        image.openNewTab ? "_blank" : "_self"
+                                    }
+                                    rel="noopener"
+                                >
+                                    <img
+                                        className="eb-slider-image"
+                                        src={image.url}
+                                        alt={
+                                            image.alt ? image.alt : image.title
                                         }
-                                        target={
-                                            image.openNewTab
-                                                ? "_blank"
-                                                : "_self"
-                                        }
-                                        rel="noopener"
-                                    >
-                                        <img
-                                            className="eb-slider-image"
-                                            src={image.url}
-                                            alt={
-                                                image.alt
-                                                    ? image.alt
-                                                    : image.title
-                                            }
-                                        />
-                                    </a>
-                                </>
-                            )}
-                        {sliderType === "image" &&
-                            !image.buttonUrl &&
-                            !image.isValidUrlf && (
+                                    />
+                                </a>
+                            ) : (
                                 <img
                                     className="eb-slider-image"
                                     src={image.url}
                                     alt={image.alt ? image.alt : image.title}
                                 />
-                            )}
+                            ))}
                         {sliderType === "content" && (
                             <>
                                 <img
