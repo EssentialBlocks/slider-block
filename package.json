@@ -1,13 +1,21 @@
 {
 	"name": "slider-block",
-	"version": "1.5.0",
+	"version": "1.4.0",
 	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
 	"author": "WPDeveloper",
-	"license": "GPL-2.0-or-later",
+	"license": "GPL-3.0-or-later",
 	"main": "Gruntfile.js",
+	"engines": {
+		"node": ">=22",
+		"npm": ">=10"
+	},
 	"scripts": {
-		"start": "wp-scripts start",
-		"build": "wp-scripts build",
+		"postinstall": "npm run submodules && npm run install:controls",
+		"submodules": "git submodule update --init --recursive",
+		"install:controls": "npm --prefix controls install --force --no-audit --no-fund",
+		"start": "npm run build:controls && wp-scripts start",
+		"build": "npm run build:controls && wp-scripts build",
+		"build:controls": "npm --prefix controls run build",
 		"packages-update": "wp-scripts packages-update"
 	},
 	"devDependencies": {
@@ -25,12 +33,11 @@
 		"@wordpress/scripts": "^27.6.0",
 		"babel-loader": "^8.2.3",
 		"lodash": "^4.17.21",
-		"react": "^17.0.2",
-		"react-dom": "^17.0.2"
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1"
 	},
 	"dependencies": {
-		"react-list-drag-and-drop": "^0.9.2",
-		"react-slick": "^0.27.1",
+		"react-slick": "^0.30.3",
 		"slick-carousel": "^1.8.1",
 		"classnames": "^2.3.1"
 	}

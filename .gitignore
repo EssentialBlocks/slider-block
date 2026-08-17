@@ -27,6 +27,9 @@ node_modules/
 .env
 
 index.js.map
-package-lock.json
+
+# package-lock.json is the canonical lockfile and is tracked on purpose — CI
+# installs with npm. yarn.lock stays ignored so a stray yarn run cannot
+# reintroduce a second, conflicting lockfile.
 yarn.lock
 .DS_Store
