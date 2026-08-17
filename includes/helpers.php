@@ -88,8 +88,19 @@ class Slider_Helper
 							$controls_version
 						);
 
+            /**
+             * This handle must stay plugin-specific. `dist/modules.css` is built from
+             * this plugin's own `controls` submodule pin, so it differs between the
+             * Essential Blocks single-block plugins. Registering it under a shared
+             * name (it used to be `essential-blocks-editor-css`) meant that whichever
+             * plugin loaded first won the handle outright — WP_Dependencies::add()
+             * returns false for an already-registered handle — and every later
+             * plugin's stylesheet *and its dependencies* were silently dropped. That
+             * is what broke the arrow icon pickers whenever Button Group was active:
+             * the two dependencies below only ever reach the queue through this call.
+             */
             wp_enqueue_style(
-                'essential-blocks-editor-css',
+                'slider-block-editor-css',
                 SLIDER_BLOCK_ADMIN_URL . 'dist/modules.css',
                 array('essential-blocks-icon-picker-css', 'essential-blocks-fontawesome'),
                 $controls_version,
