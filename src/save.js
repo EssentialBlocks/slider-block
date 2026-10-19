@@ -1,5 +1,7 @@
 import { RichText, useBlockProps } from "@wordpress/block-editor";
 
+import sanitizeLink from "./sanitize-link";
+
 const Save = ({ attributes }) => {
     const {
         blockId,
@@ -114,7 +116,7 @@ const Save = ({ attributes }) => {
                                                         href={
                                                             image.buttonUrl &&
                                                             image.isValidUrl
-                                                                ? image.buttonUrl
+                                                                ? sanitizeLink(image.buttonUrl)
                                                                 : "#"
                                                         }
                                                         className="eb-slider-button"
@@ -141,7 +143,7 @@ const Save = ({ attributes }) => {
                                                         href={
                                                             image.secondButtonUrl &&
                                                             image.isValidUrl
-                                                                ? image.secondButtonUrl
+                                                                ? sanitizeLink(image.secondButtonUrl)
                                                                 : "#"
                                                         }
                                                         className="eb-slider-button"
