@@ -51,6 +51,8 @@ const {
 import classnames from "classnames";
 import Slider from "react-slick";
 
+import sanitizeLink from "./sanitize-link";
+
 export default function Edit(props) {
 	const {
 		attributes,
@@ -443,7 +445,7 @@ export default function Edit(props) {
 																href={
 																	image.buttonUrl &&
 																		image.isValidUrl
-																		? image.buttonUrl
+																		? sanitizeLink(image.buttonUrl)
 																		: "#"
 																}
 																className="eb-slider-button"
@@ -491,7 +493,7 @@ export default function Edit(props) {
 																href={
 																	image.secondButtonUrl &&
 																		image.isValidUrl
-																		? image.secondButtonUrl
+																		? sanitizeLink(image.secondButtonUrl)
 																		: "#"
 																}
 																className="eb-slider-second-button"

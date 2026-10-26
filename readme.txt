@@ -4,7 +4,7 @@ Tags: gutenberg, block, blocks, editor, progress, progress bar, skill bar, respo
 Requires at least: 6.0
 Tested up to: 7.0.4
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,16 @@ Consider checking out our other WordPress solutions & boost your WordPress websi
 
 Visit [WPDeveloper](https://wpdeveloper.net/) to learn more about how to do better in WordPress with [Help Tutorial, Tips & Tricks](https://wpdeveloper.net/blog).
 
+== External services ==
+
+This plugin connects to Google Fonts to load the fonts you pick in a Slider block's typography settings.
+
+* What it is used for: displaying the selected font on the front end of your site.
+* When data is sent: on every front-end page that contains a Slider block whose typography uses any font family other than Default.
+* What is sent: the visitor's browser requests the stylesheet from fonts.googleapis.com and the font files from fonts.gstatic.com, so Google receives the visitor's IP address, user agent and the referring page, together with the requested font family names.
+
+The service is provided by Google: [Terms of Service](https://policies.google.com/terms), [Privacy Policy](https://policies.google.com/privacy).
+
 == Installation ==
 
 = Modern Way: =
@@ -88,6 +98,10 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.4.1 - 26/10/2026 =
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.4.0 - 17/08/2026 =
 * Fixed: PHP 8.0–8.5 compatibility issues
