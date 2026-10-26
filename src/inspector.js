@@ -53,6 +53,10 @@ import {
 	COLORS,
 	TEXT_ALIGN,
 	VERTICAL_ALIGN,
+	CONTENT_WIDTH,
+	CONTENT_WIDTH_UNIT_TYPES,
+	CONTENT_POSITION,
+	TAGS_TYPE,
 } from "./constants/constants";
 
 import objAttributes from "./attributes";
@@ -125,6 +129,10 @@ function Inspector(props) {
 		verticalAlign,
 		arrowPrevIcon,
 		arrowNextIcon,
+		contentPosition,
+		contentWidthRange,
+		TABcontentWidthRange,
+		MOBcontentWidthRange,
 	} = attributes;
 
 	const resRequiredProps = {
@@ -629,6 +637,45 @@ function Inspector(props) {
 																</Button>
 															))}
 														</ButtonGroup>
+													</>
+												)}
+
+												{sliderContentType === "content-1" && (
+													<>
+														<ResponsiveRangeController
+															baseLabel={__("Content Width", "essential-blocks")}
+															controlName={CONTENT_WIDTH}
+															resRequiredProps={resRequiredProps}
+															units={CONTENT_WIDTH_UNIT_TYPES}
+															min={0}
+															max={2000}
+															step={1}
+														/>
+														{!!(contentWidthRange ||
+															TABcontentWidthRange ||
+															MOBcontentWidthRange) && (
+															<>
+																<PanelRow>
+																	{__("Content Position", "essential-blocks")}
+																</PanelRow>
+																<ButtonGroup>
+																	{CONTENT_POSITION.map((item, index) => (
+																		<Button
+																			key={index}
+																			isPrimary={contentPosition === item.value}
+																			isSecondary={contentPosition !== item.value}
+																			onClick={() =>
+																				setAttributes({
+																					contentPosition: item.value,
+																				})
+																			}
+																		>
+																			{item.label}
+																		</Button>
+																	))}
+																</ButtonGroup>
+															</>
+														)}
 													</>
 												)}
 											</>

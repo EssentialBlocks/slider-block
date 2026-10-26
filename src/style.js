@@ -19,6 +19,7 @@ import {
 	ARROW_SIZE,
 	DOTS_SIZE,
 	SLIDES_GAP,
+	CONTENT_WIDTH,
 } from "./constants/constants";
 import {
 	TITLE_TYPOGRAPHY,
@@ -66,7 +67,13 @@ export default function Style(props) {
 		textAlign,
 		verticalAlign,
 		classHook,
+		version,
+		contentPosition,
 	} = attributes;
+
+	// Classic sliders render their content slides with a "content" class; the
+	// v4 rendering uses Essential Blocks' "eb-slider-type-content".
+	const contentClass = version ? ".eb-slider-type-content" : ".content";
 
 	// Title Typography
 	const {
@@ -295,6 +302,46 @@ export default function Style(props) {
 		attributes,
 	});
 
+	// range controller Content Width (Content Overlay)
+	const {
+		rangeStylesDesktop: contentWidthDesktop,
+		rangeStylesTab: contentWidthTab,
+		rangeStylesMobile: contentWidthMobile,
+	} = generateResponsiveRangeStyles({
+		controlName: CONTENT_WIDTH,
+		property: "max-width",
+		attributes,
+	});
+
+	// Only written once a width is set, so sliders that do not use it keep
+	// exactly the CSS they had.
+	const hasContentWidth =
+		sliderType === "content" &&
+		sliderContentType === "content-1" &&
+		!!(contentWidthDesktop || contentWidthTab || contentWidthMobile);
+	const contentBoxSelector = `.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item.content-1 .eb-slider-content`;
+	const contentWidthStylesDesktop = hasContentWidth
+		? `
+		${contentBoxSelector} {
+			${contentWidthDesktop}
+			left: 0;
+			right: 0;
+			top: 0;
+			transform: none;
+			margin-left: ${contentPosition === "left" ? "0" : "auto"};
+			margin-right: ${contentPosition === "right" ? "0" : "auto"};
+		}
+	`
+		: "";
+	const contentWidthStylesTab =
+		hasContentWidth && contentWidthTab
+			? `${contentBoxSelector} { ${contentWidthTab} }`
+			: "";
+	const contentWidthStylesMobile =
+		hasContentWidth && contentWidthMobile
+			? `${contentBoxSelector} { ${contentWidthMobile} }`
+			: "";
+
 	//Generate Background
 	const {
 		backgroundStylesDesktop: wrapperBackgroundStylesDesktop,
@@ -405,28 +452,28 @@ export default function Style(props) {
 		.eb-slider-wrapper.${blockId} .slick-slide > * {
 			${slidesGapDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item {
 			text-align: ${textAlign};
 			align-items: ${verticalAlign};
 		}
 		.eb-slider-wrapper.${blockId} .slick-slider .eb-slider-item img {
 			${isCustomHeight ? sliderHeightDesktop : ""}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item.content-1 .eb-slider-content {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item.content-1 .eb-slider-content {
 			background-color: ${overlayColor};
 			justify-content: ${verticalAlign};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-title {
 			color: ${titleColor};
 			${titleMarginDesktop}
 			${titleTypographyDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			color: ${subtitleColor};
 			${subtitleMarginDesktop}
 			${subtitleTypographyDesktop}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button {
 			color: ${buttonColor};
 			background-color: ${buttonBGColor};
 			${buttonMarginDesktop}
@@ -435,14 +482,14 @@ export default function Style(props) {
 			${buttonBDShadowDesktop}
 			transition: ${buttonBDShadowTransitionStyle};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			color: ${buttonHoverColor};
 			background-color: ${buttonHoverBGColor};
 			${buttonTypographyDesktop}
 			${buttonBDShadowHoverDesktop}
 		}
 
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			color: ${secondButtonColor};
 			background-color: ${secondButtonBGColor};
 			${button2MarginDesktop}
@@ -451,7 +498,7 @@ export default function Style(props) {
 			${button2BDShadowDesktop}
 			transition: ${button2BDShadowTransitionStyle};
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			color: ${secondButtonHoverColor};
 			background-color: ${secondButtonHoverBGColor};
 			${button2TypographyDesktop}
@@ -471,32 +518,32 @@ export default function Style(props) {
 			: ""
 		}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginTab}
 			${titleTypographyTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			${subtitleMarginTab}
 			${subtitleTypographyTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button {
 			${buttonMarginTab}
 			${buttonPaddingTab}
 			${buttonTypographyTab}
 			${buttonBDShadowTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			${buttonTypographyTab}
 			${buttonBDShadowHoverTab}
 		}
 
-        .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+        .eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			${button2MarginTab}
 			${button2PaddingTab}
 			${button2TypographyTab}
 			${button2BDShadowTab}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			${button2TypographyTab}
 			${button2BDShadowHoverTab}
 		}
@@ -514,31 +561,31 @@ export default function Style(props) {
 			: ""
 		}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-title {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-title {
 			${titleMarginMobile}
 			${titleTypographyMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-subtitle {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-subtitle {
 			${subtitleMarginMobile}
 			${subtitleTypographyMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button {
 			${buttonMarginMobile}
 			${buttonPaddingMobile}
 			${buttonTypographyMobile}
 			${buttonBDShadowMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-button:hover {
 			${buttonTypographyMobile}
 			${buttonBDShadowHoverMobile}
 		}
-        .eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button {
+        .eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button {
 			${button2MarginMobile}
 			${button2PaddingMobile}
 			${button2TypographyMobile}
 			${button2BDShadowMobile}
 		}
-		.eb-slider-wrapper.${blockId} .content .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
+		.eb-slider-wrapper.${blockId} ${contentClass} .eb-slider-item .eb-slider-content .eb-slider-second-button:hover {
 			${button2TypographyMobile}
 			${button2BDShadowHoverMobile}
 		}
@@ -646,6 +693,7 @@ export default function Style(props) {
 	const desktopAllStyles = softMinifyCssStrings(`
 		${wrapperStylesDesktop}
 		${sliderStylesDesktop}
+		${contentWidthStylesDesktop}
 		${sliderControlsStylesDesktop}
         ${sliderRtlStyles}
 	`);
@@ -654,6 +702,7 @@ export default function Style(props) {
 	const tabAllStyles = softMinifyCssStrings(`
 		${wrapperStylesTab}
 		${sliderStylesTab}
+		${contentWidthStylesTab}
 		${sliderControlsStylesTab}
 	`);
 
@@ -661,6 +710,7 @@ export default function Style(props) {
 	const mobileAllStyles = softMinifyCssStrings(`
 		${wrapperStylesMobile}
 		${sliderStylesMobile}
+		${contentWidthStylesMobile}
 		${sliderControlsStylesMobile}
 	`);
 
