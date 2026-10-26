@@ -33,3 +33,5 @@ index.js.map
 # reintroduce a second, conflicting lockfile.
 yarn.lock
 .DS_Store
+# Source maps expose the private controls source
+*.map

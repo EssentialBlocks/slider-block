@@ -113,5 +113,97 @@ class Slider_Helper
         // Minimum supported WP is 6.0, so path-based registration is always available.
         return $blockPath;
     }
+
+    /**
+     * Clean the slide data the front-end script renders from `data-images`,
+     * and the links in the saved markup.
+     *
+     * Rich text fields keep what wp_kses_post() allows, and links whose URL
+     * scheme is not allowed become "#". `data-images` is only rewritten when
+     * something was removed, so existing blocks render byte for byte as saved.
+     * Needs the HTML API (WordPress 6.2+); on older versions the markup is
+     * returned as is.
+     *
+     * @param string $content Saved block markup.
+     * @return string
+     */
+    public static function sanitize_slider_markup($content)
+    {
+        if (!is_string($content) || !class_exists('WP_HTML_Tag_Processor')) {
+            return $content;
+        }
+
+        $tags = new WP_HTML_Tag_Processor($content);
+        while ($tags->next_tag()) {
+            if ('A' === $tags->get_tag()) {
+                $href = $tags->get_attribute('href');
+                if (is_string($href) && !self::is_allowed_link($href)) {
+                    $tags->set_attribute('href', '#');
+                }
+                continue;
+            }
+
+            $images = $tags->get_attribute('data-images');
+            if (!is_string($images)) {
+                continue;
+            }
+            $data = json_decode($images, true);
+            if (!is_array($data)) {
+                $tags->set_attribute('data-images', '[]');
+                continue;
+            }
+
+            $changed = false;
+            foreach ($data as $index => $image) {
+                if (!is_array($image)) {
+                    unset($data[$index]);
+                    $changed = true;
+                    continue;
+                }
+                foreach (array('title', 'subtitle', 'buttonText', 'secondButtonText') as $key) {
+                    if (!isset($image[$key])) {
+                        continue;
+                    }
+                    $clean = is_string($image[$key]) ? wp_kses_post($image[$key]) : '';
+                    if ($clean !== $image[$key]) {
+                        $data[$index][$key] = $clean;
+                        $changed = true;
+                    }
+                }
+                foreach (array('buttonUrl', 'secondButtonUrl') as $key) {
+                    if (!isset($image[$key])) {
+                        continue;
+                    }
+                    if (!is_string($image[$key]) || !self::is_allowed_link($image[$key])) {
+                        $data[$index][$key] = '#';
+                        $changed = true;
+                    }
+                }
+            }
+
+            if ($changed) {
+                $tags->set_attribute('data-images', wp_json_encode(array_values($data), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+            }
+        }
+
+        return $tags->get_updated_html();
+    }
+
+    /**
+     * Whether a link is relative or uses a scheme from wp_allowed_protocols().
+     *
+     * @param string $link
+     * @return bool
+     */
+    private static function is_allowed_link($link)
+    {
+        // Browsers ignore leading/trailing control characters and spaces,
+        // and tabs or newlines anywhere, when they read a URL's scheme.
+        $normalised = preg_replace('/[\t\n\r]/', '', trim($link, "\x00..\x20"));
+        if (!preg_match('/^([a-z][a-z0-9+.\-]*):/i', $normalised, $scheme)) {
+            return true;
+        }
+        return in_array(strtolower($scheme[1]), array_map('strtolower', wp_allowed_protocols()), true);
+    }
 }
 Slider_Helper::register();

@@ -4,6 +4,9 @@ import { createRoot, render, createRef } from "@wordpress/element";
  */
 import Slider from "react-slick";
 
+import sanitizeHtml from "./sanitize-html";
+import sanitizeLink from "./sanitize-link";
+
 /**
  * Mount a React element into a container.
  *
@@ -87,7 +90,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                         {sliderType === "image" &&
                             (image.buttonUrl && image.isValidUrl ? (
                                 <a
-                                    href={image.buttonUrl}
+                                    href={sanitizeLink(image.buttonUrl)}
                                     target={
                                         image.openNewTab ? "_blank" : "_self"
                                     }
@@ -122,7 +125,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                         <h2
                                             className="eb-slider-title"
                                             dangerouslySetInnerHTML={{
-                                                __html: image.title,
+                                                __html: sanitizeHtml(image.title),
                                             }}
                                         ></h2>
                                     )}
@@ -131,7 +134,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                             <p
                                                 className="eb-slider-subtitle"
                                                 dangerouslySetInnerHTML={{
-                                                    __html: image.subtitle,
+                                                    __html: sanitizeHtml(image.subtitle),
                                                 }}
                                             ></p>
                                         )}
@@ -143,7 +146,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                                     href={
                                                         image.buttonUrl &&
                                                         image.isValidUrl
-                                                            ? image.buttonUrl
+                                                            ? sanitizeLink(image.buttonUrl)
                                                             : "#"
                                                     }
                                                     className="eb-slider-button"
@@ -155,7 +158,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                                     rel="noopener"
                                                     dangerouslySetInnerHTML={{
                                                         __html:
-                                                            image.buttonText,
+                                                            sanitizeHtml(image.buttonText),
                                                     }}
                                                 ></a>
                                             )}
@@ -168,7 +171,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                                     href={
                                                         image.secondButtonUrl &&
                                                         image.isValidUrl
-                                                            ? image.secondButtonUrl
+                                                            ? sanitizeLink(image.secondButtonUrl)
                                                             : "#"
                                                     }
                                                     className="eb-slider-second-button"
@@ -180,7 +183,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                                                     rel="noopener"
                                                     dangerouslySetInnerHTML={{
                                                         __html:
-                                                            image.secondButtonText,
+                                                            sanitizeHtml(image.secondButtonText),
                                                     }}
                                                 ></a>
                                             )}

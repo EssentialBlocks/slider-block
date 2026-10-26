@@ -130,3 +130,8 @@ coverage
 *.tar.gz
 *.tgz
 *.sql
+
+# Controls' eb_frontend helper bundle: built by webpack but never registered or
+# enqueued by this plugin. dist/frontend/index.js is the block's own script.
+dist/frontend.js
+dist/frontend.asset.php
