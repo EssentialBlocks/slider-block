@@ -4,7 +4,7 @@ Tags: gutenberg, block, blocks, editor, progress, progress bar, skill bar, respo
 Requires at least: 6.0
 Tested up to: 7.0.4
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.5.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 1.5.0 - 26/10/2026 =
+* Added: Wide and Full width alignment, so a slider can span the whole screen
+* Added: HTML anchor support
+* Added: Content Width and Content Position for the Content Overlay layout, to keep the text in a centred box (for example 1200px) while the image runs full width
+* Added: Lightbox, lazy loading, Title and Content HTML tags, and per-slide content links, ported from Essential Blocks
+* Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
+* Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
 
 = 1.4.1 - 19/10/2026 =
 * Security: Hardened slide content, button links and block style generation

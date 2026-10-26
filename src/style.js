@@ -69,6 +69,7 @@ export default function Style(props) {
 		classHook,
 		version,
 		contentPosition,
+		align,
 	} = attributes;
 
 	// Classic sliders render their content slides with a "content" class; the
@@ -595,6 +596,24 @@ export default function Style(props) {
 	const [arrowValueTab] = arrowSizeTab ? arrowSizeTab.match(/(\d+)([a-zA-Z]+)/) : "";
 	const [arrowValueMobile] = arrowSizeMobile ? arrowSizeMobile.match(/(\d+)([a-zA-Z]+)/) : "";
 
+	// A full-width slider has no room beside it, so arrows placed outside its
+	// edge (the default is -25px) are kept on screen instead of widening the
+	// page. Only v4 sliders can be full width.
+	const fullWidthArrowStyles = (positionStyles) => {
+		const value = ((positionStyles || "").match(/:\s*([^;]+);/) || [])[1];
+		if (!version || align !== "full" || !value) {
+			return "";
+		}
+		const inside = `max(${value.trim()}, 0px)`;
+		const arrows = `.alignfull .eb-slider-wrapper.${blockId}`;
+		return `
+			${arrows} .slick-prev { left: ${inside}; }
+			${arrows} .slick-next { right: ${inside}; }
+			[dir="rtl"] ${arrows} .slick-prev { left: auto; right: ${inside}; }
+			[dir="rtl"] ${arrows} .slick-next { right: auto; left: ${inside}; }
+		`;
+	};
+
 	const sliderControlsStylesDesktop = `
 		${arrowValueDesktop ? `
 			.eb-slider-wrapper.${blockId} .slick-prev,
@@ -695,6 +714,7 @@ export default function Style(props) {
 		${sliderStylesDesktop}
 		${contentWidthStylesDesktop}
 		${sliderControlsStylesDesktop}
+		${fullWidthArrowStyles(leftArrowPositionDesktop)}
         ${sliderRtlStyles}
 	`);
 
@@ -704,6 +724,7 @@ export default function Style(props) {
 		${sliderStylesTab}
 		${contentWidthStylesTab}
 		${sliderControlsStylesTab}
+		${fullWidthArrowStyles(leftArrowPositionTab)}
 	`);
 
 	// all css styles for Mobile in strings ⬇
@@ -712,6 +733,7 @@ export default function Style(props) {
 		${sliderStylesMobile}
 		${contentWidthStylesMobile}
 		${sliderControlsStylesMobile}
+		${fullWidthArrowStyles(leftArrowPositionMobile)}
 	`);
 
 	return (

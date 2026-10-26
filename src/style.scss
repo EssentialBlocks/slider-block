@@ -142,3 +142,207 @@
 		}
 	}
 }
+/*
+ * v4 rendering (Essential Blocks markup). Classic sliders above use the
+ * "image"/"content" classes and are not affected by these rules.
+ */
+.block-editor-block-list__block {
+	.eb-slider-wrapper .eb-slider-type-content .eb-slider-item.content-1 .eb-slider-content {
+		width: 100% !important;
+		height: 100% !important;
+	}
+}
+
+.eb-slider-wrapper {
+	.eb-slider-type-image {
+		&:not(.slick-initialized):not(.slick-vertical) {
+			display: flex;
+		}
+
+		.eb-slider-item {
+			img {
+				width: 100%;
+				object-fit: cover;
+				box-sizing: border-box;
+			}
+		}
+	}
+
+	.eb-slider-type-content {
+		position: relative;
+
+		.eb-slider-item {
+			position: relative;
+			overflow: hidden;
+
+			.eb-slider-button-wrapper {
+				display: block;
+			}
+
+			.eb-slider-button,
+			.eb-slider-second-button {
+				text-decoration: none;
+				display: inline-block;
+			}
+
+			img {
+				width: 100%;
+				object-fit: cover;
+				box-sizing: border-box;
+			}
+
+			&.content-1 {
+				.eb-slider-content {
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					width: 100%;
+					height: 100%;
+					padding: 20px 30px;
+					display: flex;
+					flex-flow: column;
+					box-sizing: border-box;
+					transform: translate(-50%, -50%);
+
+					&.align-left .eb-slider-button,
+					&.align-justify .eb-slider-button {
+						align-self: flex-start;
+					}
+
+					&.align-center .eb-slider-button {
+						align-self: center;
+					}
+
+					&.align-right .eb-slider-button {
+						align-self: flex-end;
+					}
+
+					// The whole content box is the link; the buttons stay on top
+					// and keep their own links.
+					&.has-content-link {
+						cursor: pointer;
+
+						&::before {
+							content: "";
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							bottom: 0;
+							z-index: 1;
+						}
+
+						.eb-slider-button-wrapper {
+							position: relative;
+							z-index: 2;
+						}
+
+						.eb-slider-title,
+						.eb-slider-subtitle {
+							position: relative;
+							z-index: 0;
+						}
+					}
+				}
+			}
+
+			&.content-3 {
+				display: flex !important;
+				justify-content: flex-start;
+				flex-direction: row;
+
+				div {
+					flex: 1 1 100%;
+				}
+
+				.eb-slider-content {
+					padding: 0px 15px;
+				}
+			}
+
+			&.content-4 {
+				display: flex !important;
+				justify-content: space-between;
+				flex-direction: row-reverse;
+				flex-wrap: nowrap;
+
+				div {
+					flex: 1 1 100%;
+				}
+
+				.eb-slider-content {
+					padding: 0px 15px;
+				}
+			}
+		}
+	}
+
+	// Slides are hidden behind a spinner until Slick has laid them out, so
+	// they do not flash as a stacked list on load.
+	.eb-slider-init {
+		position: relative;
+
+		*:focus {
+			outline: none;
+		}
+
+		&::before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 32px;
+			height: 32px;
+			margin: -16px 0 0 -16px;
+			border: 3px solid rgba(0, 0, 0, 0.15);
+			border-top-color: rgba(0, 0, 0, 0.6);
+			border-radius: 50%;
+			animation: eb-slider-spin 0.8s linear infinite;
+		}
+
+		.eb-slider-item {
+			visibility: hidden;
+		}
+
+		&.slick-initialized {
+			&::before {
+				display: none;
+			}
+
+			.eb-slider-item {
+				visibility: visible;
+			}
+		}
+	}
+
+	.slick-prev,
+	.slick-next {
+		svg {
+			width: 100%;
+			height: 100%;
+		}
+	}
+}
+
+@keyframes eb-slider-spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+[dir="rtl"] .eb-slider-wrapper {
+	.eb-slider-type-content {
+		.eb-slider-item {
+			.eb-slider-content {
+				text-align: right;
+				direction: rtl;
+			}
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.eb-slider-wrapper .eb-slider-init::before {
+		animation-duration: 2.4s;
+	}
+}

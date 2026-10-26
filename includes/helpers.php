@@ -126,7 +126,8 @@ class Slider_Helper
 
     /**
      * Clean the slide data the front-end script renders from `data-images`,
-     * and the links in the saved markup.
+     * and the links in the saved markup (including the v4 content links and
+     * image URLs).
      *
      * Rich text fields keep what wp_kses_post() allows, and links whose URL
      * scheme is not allowed become "#". `data-images` is only rewritten when
@@ -151,6 +152,15 @@ class Slider_Helper
                     $tags->set_attribute('href', '#');
                 }
                 continue;
+            }
+
+            // v4 markup: the content link is followed by script, and the
+            // image URLs become an <img> src (lazy load, lightbox).
+            foreach (array('data-content-link', 'data-src', 'data-lazy') as $attribute) {
+                $value = $tags->get_attribute($attribute);
+                if (is_string($value) && !self::is_allowed_link($value)) {
+                    $tags->remove_attribute($attribute);
+                }
             }
 
             $images = $tags->get_attribute('data-images');

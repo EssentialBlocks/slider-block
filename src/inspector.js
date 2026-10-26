@@ -74,6 +74,7 @@ import {
 	handleSecondButtonText,
 	handleSecondButtonURL,
 	handleSecondButtonOpenNewTab,
+	handleImageData,
 } from "./helpers";
 
 const {
@@ -129,11 +130,20 @@ function Inspector(props) {
 		verticalAlign,
 		arrowPrevIcon,
 		arrowNextIcon,
+		version,
+		titleTag,
+		contentTag,
+		showLightbox,
+		enableLazyLoad,
 		contentPosition,
 		contentWidthRange,
 		TABcontentWidthRange,
 		MOBcontentWidthRange,
 	} = attributes;
+
+	const isV4 = !!version;
+	const isOverlay =
+		sliderType === "content" && sliderContentType === "content-1";
 
 	const resRequiredProps = {
 		setAttributes,
@@ -171,6 +181,36 @@ function Inspector(props) {
 						<div className={"eb-tab-controls" + tab.name}>
 							{tab.name === "general" && (
 								<>
+									{!isV4 && (
+										<PanelBody
+											title={__("Upgrade Slider", "essential-blocks")}
+											initialOpen={true}
+										>
+											<p>
+												{__(
+													"This slider uses the classic rendering from before version 1.5.0. Upgrade it to use the lightbox, lazy loading, title and content tags and content links.",
+													"essential-blocks"
+												)}
+											</p>
+											<p>
+												{__(
+													"The slider is rebuilt the way new sliders are, so check how it looks afterwards. Nothing changes on your site until you update the page, and Undo switches it back.",
+													"essential-blocks"
+												)}
+											</p>
+											<Button
+												variant="primary"
+												onClick={() =>
+													setAttributes({
+														version: "v4",
+														showLightbox: isOverlay ? false : showLightbox,
+													})
+												}
+											>
+												{__("Upgrade slider", "essential-blocks")}
+											</Button>
+										</PanelBody>
+									)}
 									<PanelBody title={__("General", "essential-blocks")}>
 										<SelectControl
 											label={__("Slider Type", "essential-blocks")}
@@ -254,6 +294,32 @@ function Inspector(props) {
 												})
 											}
 										/>
+
+										{isV4 && (
+											<ToggleControl
+												label={__("Enable Lazy Loading", "essential-blocks")}
+												checked={enableLazyLoad}
+												onChange={() =>
+													setAttributes({
+														enableLazyLoad: !enableLazyLoad,
+													})
+												}
+											/>
+										)}
+
+										{/* Content Overlay covers the image, so it has no lightbox; the
+											toggle stays while it is on so it can still be turned off. */}
+										{isV4 && (!isOverlay || showLightbox) && (
+											<ToggleControl
+												label={__("Show Lightbox", "essential-blocks")}
+												checked={showLightbox}
+												onChange={() =>
+													setAttributes({
+														showLightbox: !showLightbox,
+													})
+												}
+											/>
+										)}
 
 										<ToggleControl
 											label={__("Custom Height", "essential-blocks")}
@@ -348,9 +414,31 @@ function Inspector(props) {
 												onChange={(value) =>
 													setAttributes({
 														sliderContentType: value,
+														showLightbox:
+															value === "content-1" ? false : showLightbox,
 													})
 												}
 											/>
+										)}
+										{sliderType === "content" && isV4 && (
+											<>
+												<SelectControl
+													label={__("Title Tag", "essential-blocks")}
+													value={titleTag}
+													options={TAGS_TYPE}
+													onChange={(value) =>
+														setAttributes({ titleTag: value })
+													}
+												/>
+												<SelectControl
+													label={__("Content Tag", "essential-blocks")}
+													value={contentTag}
+													options={TAGS_TYPE}
+													onChange={(value) =>
+														setAttributes({ contentTag: value })
+													}
+												/>
+											</>
 										)}
 										{images.map((item, index) => {
 											return (
@@ -528,6 +616,60 @@ function Inspector(props) {
 																				onChange={() =>
 																					handleSecondButtonOpenNewTab(
 																						!item.secondButtonOpenNewTab,
+																						index,
+																						images,
+																						setAttributes
+																					)
+																				}
+																			/>
+																		</>
+																	)}
+																</>
+															)}
+
+															{isV4 && isOverlay && (
+																<>
+																	<ToggleControl
+																		label={__("Enable Content Link", "essential-blocks")}
+																		checked={!!item.enableContentLink}
+																		onChange={() =>
+																			handleImageData(
+																				"enableContentLink",
+																				!item.enableContentLink,
+																				index,
+																				images,
+																				setAttributes
+																			)
+																		}
+																	/>
+																	{item.enableContentLink && (
+																		<>
+																			<TextControl
+																				label={__("Content Link", "essential-blocks")}
+																				value={item.contentLink || ""}
+																				placeholder="https://example.com"
+																				onChange={(text) =>
+																					handleImageData(
+																						"contentLink",
+																						text,
+																						index,
+																						images,
+																						setAttributes
+																					)
+																				}
+																			/>
+																			{item.contentLink &&
+																				item.contentLink.length > 0 &&
+																				!item.isContentUrlValid && (
+																					<span className="error">URL is not valid</span>
+																				)}
+																			<ToggleControl
+																				label={__("Open in New Tab", "essential-blocks")}
+																				checked={!!item.contentOpenNewTab}
+																				onChange={() =>
+																					handleImageData(
+																						"contentOpenNewTab",
+																						!item.contentOpenNewTab,
 																						index,
 																						images,
 																						setAttributes
