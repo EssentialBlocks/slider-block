@@ -106,6 +106,16 @@ class Slider_Helper
                 $controls_version,
                 'all'
             );
+
+            // The inserter, List View and drag chip live in the editor's own
+            // document, not the canvas iframe, so this loads here rather than
+            // as the block's editor style.
+            wp_enqueue_style(
+                'slider-block-editor-icons',
+                SLIDER_BLOCK_ADMIN_URL . 'lib/css/editor-icons.css',
+                array(),
+                SLIDER_BLOCK_VERSION
+            );
         }
     }
     public static function get_block_register_path($blockname, $blockPath)
