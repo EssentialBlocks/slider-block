@@ -60,6 +60,19 @@ function arrowElement(icon, direction) {
 }
 
 /**
+ * Image URL for a lightbox slide. Slick Lightbox writes it into an HTML
+ * string (`src="..."`) without escaping, so it is escaped here: a quote or
+ * angle bracket in the saved URL can then only ever be part of the URL.
+ *
+ * @param {Element} item The .eb-slider-item element.
+ * @return {string} Escaped image URL.
+ */
+function lightboxImageSrc(item) {
+    const src = sanitizeLink(item.getAttribute("data-src") || "");
+    return src.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+}
+
+/**
  * Let links (slide buttons, linked images) and content links navigate
  * instead of opening the lightbox. A button without a link still opens it.
  *
@@ -198,7 +211,7 @@ function initV4(wrapper) {
         typeof $.fn.slickLightbox === "function"
     ) {
         $slides.slickLightbox({
-            src: "data-src",
+            src: lightboxImageSrc,
             itemSelector: ".eb-slider-item",
             navigateByKeyboard: true,
             imageMaxHeight: 0.7,
