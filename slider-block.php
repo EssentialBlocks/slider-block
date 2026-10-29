@@ -117,9 +117,12 @@ function create_block_slider_block_init() {
     // Classic sliders render with react-slick, which only needs slick.css.
     // v4 sliders (1.5.0+) run the jQuery plugin on their saved slides, so the
     // render callback enqueues it for them only.
+    // The handle is this plugin's own: Essential Blocks registers
+    // `essential-blocks-slickjs` earlier on `init` without jQuery as a
+    // dependency, and the first registration of a handle wins.
     $slick_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick.min.js';
     wp_register_script(
-        'essential-blocks-slickjs',
+        'slider-block-slickjs',
         $slick_js,
         ["jquery"],
         SLIDER_BLOCK_VERSION,
@@ -129,7 +132,7 @@ function create_block_slider_block_init() {
     wp_register_script(
         'slider-block-slick-lightbox',
         SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick-lightbox.js',
-        ['jquery', 'essential-blocks-slickjs'],
+        ['jquery', 'slider-block-slickjs'],
         '0.2.12',
         true
     );
@@ -194,10 +197,19 @@ function create_block_slider_block_init() {
                         wp_enqueue_script( 'slider-block-frontend-js' );
 
                         if ( ! empty( $attributes['version'] ) ) {
-                            wp_enqueue_script( 'essential-blocks-slickjs' );
+                            wp_enqueue_script( 'slider-block-slickjs' );
                             if ( ! empty( $attributes['showLightbox'] ) ) {
                                 wp_enqueue_script( 'slider-block-slick-lightbox' );
                                 wp_enqueue_style( 'slider-block-slick-lightbox' );
+                            }
+
+                            // Make Slick print before the frontend script. When an
+                            // optimiser delays scripts, the frontend script starts
+                            // the slider as soon as it loads, and a classic slider
+                            // earlier on the page may already have enqueued it.
+                            $frontend_script = wp_scripts()->query( 'slider-block-frontend-js', 'registered' );
+                            if ( $frontend_script && ! in_array( 'slider-block-slickjs', $frontend_script->deps, true ) ) {
+                                $frontend_script->deps[] = 'slider-block-slickjs';
                             }
                         }
                     }
