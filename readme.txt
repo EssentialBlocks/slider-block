@@ -107,13 +107,9 @@ Yes, it will work with any standard WordPress theme.
 * Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
 * Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
 
-= 1.4.1 - 19/10/2026 =
-* Security: Hardened slide content, button links and block style generation
-* Fixed: Animation stylesheet replaced with animate.css 3.7.2 (MIT licence)
-* Removed: Unused `_eb_attr` post meta registration
-* Improved: The unused jQuery Slick script is no longer loaded; the slider renders with its bundled React slider
-* Improved: Release package no longer includes the unused frontend helper script
-* Added: External services section documenting Google Fonts
+= 1.4.1 - 26/10/2026 =
+* Improved: Security enhancements
+* Few minor bug fixes & improvements
 
 = 1.4.0 - 17/08/2026 =
 * Fixed: PHP 8.0–8.5 compatibility issues
