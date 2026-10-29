@@ -27,10 +27,227 @@ function mount(element, container) {
     render(element, container);
 }
 
+/**
+ * Build a Slick arrow holding the chosen Font Awesome icon. Built with DOM
+ * calls, not an HTML string, so the saved icon value can only ever be a class.
+ *
+ * @param {string} icon      Icon class from data-arrowPrevIcon/NextIcon.
+ * @param {string} direction "prev" or "next".
+ * @return {HTMLElement} Arrow element.
+ */
+function arrowElement(icon, direction) {
+    const arrow = document.createElement("div");
+    arrow.className = `slick-${direction}`;
+    arrow.setAttribute("role", "button");
+    arrow.setAttribute("tabindex", "0");
+    arrow.setAttribute(
+        "aria-label",
+        direction === "prev" ? "Previous slide" : "Next slide"
+    );
+    arrow.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            arrow.click();
+        }
+    });
+
+    const iconElement = document.createElement("i");
+    iconElement.setAttribute("aria-hidden", "true");
+    iconElement.className = icon || "";
+    arrow.appendChild(iconElement);
+
+    return arrow;
+}
+
+/**
+ * Image URL for a lightbox slide. Slick Lightbox writes it into an HTML
+ * string (`src="..."`) without escaping, so it is escaped here: a quote or
+ * angle bracket in the saved URL can then only ever be part of the URL.
+ *
+ * @param {Element} item The .eb-slider-item element.
+ * @return {string} Escaped image URL.
+ */
+function lightboxImageSrc(item) {
+    const src = sanitizeLink(item.getAttribute("data-src") || "");
+    return src.replace(/[&<>"']/g, (char) => `&#${char.charCodeAt(0)};`);
+}
+
+/**
+ * Let links (slide buttons, linked images) and content links navigate
+ * instead of opening the lightbox. A button without a link still opens it.
+ *
+ * @param {Object} lightbox Slick Lightbox instance.
+ * @param {Object} $item    Clicked slide (jQuery).
+ * @param {Event}  event    Click event.
+ * @return {boolean} Whether the lightbox should open.
+ */
+function shouldOpenLightbox(lightbox, $item, event) {
+    const link = event.target.closest("a[href]");
+    if (link) {
+        // Slick Lightbox cancels the click before it asks, so follow the
+        // link here.
+        if (
+            link.getAttribute("target") === "_blank" ||
+            event.ctrlKey ||
+            event.metaKey
+        ) {
+            window.open(link.href, "_blank", "noopener,noreferrer");
+        } else {
+            window.location.href = link.href;
+        }
+        return false;
+    }
+    return !event.target.closest(".has-content-link");
+}
+
+/**
+ * Follow a Content Overlay slide's content link, unless a button was clicked.
+ *
+ * @param {Event}   event   Click or keydown event.
+ * @param {Element} content The .eb-slider-content element.
+ */
+function followContentLink(event, content) {
+    if (event.target.closest(".eb-slider-button-wrapper")) {
+        return;
+    }
+    const link = sanitizeLink(content.getAttribute("data-content-link") || "");
+    if (!link || link === "#") {
+        return;
+    }
+    event.preventDefault();
+    if (content.getAttribute("data-content-target") === "_blank") {
+        window.open(link, "_blank", "noopener,noreferrer");
+    } else {
+        window.location.href = link;
+    }
+}
+
+/**
+ * Start a v4 slider: the slides are already in the saved markup, so Slick
+ * runs on them directly.
+ *
+ * @param {HTMLElement} wrapper The .eb-slider-wrapper element.
+ */
+function initV4(wrapper) {
+    const slides = wrapper.querySelector(".eb-slider-init");
+    if (!slides) {
+        return;
+    }
+
+    const $ = window.jQuery;
+    if (!$ || !$.fn || typeof $.fn.slick !== "function") {
+        // Slick did not load (blocked, or removed by an optimiser): show the
+        // slides as plain images rather than leaving the slider hidden.
+        slides.classList.remove("eb-slider-init");
+        slides.querySelectorAll("img[data-lazy]").forEach((img) => {
+            img.setAttribute("src", img.getAttribute("data-lazy"));
+        });
+        return;
+    }
+
+    let settings = {};
+    try {
+        settings = JSON.parse(wrapper.getAttribute("data-settings")) || {};
+    } catch (e) {
+        settings = {};
+    }
+    const adaptiveHeight = !!settings.adaptiveHeight;
+    const $slides = $(slides);
+    const prevArrow = arrowElement(
+        wrapper.getAttribute("data-arrowPrevIcon"),
+        "prev"
+    );
+    const nextArrow = arrowElement(
+        wrapper.getAttribute("data-arrowNextIcon"),
+        "next"
+    );
+
+    $slides.slick({
+        lazyLoad: "progressive",
+        arrows: settings.arrows,
+        adaptiveHeight,
+        autoplay: settings.autoplay,
+        autoplaySpeed: settings.autoplaySpeed,
+        dots: settings.dots,
+        fade: settings.vertical ? false : settings.fade,
+        infinite: settings.infinite,
+        pauseOnHover: settings.pauseOnHover,
+        slidesToShow: settings.slidesToShow || 1,
+        speed: settings.speed,
+        vertical: settings.vertical,
+        rtl: document.documentElement.dir === "rtl",
+        prevArrow,
+        nextArrow,
+        responsive: Array.isArray(settings.responsive)
+            ? settings.responsive
+            : [],
+        cssEase: "linear",
+    });
+
+    // Slick only inserts arrows given as HTML strings; elements are assumed
+    // to be in the page already. Put them where it would: around the list.
+    if (settings.arrows) {
+        const list = slides.querySelector(".slick-list");
+        slides.insertBefore(prevArrow, list);
+        slides.insertBefore(nextArrow, list ? list.nextSibling : null);
+    }
+
+    // Lazy-loaded images change the slide height once they arrive.
+    $slides.on("lazyLoaded", (event, slick) => {
+        slick.$slider.slick("setPosition");
+        if (adaptiveHeight) {
+            setTimeout(() => slick.$slider.slick("setPosition"), 50);
+        }
+    });
+    if (adaptiveHeight) {
+        setTimeout(() => $slides.slick("setPosition"), 100);
+        $slides.on("afterChange", (event, slick) => {
+            slick.$slider.slick("setPosition");
+        });
+    }
+
+    if (
+        wrapper.getAttribute("data-lightbox") === "true" &&
+        typeof $.fn.slickLightbox === "function"
+    ) {
+        $slides.slickLightbox({
+            src: lightboxImageSrc,
+            itemSelector: ".eb-slider-item",
+            navigateByKeyboard: true,
+            imageMaxHeight: 0.7,
+            shouldOpen: shouldOpenLightbox,
+        });
+    }
+
+    // Delegated, so the copies Slick makes for infinite looping work too.
+    wrapper.addEventListener("click", (event) => {
+        const content = event.target.closest(".has-content-link");
+        if (content && wrapper.contains(content)) {
+            followContentLink(event, content);
+        }
+    });
+    wrapper
+        .querySelectorAll(".slick-slide:not(.slick-cloned) .has-content-link")
+        .forEach((content) => {
+            content.setAttribute("tabindex", "0");
+            content.setAttribute("role", "link");
+            content.addEventListener("keydown", (event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    followContentLink(event, content);
+                }
+            });
+        });
+}
+
 window.addEventListener("DOMContentLoaded", (event) => {
     const wrappers = document.getElementsByClassName(`eb-slider-wrapper`);
 
     for (let wrapper of wrappers) {
+        if (wrapper.getAttribute("data-version")) {
+            initV4(wrapper);
+            continue;
+        }
+
         let settings = JSON.parse(wrapper.getAttribute("data-settings"));
         let images = JSON.parse(wrapper.getAttribute("data-images"));
         let sliderContentType = wrapper.getAttribute("data-sliderContentType");

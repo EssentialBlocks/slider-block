@@ -19,6 +19,7 @@ import {
 	ARROW_SIZE,
 	DOTS_SIZE,
 	SLIDES_GAP,
+	CONTENT_WIDTH,
 } from "./constants/constants";
 import * as TYPOGRAPHY from "./constants/typography-constant";
 
@@ -214,6 +215,33 @@ const attributes = {
 		default: "fas fa-arrow-alt-circle-right",
 	},
 
+	// Render mode. Unset means the original (classic) rendering, which existing
+	// sliders keep until someone upgrades them in the editor; "v4" is the
+	// Essential Blocks rendering that new sliders use.
+	version: {
+		type: "string",
+	},
+	titleTag: {
+		type: "string",
+		default: "h2",
+	},
+	contentTag: {
+		type: "string",
+		default: "p",
+	},
+	showLightbox: {
+		type: "boolean",
+		default: false,
+	},
+	enableLazyLoad: {
+		type: "boolean",
+		default: true,
+	},
+	contentPosition: {
+		type: "string",
+		default: "center",
+	},
+
 	// typography attributes ⬇
 	...generateTypographyAttributes(Object.values(TYPOGRAPHY)),
 
@@ -347,6 +375,10 @@ const attributes = {
 	...generateResponsiveRangeAttributes(SLIDES_GAP, {
 		defaultRange: 5,
 	}),
+
+	// range controller Content Width (Content Overlay); no default, so no CSS
+	// is written until it is set
+	...generateResponsiveRangeAttributes(CONTENT_WIDTH),
 };
 
 export default attributes;

@@ -85,7 +85,14 @@ export default function Edit(props) {
 		arrowNextIcon,
 		arrowPrevIcon,
 		isRTLEnable,
+		version,
+		titleTag,
+		contentTag,
 	} = attributes;
+
+	// Classic sliders (saved before 1.5.0) have no version and keep their
+	// rendering until someone upgrades them from the inspector.
+	const isV4 = !!version;
 
 	// this useEffect is for creating a unique id for each block's unique className by a random unique number
 	useEffect(() => {
@@ -100,6 +107,15 @@ export default function Edit(props) {
 		const { isRTL } = select("core/editor").getEditorSettings();
 		setAttributes({ isRTLEnable: isRTL });
 
+		// A slider that is being inserted now starts on the v4 rendering. An
+		// existing slider always has images, so it is never switched here.
+		const blockEditor = select("core/block-editor");
+		const justInserted =
+			typeof blockEditor.wasBlockJustInserted === "function" &&
+			blockEditor.wasBlockJustInserted(clientId);
+		if (!version && (images.length === 0 || justInserted)) {
+			setAttributes({ version: "v4" });
+		}
 	}, []);
 
 	const blockProps = useBlockProps({
@@ -357,17 +373,31 @@ export default function Edit(props) {
 							ref={slider}
 							{...settings}
 							key={`${autoplay}-${adaptiveHeight}`}
-							className={sliderType}
+							className={
+								isV4
+									? `eb-slider-type-${sliderType === "content" ? "content" : "image"}`
+									: sliderType
+							}
 						>
 							{images.map((image, index) => (
 								<div
 									className={`eb-slider-item ${sliderContentType}`}
 									key={index}
 								>
-									<img
-										className="eb-slider-image"
-										src={image.url}
-									/>
+									{isV4 ? (
+										<div>
+											<img
+												className="eb-slider-image"
+												src={image.url}
+												alt={image.alt || ""}
+											/>
+										</div>
+									) : (
+										<img
+											className="eb-slider-image"
+											src={image.url}
+										/>
+									)}
 									{sliderType === "content" && (
 										<div
 											className={`eb-slider-content align-${textAlign}`}
@@ -376,7 +406,7 @@ export default function Edit(props) {
 												image.title.length > 0 && (
 													<>
 														<RichText
-															tagName={"h2"}
+															tagName={isV4 ? titleTag : "h2"}
 															className="eb-slider-title"
 															value={
 																isValidHtml(
@@ -407,7 +437,7 @@ export default function Edit(props) {
 												image.subtitle.length > 0 && (
 													<>
 														<RichText
-															tagName={"p"}
+															tagName={isV4 ? contentTag : "p"}
 															className="eb-slider-subtitle"
 															value={
 																isValidHtml(

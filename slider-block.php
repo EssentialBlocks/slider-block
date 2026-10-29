@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
- * Version:         1.4.1
+ * Version:         1.5.0
  * Author:          WPDeveloper
  * Author URI:           https://wpdeveloper.net
  * License:         GPL-3.0-or-later
@@ -62,7 +62,7 @@ function slider_block_style_handler_missing_notice() {
 
 function create_block_slider_block_init() {
     if ( ! defined( 'SLIDER_BLOCK_VERSION' ) ) {
-        define( 'SLIDER_BLOCK_VERSION', "1.4.1" );
+        define( 'SLIDER_BLOCK_VERSION', "1.5.0" );
     }
     if ( ! defined( 'SLIDER_BLOCK_ADMIN_URL' ) ) {
         define( 'SLIDER_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
@@ -114,9 +114,9 @@ function create_block_slider_block_init() {
         SLIDER_BLOCK_VERSION
     );
 
-    // The slider renders with react-slick, which only needs slick.css. The
-    // jQuery plugin is no longer enqueued; the handle stays registered for
-    // other plugins that depend on it.
+    // Classic sliders render with react-slick, which only needs slick.css.
+    // v4 sliders (1.5.0+) run the jQuery plugin on their saved slides, so the
+    // render callback enqueues it for them only.
     $slick_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick.min.js';
     wp_register_script(
         'essential-blocks-slickjs',
@@ -124,6 +124,20 @@ function create_block_slider_block_init() {
         ["jquery"],
         SLIDER_BLOCK_VERSION,
         true
+    );
+
+    wp_register_script(
+        'slider-block-slick-lightbox',
+        SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick-lightbox.js',
+        ['jquery', 'essential-blocks-slickjs'],
+        '0.2.12',
+        true
+    );
+    wp_register_style(
+        'slider-block-slick-lightbox',
+        SLIDER_BLOCK_ADMIN_URL . 'lib/css/slick-lightbox.css',
+        ['slick-style'],
+        '0.2.12'
     );
 
     $load_animation_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/eb-animation-load.js';
@@ -178,6 +192,14 @@ function create_block_slider_block_init() {
                         wp_enqueue_style( 'create-block-slider-block-frontend-style' );
                         wp_enqueue_script( 'essential-blocks-eb-animation' );
                         wp_enqueue_script( 'slider-block-frontend-js' );
+
+                        if ( ! empty( $attributes['version'] ) ) {
+                            wp_enqueue_script( 'essential-blocks-slickjs' );
+                            if ( ! empty( $attributes['showLightbox'] ) ) {
+                                wp_enqueue_script( 'slider-block-slick-lightbox' );
+                                wp_enqueue_style( 'slider-block-slick-lightbox' );
+                            }
+                        }
                     }
                     return Slider_Helper::sanitize_slider_markup( $content );
                 }

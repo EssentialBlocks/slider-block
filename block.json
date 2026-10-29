@@ -4,5 +4,9 @@
 	"category": "widgets",
 	"description": "Display Multiple Images In Beautiful Slider & Reduce Page Scroll",
 	"keywords": ["slider", "carousel", "images"],
+	"supports": {
+		"anchor": true,
+		"align": ["wide", "full"]
+	},
 	"textdomain": "slider-block"
 }
