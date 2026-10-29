@@ -239,7 +239,7 @@ function initV4(wrapper) {
         });
 }
 
-window.addEventListener("DOMContentLoaded", (event) => {
+function initSliders() {
     const wrappers = document.getElementsByClassName(`eb-slider-wrapper`);
 
     for (let wrapper of wrappers) {
@@ -414,4 +414,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
             wrapper
         );
     }
-});
+}
+
+// v4 slides stay hidden until Slick runs, so do not wait for an event that has
+// already fired: "delay JS" optimisers load this script after DOMContentLoaded.
+if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", initSliders);
+} else {
+    initSliders();
+}
