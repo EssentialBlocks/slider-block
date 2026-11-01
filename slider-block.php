@@ -198,7 +198,11 @@ function create_block_slider_block_init() {
 
                         if ( ! empty( $attributes['version'] ) ) {
                             wp_enqueue_script( 'slider-block-slickjs' );
-                            if ( ! empty( $attributes['showLightbox'] ) ) {
+                            // save() turns the lightbox off for the overlay layout.
+                            $slider_type  = isset( $attributes['sliderType'] ) ? $attributes['sliderType'] : 'image';
+                            $content_type = isset( $attributes['sliderContentType'] ) ? $attributes['sliderContentType'] : 'content-1';
+                            $is_overlay   = 'content' === $slider_type && 'content-1' === $content_type;
+                            if ( ! empty( $attributes['showLightbox'] ) && ! $is_overlay ) {
                                 wp_enqueue_script( 'slider-block-slick-lightbox' );
                                 wp_enqueue_style( 'slider-block-slick-lightbox' );
                             }
@@ -220,3 +224,19 @@ function create_block_slider_block_init() {
     }
 }
 add_action( 'init', 'create_block_slider_block_init', 99 );
+
+/**
+ * Let Essential Blocks' animation assets win on the front end when it is active.
+ *
+ * Both plugins register these handles and the first registration wins. This
+ * plugin's loader doesn't set `window.ebAnimationLoaded`, so Essential Blocks'
+ * failsafe would reveal every animated block without playing it. Essential Blocks
+ * registers its own at priority 20 and handles the same `.eb___animated` classes.
+ */
+function slider_block_use_essential_blocks_animation() {
+    if ( defined( 'ESSENTIAL_BLOCKS_VERSION' ) ) {
+        wp_deregister_script( 'essential-blocks-eb-animation' );
+        wp_deregister_style( 'essential-blocks-animation' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'slider_block_use_essential_blocks_animation', 19 );
