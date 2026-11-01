@@ -36,12 +36,12 @@ import {
 	handleSecondButtonText,
 	handleButtonURL,
 	handleOpenNewTab,
+	isValidHtml,
 } from "./helpers";
 
 const {
 	generateResponsiveRangeStyles,
 	duplicateBlockIdFix,
-	isValidHtml,
 	EBDisplayIcon
 } = window.EBSliderControls;
 
@@ -107,13 +107,15 @@ export default function Edit(props) {
 		const { isRTL } = select("core/editor").getEditorSettings();
 		setAttributes({ isRTLEnable: isRTL });
 
-		// A slider that is being inserted now starts on the v4 rendering. An
-		// existing slider always has images, so it is never switched here.
+		// A slider that is being inserted now starts on the v4 rendering. A saved
+		// slider stays classic, even an empty one. Without wasBlockJustInserted()
+		// an empty slider is the only sign of a new one.
 		const blockEditor = select("core/block-editor");
-		const justInserted =
-			typeof blockEditor.wasBlockJustInserted === "function" &&
-			blockEditor.wasBlockJustInserted(clientId);
-		if (!version && (images.length === 0 || justInserted)) {
+		const isNewSlider =
+			typeof blockEditor.wasBlockJustInserted === "function"
+				? blockEditor.wasBlockJustInserted(clientId)
+				: images.length === 0;
+		if (!version && isNewSlider) {
 			setAttributes({ version: "v4" });
 		}
 	}, []);
