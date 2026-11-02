@@ -106,6 +106,11 @@ Yes, it will work with any standard WordPress theme.
 * Added: Lightbox, lazy loading, Title and Content HTML tags, and per-slide content links, ported from Essential Blocks
 * Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
 * Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
+* Improved: Security enhancements
+* Fixed: Existing Slider blocks stopped working on the front end when Essential Blocks is active
+* Fixed: Animated blocks appeared without playing their animation when Essential Blocks is active
+* Fixed: Saved empty classic sliders changing mode in the editor
+* Improved: Skip unused lightbox assets in the content-1 overlay layout
 
 = 1.4.1 - 26/10/2026 =
 * Improved: Security enhancements
