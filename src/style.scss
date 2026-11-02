@@ -282,7 +282,9 @@
 	.eb-slider-init {
 		position: relative;
 
-		*:focus {
+		// Hide the outline Slick's slides get from a mouse click, but keep it
+		// for keyboard users on the arrows, dots and content links.
+		*:focus:not(:focus-visible) {
 			outline: none;
 		}
 
@@ -313,6 +315,17 @@
 				visibility: visible;
 			}
 		}
+	}
+
+	// slick.css removes the outline from the arrows and dots on every focus.
+	// Bring the browser's focus ring back for keyboard users.
+	.slick-prev:focus-visible,
+	.slick-next:focus-visible,
+	.slick-dots li button:focus-visible,
+	.has-content-link:focus-visible {
+		outline: 2px solid Highlight;
+		outline: 5px auto -webkit-focus-ring-color;
+		outline-offset: 2px;
 	}
 
 	.slick-prev,
