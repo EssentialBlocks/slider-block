@@ -1,6 +1,6 @@
 === Image Slider Block ===
 Contributors: wpdevteam, re_enter_rupok, Asif2BD, rahat89, RahatSheikhLeon
-Tags: gutenberg, block, blocks, editor, progress, progress bar, skill bar, responsive progress bar, animated skillbar, animated progress bar, skill-bars, percentage bar, chart bar, graph bar, gutenberg blocks
+Tags: slider, image slider, carousel, gutenberg, block
 Requires at least: 6.0
 Tested up to: 7.0.4
 Requires PHP: 7.4
@@ -99,18 +99,22 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.5.0 - 26/10/2026 =
+= 1.5.0 - 02/11/2026 =
 * Added: Wide and Full width alignment, so a slider can span the whole screen
 * Added: HTML anchor support
 * Added: Content Width and Content Position for the Content Overlay layout, to keep the text in a centred box (for example 1200px) while the image runs full width
 * Added: Lightbox, lazy loading, Title and Content HTML tags, and per-slide content links, ported from Essential Blocks
 * Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
+* Changed: New sliders load jQuery and Slick on the front end, and lazy loading is on by default
 * Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
 * Improved: Security enhancements
 * Fixed: Existing Slider blocks stopped working on the front end when Essential Blocks is active
 * Fixed: Animated blocks appeared without playing their animation when Essential Blocks is active
 * Fixed: Saved empty classic sliders changing mode in the editor
 * Improved: Skip unused lightbox assets in the content-1 overlay layout
+* Fixed: Sliders stayed hidden when a "Delay JS" optimisation plugin loaded scripts late
+* Fixed: "jQuery is not defined" on block themes that don't load jQuery
+* Fixed: Keyboard focus was invisible on slider arrows and dots
 
 = 1.4.1 - 26/10/2026 =
 * Improved: Security enhancements
