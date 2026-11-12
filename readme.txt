@@ -105,6 +105,7 @@ Yes, it will work with any standard WordPress theme.
 * Added: Content Width and Content Position for the Content Overlay layout, to keep the text in a centred box (for example 1200px) while the image runs full width
 * Added: Lightbox, lazy loading, Title and Content HTML tags, and per-slide content links, ported from Essential Blocks
 * Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
+* Changed: New sliders load jQuery and Slick on the front end, and lazy loading is on by default
 * Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
 * Improved: Security enhancements
 * Fixed: Existing Slider blocks stopped working on the front end when Essential Blocks is active

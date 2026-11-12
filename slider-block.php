@@ -117,9 +117,12 @@ function create_block_slider_block_init() {
     // Classic sliders render with react-slick, which only needs slick.css.
     // v4 sliders (1.5.0+) run the jQuery plugin on their saved slides, so the
     // render callback enqueues it for them only.
+    // The handle is this plugin's own: Essential Blocks registers
+    // `essential-blocks-slickjs` earlier on `init` without jQuery as a
+    // dependency, and the first registration of a handle wins.
     $slick_js = SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick.min.js';
     wp_register_script(
-        'essential-blocks-slickjs',
+        'slider-block-slickjs',
         $slick_js,
         ["jquery"],
         SLIDER_BLOCK_VERSION,
@@ -129,7 +132,7 @@ function create_block_slider_block_init() {
     wp_register_script(
         'slider-block-slick-lightbox',
         SLIDER_BLOCK_ADMIN_URL . 'lib/js/slick-lightbox.js',
-        ['jquery', 'essential-blocks-slickjs'],
+        ['jquery', 'slider-block-slickjs'],
         '0.2.12',
         true
     );
@@ -181,30 +184,67 @@ function create_block_slider_block_init() {
         true
     );
 
-    if ( ! WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/slider' ) ) {
-        register_block_type(
-            Slider_Helper::get_block_register_path( "slider-block/slider-block", SLIDER_BLOCK_ADMIN_PATH ),
-            [
-                'editor_script'   => 'create-block-slider-block-editor-script',
-                'editor_style'    => 'create-block-slider-block-frontend-style',
-                'render_callback' => function ( $attributes, $content ) {
-                    if ( ! is_admin() ) {
-                        wp_enqueue_style( 'create-block-slider-block-frontend-style' );
-                        wp_enqueue_script( 'essential-blocks-eb-animation' );
-                        wp_enqueue_script( 'slider-block-frontend-js' );
+    $eb_has_block = WP_Block_Type_Registry::get_instance()->is_registered( 'essential-blocks/slider' );
+    $block_args   = [
+        'editor_script'   => 'create-block-slider-block-editor-script',
+        'editor_style'    => 'create-block-slider-block-frontend-style',
+        'render_callback' => function ( $attributes, $content ) {
+            if ( ! is_admin() ) {
+                wp_enqueue_style( 'create-block-slider-block-frontend-style' );
+                wp_enqueue_script( 'essential-blocks-eb-animation' );
+                wp_enqueue_script( 'slider-block-frontend-js' );
 
-                        if ( ! empty( $attributes['version'] ) ) {
-                            wp_enqueue_script( 'essential-blocks-slickjs' );
-                            if ( ! empty( $attributes['showLightbox'] ) ) {
-                                wp_enqueue_script( 'slider-block-slick-lightbox' );
-                                wp_enqueue_style( 'slider-block-slick-lightbox' );
-                            }
-                        }
+                if ( ! empty( $attributes['version'] ) ) {
+                    wp_enqueue_script( 'slider-block-slickjs' );
+                    // save() turns the lightbox off for the overlay layout.
+                    $slider_type  = isset( $attributes['sliderType'] ) ? $attributes['sliderType'] : 'image';
+                    $content_type = isset( $attributes['sliderContentType'] ) ? $attributes['sliderContentType'] : 'content-1';
+                    $is_overlay   = 'content' === $slider_type && 'content-1' === $content_type;
+                    if ( ! empty( $attributes['showLightbox'] ) && ! $is_overlay ) {
+                        wp_enqueue_script( 'slider-block-slick-lightbox' );
+                        wp_enqueue_style( 'slider-block-slick-lightbox' );
                     }
-                    return Slider_Helper::sanitize_slider_markup( $content );
+
+                    // Make Slick print before the frontend script. When an
+                    // optimiser delays scripts, the frontend script starts
+                    // the slider as soon as it loads, and a classic slider
+                    // earlier on the page may already have enqueued it.
+                    $frontend_script = wp_scripts()->query( 'slider-block-frontend-js', 'registered' );
+                    if ( $frontend_script && ! in_array( 'slider-block-slickjs', $frontend_script->deps, true ) ) {
+                        $frontend_script->deps[] = 'slider-block-slickjs';
+                    }
                 }
-            ]
-        );
+            }
+            return Slider_Helper::sanitize_slider_markup( $content );
+        }
+    ];
+
+    // Essential Blocks has its own version of this block under another name. Posts saved
+    // with this one still need its render callback and front-end assets, so keep it
+    // registered, but leave out the editor bundle, which can't run beside Essential Blocks.
+    if ( $eb_has_block ) {
+        unset( $block_args['editor_script'], $block_args['editor_style'] );
     }
+
+    register_block_type(
+        Slider_Helper::get_block_register_path( "slider-block/slider-block", SLIDER_BLOCK_ADMIN_PATH ),
+        $block_args
+    );
 }
 add_action( 'init', 'create_block_slider_block_init', 99 );
+
+/**
+ * Let Essential Blocks' animation assets win on the front end when it is active.
+ *
+ * Both plugins register these handles and the first registration wins. This
+ * plugin's loader doesn't set `window.ebAnimationLoaded`, so Essential Blocks'
+ * failsafe would reveal every animated block without playing it. Essential Blocks
+ * registers its own at priority 20 and handles the same `.eb___animated` classes.
+ */
+function slider_block_use_essential_blocks_animation() {
+    if ( defined( 'ESSENTIAL_BLOCKS_VERSION' ) ) {
+        wp_deregister_script( 'essential-blocks-eb-animation' );
+        wp_deregister_style( 'essential-blocks-animation' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'slider_block_use_essential_blocks_animation', 19 );

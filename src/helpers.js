@@ -178,3 +178,16 @@ export const handleImageData = (key, value, id, images, setAttributes) => {
 
     setAttributes({ images: updatedImageArray });
 };
+
+/**
+ * Whether a string survives HTML parsing unchanged. Parses into a <template>,
+ * whose content is inert, so handlers such as <img onerror> never run.
+ *
+ * @param {string} string
+ * @returns {boolean}
+ */
+export const isValidHtml = (string) => {
+	const template = document.createElement("template");
+	template.innerHTML = string;
+	return template.innerHTML === string;
+};
