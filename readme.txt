@@ -99,19 +99,13 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 1.5.0 - 26/10/2026 =
-* Added: Wide and Full width alignment, so a slider can span the whole screen
-* Added: HTML anchor support
-* Added: Content Width and Content Position for the Content Overlay layout, to keep the text in a centred box (for example 1200px) while the image runs full width
-* Added: Lightbox, lazy loading, Title and Content HTML tags, and per-slide content links, ported from Essential Blocks
-* Added: New sliders use the Essential Blocks rendering; existing sliders keep their current rendering until you choose "Upgrade slider" in the block settings
-* Changed: New sliders load jQuery and Slick on the front end, and lazy loading is on by default
-* Fixed: The block icon was hard to see on the highlighted row of the slash inserter, List View and while dragging
+= 1.5.0 - 12/11/2026 =
+* Added: Wide & full width alignment
+* Added: Lightbox, lazy load & HTML anchor support
+* Added: Content width option for overlay layout
+* Fixed: Frontend conflict with Essential Blocks
 * Improved: Security enhancements
-* Fixed: Existing Slider blocks stopped working on the front end when Essential Blocks is active
-* Fixed: Animated blocks appeared without playing their animation when Essential Blocks is active
-* Fixed: Saved empty classic sliders changing mode in the editor
-* Improved: Skip unused lightbox assets in the content-1 overlay layout
+* Few minor bug fixes & improvements
 
 = 1.4.1 - 26/10/2026 =
 * Improved: Security enhancements
