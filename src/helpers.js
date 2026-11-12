@@ -156,3 +156,38 @@ export const handleSecondButtonOpenNewTab = (
 
     setAttributes({ images: updatedImageArray });
 };
+
+/**
+ * Set one field of a slide. A content link also records whether it is valid,
+ * which save.js checks before writing it out.
+ */
+export const handleImageData = (key, value, id, images, setAttributes) => {
+    let updatedImageArray = images.map((item) => {
+        if (item.id == id) {
+            if (key === "contentLink") {
+                return {
+                    ...item,
+                    contentLink: value,
+                    isContentUrlValid: value.length > 0 && validURL(value),
+                };
+            }
+            return { ...item, [key]: value };
+        }
+        return item;
+    });
+
+    setAttributes({ images: updatedImageArray });
+};
+
+/**
+ * Whether a string survives HTML parsing unchanged. Parses into a <template>,
+ * whose content is inert, so handlers such as <img onerror> never run.
+ *
+ * @param {string} string
+ * @returns {boolean}
+ */
+export const isValidHtml = (string) => {
+	const template = document.createElement("template");
+	template.innerHTML = string;
+	return template.innerHTML === string;
+};
