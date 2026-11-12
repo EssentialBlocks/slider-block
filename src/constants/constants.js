@@ -21,6 +21,7 @@ export const DOTS_POSITION = "dotsPosition";
 export const ARROW_SIZE = "arrowSize";
 export const DOTS_SIZE = "dotsSize";
 export const SLIDES_GAP = "slidesGap";
+export const CONTENT_WIDTH = "contentWidth";
 
 export const NORMAL_HOVER = [
     { label: "Normal", value: "normal" },
@@ -62,6 +63,29 @@ export const HEIGHT_UNIT_TYPES = [
     { label: "px", value: "px" },
     { label: "em", value: "em" },
     { label: "vh", value: "vh" },
+];
+
+export const CONTENT_WIDTH_UNIT_TYPES = [
+    { label: "px", value: "px" },
+    { label: "%", value: "%" },
+    { label: "vw", value: "vw" },
+];
+
+export const CONTENT_POSITION = [
+    { label: __("Left", "essential-blocks"), value: "left" },
+    { label: __("Center", "essential-blocks"), value: "center" },
+    { label: __("Right", "essential-blocks"), value: "right" },
+];
+
+export const TAGS_TYPE = [
+    { label: "H1", value: "h1" },
+    { label: "H2", value: "h2" },
+    { label: "H3", value: "h3" },
+    { label: "H4", value: "h4" },
+    { label: "H5", value: "h5" },
+    { label: "H6", value: "h6" },
+    { label: "P", value: "p" },
+    { label: "Span", value: "span" },
 ];
 
 export const FONT_UNIT_TYPES = [
