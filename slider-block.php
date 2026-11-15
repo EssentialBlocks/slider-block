@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Image Slider Block
  * Description:     Display Multiple Images In Beautiful Slider & Reduce Page Scroll
- * Version:         1.5.0
+ * Version:         1.5.1
  * Author:          WPDeveloper
  * Author URI:           https://wpdeveloper.net
  * License:         GPL-3.0-or-later
@@ -62,7 +62,7 @@ function slider_block_style_handler_missing_notice() {
 
 function create_block_slider_block_init() {
     if ( ! defined( 'SLIDER_BLOCK_VERSION' ) ) {
-        define( 'SLIDER_BLOCK_VERSION', "1.5.0" );
+        define( 'SLIDER_BLOCK_VERSION', "1.5.1" );
     }
     if ( ! defined( 'SLIDER_BLOCK_ADMIN_URL' ) ) {
         define( 'SLIDER_BLOCK_ADMIN_URL', plugin_dir_url( __FILE__ ) );
